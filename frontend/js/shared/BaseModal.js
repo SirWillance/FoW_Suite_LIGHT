@@ -1,4 +1,3 @@
-// FoW_Suite_LIGHT\frontend\js\shared\BaseModal.js
 let cssLoaded = false;
 
 export class BaseModal {
@@ -10,6 +9,7 @@ export class BaseModal {
         this.isOpen = false;
         this.modalClassName = `fow-lbm-${this.type.toLowerCase()}-modal`;
         this.selectedTokens = new Set();
+        this.node = null;
         this.loadCSS();
         this.updateSelectedTokenOutputDebounced = this.debounce(this.updateSelectedTokenOutput.bind(this), 200);
         this.isResizing = false;
@@ -37,16 +37,28 @@ export class BaseModal {
     }
 
     getNodeData(node) {
-        return node?.widgets_values || {};
+        if (!node) {
+            console.warn("Node is undefined in getNodeData, returning empty object");
+            return {};
+        }
+        return node.widgets_values || {};
     }
 
     setNodeData(node, data) {
-        if (node) node.widgets_values = data;
+        if (!node) {
+            console.warn("Node is undefined in setNodeData, skipping");
+            return;
+        }
+        node.widgets_values = data;
     }
 
     async create(node) {
-        console.log(`Opening Light ${this.type} catalogue modal...`);
+        if (!node || !node.id) {
+            console.error("Invalid node passed to create, aborting");
+            return null;
+        }
         this.node = node;
+        console.log(`Opening Light ${this.type} catalogue modal for node ${node.id}...`);
         const modalId = `modal-${node.id}`;
         const modalClassName = `${this.modalClassName}-${modalId}`;
 
@@ -126,13 +138,7 @@ export class BaseModal {
         requestAnimationFrame(() => {
             this.modal.style.display = "flex";
             this.setupEventHandlers(this.modal, node);
-            const categoriesContainer = this.modal.querySelector(".fow-lbm-categories-container");
-            categoriesContainer.innerHTML = `
-                <p style="padding: 10px;">
-                    To load your catalogue, click the file loader button "📂" above.<br>
-                    Navigate to your ComfyUI directory, then go to "custom_nodes" > "FoW_Suite_LIGHT" > "data" > "Library".<br>
-                    Select "${this.rootKeyToFileMap[this.rootKey] || 'the matching .JSON file'}" and click Open.
-                </p>`;
+            this.updateModalWithTokens(null, modalContent);
             this.adjustModalHeight();
         });
 
@@ -232,7 +238,7 @@ export class BaseModal {
             this.modal.style.minHeight = "0";
         } else {
             this.modal.style.width = this.expandWidth;
-            this.modal.style.height = `${this.currentHeight}px`;
+            this.modal.style.height = `${this.currentHeight || this.minHeight}px`;
             this.modal.style.minWidth = "";
             this.modal.style.minHeight = "";
         }
@@ -290,7 +296,6 @@ export class BaseModal {
 
             const mousemoveHandler = (e) => {
                 if (!this.isResizing) return;
-
                 const newWidth = Math.max(startWidth + (e.clientX - startX), 200);
                 const newHeight = Math.max(startHeight + (e.clientY - startY), this.minHeight);
                 this.modal.style.width = `${newWidth}px`;
@@ -377,81 +382,86 @@ export class BaseModal {
         });
     }
 
-    setupSearch(modalContent) {
-        const searchBar = modalContent.querySelector(".fow-lbm-search-bar");
-        
+    setupSearch(operationWindow) { // Changed parameter to operationWindow
+        const searchBar = operationWindow.querySelector(".fow-lbm-search-bar"); // Query operationWindow, not modalContent
+
+        if (!searchBar) {
+            console.error("Search bar not found in operation window!");
+            return;
+        }
+
         const performSearch = () => {
-            const searchTerm = searchBar.value.toLowerCase();
-            const styleItems = modalContent.querySelectorAll(".fow-lbm-style-item");
-            const categoryElements = modalContent.querySelectorAll(".fow-lbm-category");
+            const searchTerm = searchBar.value.trim().toLowerCase();
+            const modalContent = this.modal.querySelector(".fow-lbm-modal-content"); // Get modalContent here
+            const categories = modalContent.querySelectorAll(".fow-lbm-category");
 
-            styleItems.forEach(styleItem => {
-                const label = styleItem.querySelector('label');
-                const tokensList = styleItem.querySelector('.fow-lbm-tokens-list');
-                const tokens = tokensList.querySelectorAll('li');
-                const stylesContainer = styleItem.closest('.fow-lbm-styles-container');
+            if (categories.length === 0) return;
 
-                let hasMatchingTokens = false;
-                let matchCount = 0;
+            let hasMatches = false;
 
-                tokens.forEach(token => {
-                    const tokenText = token.textContent.toLowerCase();
-                    const matches = tokenText.includes(searchTerm);
-                    token.style.display = matches ? "" : "none";
-                    if (matches) {
-                        hasMatchingTokens = true;
-                        matchCount++;
+            categories.forEach(categoryElement => {
+                const stylesContainer = categoryElement.querySelector(".fow-lbm-styles-container");
+                const styleItems = stylesContainer.querySelectorAll(".fow-lbm-style-item");
+                let categoryHasMatches = false;
+
+                styleItems.forEach(styleItem => {
+                    const label = styleItem.querySelector("label");
+                    const tokensList = styleItem.querySelector(".fow-lbm-tokens-list");
+                    const tokens = tokensList.querySelectorAll("li");
+                    let hasMatchingTokens = false;
+
+                    tokens.forEach(token => {
+                        const tokenText = token.textContent.toLowerCase();
+                        const matches = tokenText.includes(searchTerm);
+                        token.style.display = matches ? "" : "none";
+                        if (matches) {
+                            hasMatchingTokens = true;
+                            categoryHasMatches = true;
+                            hasMatches = true;
+                        }
+                    });
+
+                    if (hasMatchingTokens) {
+                        styleItem.style.display = "";
+                        tokensList.style.display = "block";
+                        stylesContainer.style.display = "block";
+                        label.textContent = `${label.getAttribute("data-original-name") || label.textContent} (${Array.from(tokens).filter(t => t.style.display !== "none").length})`;
+                    } else {
+                        styleItem.style.display = "none";
+                        tokensList.style.display = "none";
                     }
                 });
 
-                if (hasMatchingTokens) {
-                    styleItem.style.display = "";
-                    tokensList.style.display = "block";
-                    if (stylesContainer) {
-                        stylesContainer.style.display = "block";
-                    }
-                    label.textContent = `${label.getAttribute('data-original-name') || label.textContent} (${matchCount})`;
-                } else {
-                    styleItem.style.display = "none";
-                    tokensList.style.display = "none";
-                }
-            });
-
-            categoryElements.forEach(categoryElement => {
-                const hasVisibleStyleItems = Array.from(categoryElement.querySelectorAll(".fow-lbm-style-item"))
-                    .some(styleItem => styleItem.style.display !== "none");
-                categoryElement.style.display = hasVisibleStyleItems ? "" : "none";
+                categoryElement.style.display = categoryHasMatches ? "" : "none";
             });
 
             if (searchTerm === "") {
-                styleItems.forEach(styleItem => {
-                    styleItem.style.display = "";
-                    const label = styleItem.querySelector('label');
-                    const tokensList = styleItem.querySelector('.fow-lbm-tokens-list');
-                    const stylesContainer = styleItem.closest('.fow-lbm-styles-container');
-                    const tokens = tokensList.querySelectorAll('li');
+                categories.forEach(categoryElement => {
+                    const stylesContainer = categoryElement.querySelector(".fow-lbm-styles-container");
+                    const styleItems = stylesContainer.querySelectorAll(".fow-lbm-style-item");
 
-                    label.textContent = label.getAttribute('data-original-name') || label.textContent;
-                    tokens.forEach(token => token.style.display = "");
-                    if (stylesContainer) {
-                        stylesContainer.style.display = "none";
-                    }
-                    tokensList.style.display = 'none';
-                });
-                categoryElements.forEach(categoryElement => {
                     categoryElement.style.display = "";
+                    stylesContainer.style.display = "none";
+                    styleItems.forEach(styleItem => {
+                        const label = styleItem.querySelector("label");
+                        const tokensList = styleItem.querySelector(".fow-lbm-tokens-list");
+                        const tokens = tokensList.querySelectorAll("li");
+
+                        styleItem.style.display = "";
+                        tokensList.style.display = "none";
+                        tokens.forEach(token => token.style.display = "");
+                        label.textContent = label.getAttribute("data-original-name") || label.textContent;
+                    });
                 });
             }
+
+            requestAnimationFrame(() => {
+                this.adjustModalHeight();
+            });
         };
 
-        searchBar.addEventListener("keydown", (event) => {
-            if (event.key === "Enter") {
-                if (searchBar.value.trim() === "") {
-                    performSearch();
-                    return;
-                }
-                performSearch();
-            }
+        searchBar.addEventListener("input", () => {
+            performSearch();
         });
     }
 
@@ -478,7 +488,7 @@ export class BaseModal {
         const categoriesContainer = modalContent.querySelector(".fow-lbm-categories-container");
         categoriesContainer.innerHTML = "";
 
-        if (jsonData[this.rootKey] && Array.isArray(jsonData[this.rootKey])) {
+        if (jsonData && jsonData[this.rootKey] && Array.isArray(jsonData[this.rootKey])) {
             const groupedStyles = jsonData[this.rootKey].reduce((acc, style) => {
                 const category = style.category || "Uncategorized";
                 acc[category] = acc[category] || [];
@@ -492,9 +502,12 @@ export class BaseModal {
                 categoriesContainer.appendChild(categoryElement);
             }
         } else {
-            const noStylesMessage = document.createElement("p");
-            noStylesMessage.textContent = "Incorrect Catalogue.";
-            categoriesContainer.appendChild(noStylesMessage);
+            categoriesContainer.innerHTML = `
+                <p style="padding: 10px;">
+                    To load your catalogue, click the file loader button "📂" above.<br>
+                    Navigate to your ComfyUI directory, then go to "custom_nodes" > "FoW_Suite_LIGHT" > "data" > "Library".<br>
+                    Select "${this.rootKeyToFileMap[this.rootKey] || 'the matching .JSON file'}" and click Open.
+                </p>`;
         }
         requestAnimationFrame(() => {
             this.adjustModalHeight();
@@ -638,6 +651,7 @@ export class BaseModal {
     }
 
     updateNodeInput(node) {
+        if (!node) return;
         const selectedTokens = Array.from(this.selectedTokens);
         const userInputWidget = node.widgets.find(w => w.name === "user_input");
         if (userInputWidget) {
@@ -649,7 +663,11 @@ export class BaseModal {
         });
     }
 
-    saveModalState(node) {
+    saveModalState(node = this.node) {
+        if (!node) {
+            console.warn("No valid node to save state for, skipping");
+            return;
+        }
         const selectedTokens = Array.from(this.selectedTokens);
         const nodeData = this.getNodeData(node);
         nodeData.selectedTokens = selectedTokens;
@@ -660,16 +678,19 @@ export class BaseModal {
     }
 
     cleanup(node) {
+        if (!node) return;
         const modalId = `modal-${node.id}`;
         const modal = document.querySelector(`.${this.modalClassName}-${modalId}`);
         if (modal) modal.remove();
     }
 
-    close(node) {
+    close(node = this.node) {
         if (this.modal) {
             this.modal.style.display = "none";
             this.isOpen = false;
-            this.saveModalState(node);
+            if (node) {
+                this.saveModalState(node);
+            }
         }
     }
 

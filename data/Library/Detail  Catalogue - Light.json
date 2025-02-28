@@ -1,0 +1,60 @@
+{
+  "FoW - Details": [
+    {
+      "category": "Detail Catalogue - Light",
+      "name": "Quality",
+      "tokens": [
+        { "value": "high quality", "enable": false, "tooltip": "Good quality image with few noticeable imperfections." },
+        { "value": "medium quality", "enable": false, "tooltip": "Acceptable quality, but some details may be lacking." }
+      ]
+    },
+    {
+      "category": "Detail Catalogue - Light",
+      "name": "Resolution",
+      "tokens": [
+        { "value": "4k", "enable": false, "tooltip": "High resolution image suitable for detailed viewing." },
+        { "value": "high resolution", "enable": false, "tooltip": "Detail are clear." }
+      ]
+    },
+    {
+      "category": "Detail Catalogue - Light",
+      "name": "Content",
+      "tokens": [
+        { "value": "sfw", "enable": false, "tooltip": "Contains content safe for work environments." }
+      ]
+    },
+    {
+      "category": "Detail Catalogue - Light",
+      "name": "Detail Level",
+      "tokens": [
+        { "value": "highly detailed", "enable": false, "tooltip": "A great ammount of features are captured" },
+        { "value": "sharp details", "enable": false, "tooltip": "Sharp image with very focused detail." }
+      ]
+    },
+    {
+      "category": "Detail Catalogue - Light",
+      "name": "Texture",
+      "tokens": [
+        { "value": "smooth", "enable": false, "tooltip": "Flat and even surface with almost no variation" },
+        { "value": "textured", "enable": false, "tooltip": "General way to explain that a surface have detail that arent 2D." }
+      ]
+    },
+    {
+      "category": "Detail Catalogue - Light",
+      "name": "Lighting",
+      "tokens": [
+        { "value": "soft lighting", "enable": false, "tooltip": "Gentle, diffused light with minimal shadows." },
+        { "value": "ambient lighting", "enable": false, "tooltip": "Soft, even light that fills the scene." },
+        { "value": "natural lighting", "enable": false, "tooltip": "Light from the sun or moon, creating a realistic feel." }
+      ]
+    },
+    {
+      "category": "Detail Catalogue - Light",
+      "name": "Other",
+      "tokens": [
+        { "value": "sharp focus", "enable": false, "tooltip": "Clear and well-defined image." },
+        { "value": "bokeh", "enable": false, "tooltip": "Blurred out of focus." }
+      ]
+    }
+  ]
+}

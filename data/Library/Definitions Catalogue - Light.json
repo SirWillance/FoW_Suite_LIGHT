@@ -1,0 +1,54 @@
+{
+  "FoW - Definition": [
+    {
+      "id": "definition_anatomy_001",
+      "category": "Definition Anatomy",
+      "name": "Anatomy & Body Proportions",
+      "notes": "Tokens to correct anatomical inaccuracies and body proportion issues.",
+      "tokens": [
+        { "value": "bad anatomy", "enabled": true, "tooltip": "Corrects general anatomical inaccuracies." },
+        { "value": "deformed", "enabled": true, "tooltip": "Corrects deformities in the body." }
+      ]
+    },
+    {
+      "id": "definition_body_001",
+      "category": "Definition Body",
+      "name": "Body Shape & Form",
+      "notes": "Tokens to address issues with body shape, form, and distortions.",
+      "tokens": [
+        { "value": "shape distortion", "enabled": true, "tooltip": "Fixes any general distortion of the body shape." },
+        { "value": "distorted forms", "enabled": true, "tooltip": "Corrects any warping or unusual shaping of body parts." }
+      ]
+    },
+    {
+      "id": "definition_rendering_001",
+      "category": "Definition Rendering",
+      "name": "Rendering & Style Issues",
+      "notes": "Tokens to correct rendering artifacts and stylistic inconsistencies.",
+      "tokens": [
+        { "value": "plastic skin", "enabled": true, "tooltip": "Adds a more skin alike look to the generated result." },
+        { "value": "blurry textures", "enabled": true, "tooltip": "Unfocus detail of surface" }
+      ]
+    },
+    {
+      "id": "definition_features_001",
+      "category": "Definition Features",
+      "name": "Feature Definition",
+      "notes": "Tokens to control the definition and separation of features.",
+      "tokens": [
+        { "value": "merged features", "enabled": true, "tooltip": "Distinguishes part from another" },
+        { "value": "undefined features", "enabled": true, "tooltip": "Make general things more clear." }
+      ]
+    },
+    {
+      "id": "definition_drawing_001",
+      "category": "Definition Drawing",
+      "name": "Drawing Quality",
+      "notes": "Tokens to improve the overall drawing quality and address common drawing errors.",
+      "tokens": [
+        { "value": "poorly drawn", "enabled": true, "tooltip": "Redraw most part with more care" },
+        { "value": "sketchy", "enabled": true, "tooltip": "Add detail to make a final version" }
+      ]
+    }
+  ]
+}

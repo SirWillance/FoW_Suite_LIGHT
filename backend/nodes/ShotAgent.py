@@ -14,7 +14,7 @@ class ShotAgent(AgentNode):
     DESCRIPTION =	 """Camera and composition guide for image generation.
 Access a curated collection of cinematic shots, angles, and composition styles.
 Examples: 'extreme close-up', 'birds-eye view', 'Dutch angle', etc.
-Use the widget to explore and select professional camera techniques."""
+Increase the Catalogue by increasing your Tier on https://www.twitch.tv/sirwillance/"""
 
 
 

@@ -6,17 +6,18 @@ export class PromptRefinerLightModal {
         this.modalClassName = "prl-modal";
         this.defaultWidth = 600;
         this.defaultHeight = 300;
-        this.minimizedWidth = 390; // Match Pro's minimized width
-        this.minHeight = 40; // Minimum height in pixels
-        this.maxHeight = 800; // Maximum height to prevent excessive growth
+        this.minimizedWidth = 390;
+        this.minHeight = 40;
+        this.maxHeight = 800;
         this.currentWidth = this.defaultWidth;
         this.currentHeight = this.defaultHeight;
         this.originalWidth = this.defaultWidth;
         this.originalHeight = this.defaultHeight;
+        this.minWidth = 390; // New minimum width
         this.node = null;
         this.isCollapsed = false;
-        this.isCollapsedPositive = true; // Initially collapsed
-        this.isCollapsedNegative = true; // Initially collapsed
+        this.isCollapsedPositive = true;
+        this.isCollapsedNegative = true;
         this.loadCSS();
     }
 
@@ -32,7 +33,7 @@ export class PromptRefinerLightModal {
         }
     }
 
-    getModalTemplate() {
+    getModalTemplate(nodeId) {
         return `
             <div class="prl-modal-titlebar">
                 <h3>⌨ FoW - Prompt Refiner Light</h3>
@@ -56,8 +57,8 @@ export class PromptRefinerLightModal {
                     </div>
                     <div class="prl-prompt-category-content${this.isCollapsedPositive ? ' collapsed' : ''}">
                         <div class="prl-input-container">
-                            <textarea id="positive" class="prl-input-textarea" placeholder="Enter positive prompt..."></textarea>
-                            <button class="prl-clear-input" data-input="positive" title="Clear Positive Prompt">🧼</button>
+                            <textarea id="positive-${nodeId}" class="prl-input-textarea" placeholder="Enter positive prompt..."></textarea>
+                            <button class="prl-clear-input" data-input="positive-${nodeId}" title="Clear Positive Prompt">🧼</button>
                         </div>
                     </div>
                 </div>
@@ -67,8 +68,8 @@ export class PromptRefinerLightModal {
                     </div>
                     <div class="prl-prompt-category-content${this.isCollapsedNegative ? ' collapsed' : ''}">
                         <div class="prl-input-container">
-                            <textarea id="negative" class="prl-input-textarea" placeholder="Enter negative prompt..."></textarea>
-                            <button class="prl-clear-input" data-input="negative" title="Clear Negative Prompt">🧼</button>
+                            <textarea id="negative-${nodeId}" class="prl-input-textarea" placeholder="Enter negative prompt..."></textarea>
+                            <button class="prl-clear-input" data-input="negative-${nodeId}" title="Clear Negative Prompt">🧼</button>
                         </div>
                     </div>
                 </div>
@@ -79,37 +80,32 @@ export class PromptRefinerLightModal {
 
     create(node) {
         if (node.modal && node.modal.isOpen) {
-            console.log("Modal is already open.");
+            console.log("Modal is already open for node:", node.id);
             return;
         }
-
         if (node.modal) {
             node.modal.close(node);
         }
-
         node.modal = this;
         this.isOpen = true;
-
-        console.log(`Opening ${this.type} modal...`);
-
         this.node = node;
+        console.log(`Opening ${this.type} modal for node ${node.id}...`);
         this.modal = document.createElement("div");
-        this.modal.classList.add(this.modalClassName);
+        this.modal.classList.add(this.modalClassName, `prl-modal-${node.id}`); // Unique class per node
         this.modal.style.width = `${this.currentWidth}px`;
         this.modal.style.height = `${this.currentHeight}px`;
         this.modal.style.top = "100px";
         this.modal.style.left = "100px";
-        this.modal.innerHTML = this.getModalTemplate();
+        this.modal.innerHTML = this.getModalTemplate(node.id); // Pass node ID for unique IDs
         document.body.appendChild(this.modal);
-
         this.loadModalState(node);
         this.setupEventHandlers(this.modal, node);
-        this.adjustModalHeight(); // Set initial height based on content after setup
-
+        this.adjustModalHeight();
         return this.modal;
     }
 
     setupEventHandlers(modal, node) {
+        const nodeId = node.id;
         const closeButton = modal.querySelector(".prl-modal-close");
         const collapseButton = modal.querySelector(".prl-modal-collapse");
         const clearAllButton = modal.querySelector(".prl-clear-all");
@@ -118,31 +114,25 @@ export class PromptRefinerLightModal {
         const clearInputButtons = modal.querySelectorAll(".prl-clear-input");
         const textareas = modal.querySelectorAll(".prl-input-textarea");
         const alertToggle = modal.querySelector(".prl-alert-toggle");
-    
         const titleBar = modal.querySelector(".prl-modal-titlebar");
         const contentWrapper = modal.querySelector(".prl-modal-content-wrapper");
         const resizeHandle = modal.querySelector(".prl-modal-resize-handle");
-    
+
         this.setupDragHandlers(modal, titleBar);
         this.setupResizeHandle(resizeHandle);
-    
-        // Initialize showAlerts from state or default to true for newbies
-        this.showAlerts = this.getNodeData(node).showAlerts !== false; // Default to true if undefined
-    
-        // Update alert toggle checkbox state
-        if (alertToggle) {
-            alertToggle.checked = this.showAlerts;
-        }
-    
+
+        this.showAlerts = this.getNodeData(node).showAlerts !== false;
+        if (alertToggle) alertToggle.checked = this.showAlerts;
+
         closeButton.addEventListener("click", (e) => {
             e.stopPropagation();
-            this.saveModalState(node); // Save state before closing
+            this.saveModalState(node);
             this.close(node);
             if (this.showAlerts) {
                 alert("Modal closed! Reopen with the 'Open Prompt Editor' button in ComfyUI.");
             }
         });
-    
+
         collapseButton.addEventListener("click", (e) => {
             e.stopPropagation();
             this.isCollapsed = !this.isCollapsed;
@@ -151,53 +141,52 @@ export class PromptRefinerLightModal {
             resizeHandle.style.display = this.isCollapsed ? "none" : "block";
             if (this.isCollapsed) {
                 const titleBarWidth = this.minimizedWidth;
-                const titleBarHeight = Math.max(this.minHeight, titleBar.offsetHeight); // Ensure minimum height
-                this.originalWidth = this.currentWidth; // Save current width before collapse
-                this.originalHeight = this.currentHeight; // Save current height before collapse
+                const titleBarHeight = Math.max(this.minHeight, titleBar.offsetHeight);
+                this.originalWidth = this.currentWidth;
+                this.originalHeight = this.currentHeight;
                 this.currentWidth = titleBarWidth;
                 this.currentHeight = titleBarHeight;
                 this.modal.style.width = `${this.currentWidth}px`;
                 this.modal.style.height = `${this.currentHeight}px`;
             } else {
-                this.adjustModalHeight(); // Adjust height based on content when expanded
+                this.adjustModalHeight();
             }
-            this.saveModalState(node); // Save state after collapsing/expanding
+            this.saveModalState(node);
             if (this.showAlerts) {
                 alert("Modal collapsed/expanded! Drag to move, resize to adjust, or close with ×.");
             }
         });
-    
+
         clearAllButton.addEventListener("click", (e) => {
             e.stopPropagation();
             if (confirm("Are you sure you want to clear all prompts?")) {
                 textareas.forEach(textarea => (textarea.value = ""));
-                this.saveModalState(node); // Save state after clearing
-                this.adjustModalHeight(); // Adjust height on content change
+                this.saveModalState(node);
+                this.adjustModalHeight();
                 if (this.showAlerts) {
                     alert("All prompts cleared! Enter new prompts or load a .txt file with 💾.");
                 }
             }
         });
-    
+
         saveButton.addEventListener("click", (e) => {
             e.stopPropagation();
-            this.saveFile();
-            this.saveModalState(node); // Save state after saving file
-            this.adjustModalHeight(); // Adjust height on content change
+            this.saveFile(nodeId);
+            this.saveModalState(node);
             if (this.showAlerts) {
                 alert("Prompts saved to PromptRefinerLightOutput.txt! Share this file for collaboration.");
             }
         });
-    
+
         confirmButton.addEventListener("click", (e) => {
             e.stopPropagation();
-            this.saveModalState(node); // Save state before confirming
+            this.saveModalState(node);
             this.confirmInput(node);
             if (this.showAlerts) {
                 alert("Prompts confirmed and sent to ComfyUI! Check your workflow for results.");
             }
         });
-    
+
         clearInputButtons.forEach(button => {
             button.addEventListener("click", (e) => {
                 e.stopPropagation();
@@ -205,34 +194,32 @@ export class PromptRefinerLightModal {
                 const textarea = modal.querySelector(`#${inputId}`);
                 if (textarea) {
                     textarea.value = "";
-                    this.saveModalState(node); // Save state after clearing input
-                    this.adjustModalHeight(); // Adjust height on content change
+                    this.saveModalState(node);
+                    this.adjustModalHeight();
                     if (this.showAlerts) {
-                        alert(`"${inputId === "positive" ? "Positive" : "Negative"} Prompt" cleared! Enter new text or load a file.`);
+                        alert(`"${inputId.startsWith("positive") ? "Positive" : "Negative"} Prompt" cleared! Enter new text or load a file.`);
                     }
                 }
             });
         });
-    
+
         textareas.forEach(textarea => {
             textarea.addEventListener("input", (e) => {
                 e.stopPropagation();
-                this.saveModalState(node); // Save state on input
-                this.adjustModalHeight(); // Adjust height on content change
+                this.saveModalState(node);
+                this.adjustModalHeight();
             });
         });
-    
+
         alertToggle.addEventListener("change", (e) => {
             e.stopPropagation();
             this.showAlerts = alertToggle.checked;
-            this.saveModalState(node); // Save alert preference
+            this.saveModalState(node);
             if (this.showAlerts) {
                 alert("Guidance tips enabled! Uncheck 'Show Tips' to disable for advanced use.");
-            } else {
-                alert("Guidance tips disabled! Check 'Show Tips' to re-enable for beginners.");
             }
         });
-    
+
         const categoryContainers = modal.querySelectorAll(".prl-prompt-category-container");
         categoryContainers.forEach(container => {
             const header = container.querySelector(".prl-prompt-category-header");
@@ -247,8 +234,8 @@ export class PromptRefinerLightModal {
                 }
                 const content = container.querySelector(".prl-prompt-category-content");
                 content.classList.toggle("collapsed", promptType === "positive" ? this.isCollapsedPositive : this.isCollapsedNegative);
-                this.saveModalState(node); // Save state after collapsing/expanding category
-                this.adjustModalHeight(); // Adjust height on content change
+                this.saveModalState(node);
+                this.adjustModalHeight();
                 if (this.showAlerts) {
                     alert(`${promptType === "positive" ? "Positive" : "Negative"} Prompt ${this.isCollapsedPositive || this.isCollapsedNegative ? "collapsed" : "expanded"}! Click to toggle.`);
                 }
@@ -261,12 +248,12 @@ export class PromptRefinerLightModal {
             const contentWrapper = this.modal.querySelector(".prl-modal-content-wrapper");
             if (contentWrapper) {
                 requestAnimationFrame(() => {
-                    const contentHeight = contentWrapper.scrollHeight + 40; // Add padding for spacing
-                    const newHeight = Math.max(this.minHeight, Math.min(contentHeight, this.maxHeight)); // Cap at maxHeight, ensure minHeight
+                    const contentHeight = contentWrapper.scrollHeight + 40;
+                    const newHeight = Math.max(this.minHeight, Math.min(contentHeight, this.maxHeight));
                     this.currentHeight = newHeight;
-                    this.originalHeight = newHeight; // Update original height for collapse
+                    this.originalHeight = newHeight;
                     this.modal.style.height = `${newHeight}px`;
-                    this.saveModalState(this.node); // Save the new height state
+                    this.saveModalState(this.node);
                 });
             }
         }
@@ -303,7 +290,7 @@ export class PromptRefinerLightModal {
 
         resizeHandle.addEventListener("mousedown", (e) => {
             e.preventDefault();
-            if (this.isCollapsed) return; // Prevent resizing when collapsed
+            if (this.isCollapsed) return;
             isResizing = true;
             startX = e.clientX;
             startY = e.clientY;
@@ -313,42 +300,40 @@ export class PromptRefinerLightModal {
             document.addEventListener("mouseup", () => {
                 isResizing = false;
                 document.removeEventListener("mousemove", resizeHandler);
-                this.currentWidth = Math.max(this.modal.offsetWidth, this.defaultWidth); // Ensure minimum width
-                this.currentHeight = Math.max(this.modal.offsetHeight, this.minHeight); // Ensure minimum height
-                this.originalWidth = this.currentWidth; // Update original dimensions after resize
+                this.currentWidth = Math.max(this.modal.offsetWidth, this.minWidth);
+                this.currentHeight = Math.max(this.modal.offsetHeight, this.minHeight);
+                this.originalWidth = this.currentWidth;
                 this.originalHeight = this.currentHeight;
                 this.modal.style.width = `${this.currentWidth}px`;
                 this.modal.style.height = `${this.currentHeight}px`;
                 if (this.node) {
                     this.saveModalState(this.node);
                 }
-                this.adjustModalHeight(); // Re-adjust height after resize to ensure content fits
+                this.adjustModalHeight();
             });
         });
 
         const resizeHandler = (e) => {
             if (!isResizing) return;
-            const newWidth = Math.max(startWidth + (e.clientX - startX), this.defaultWidth); // Ensure minimum width
-            const newHeight = Math.max(startHeight + (e.clientY - startY), this.minHeight); // Ensure minimum height
+            const newWidth = Math.max(startWidth + (e.clientX - startX), this.minWidth);
+            const newHeight = Math.max(startHeight + (e.clientY - startY), this.minHeight);
             this.modal.style.width = `${newWidth}px`;
             this.modal.style.height = `${newHeight}px`;
         };
     }
 
-    saveFile() {
-        const positive = this.modal.querySelector("#positive").value.trim();
-        const negative = this.modal.querySelector("#negative").value.trim();
+    saveFile(nodeId) {
+        const positive = this.modal.querySelector(`#positive-${nodeId}`).value.trim();
+        const negative = this.modal.querySelector(`#negative-${nodeId}`).value.trim();
         const textToSave = `${positive}\n${negative}`.trim();
         this.downloadFile(textToSave, "PromptRefinerLightOutput.txt", "text/plain");
-        this.saveModalState(this.node); // Save state after saving file
-        this.adjustModalHeight(); // Adjust height on content change
     }
 
     confirmInput(node) {
-        const positive = this.modal.querySelector("#positive").value.trim();
-        const negative = this.modal.querySelector("#negative").value.trim();
+        const nodeId = node.id;
+        const positive = this.modal.querySelector(`#positive-${nodeId}`).value.trim();
+        const negative = this.modal.querySelector(`#negative-${nodeId}`).value.trim();
 
-        // Map positive to positive_subject only, clear others
         const positiveWidgets = [
             "positive_subject", "positive_environment", "positive_style",
             "positive_shot", "positive_detail"
@@ -361,7 +346,6 @@ export class PromptRefinerLightModal {
             }
         });
 
-        // Map negative to negative_static only, clear others
         const negativeWidgets = [
             "negative_static", "negative_content", "negative_definition",
             "negative_dynamic"
@@ -374,8 +358,9 @@ export class PromptRefinerLightModal {
             }
         });
 
-        this.saveModalState(node); // Save state before closing
-        this.close(node);
+        console.log("Confirmed Data sent to backend for node:", node.id);
+        alert("Data confirmed and sent to the backend.");
+        this.saveModalState(node);        
     }
 
     downloadFile(text, name, type) {
@@ -390,60 +375,62 @@ export class PromptRefinerLightModal {
     }
 
     saveModalState(node) {
-        console.log("Saving modal state...");
+        console.log("Saving modal state for node:", node.id);
         const nodeData = this.getNodeData(node) || {};
+        const nodeId = node.id;
         nodeData.currentWidth = this.currentWidth;
         nodeData.currentHeight = this.currentHeight;
         nodeData.originalWidth = this.originalWidth;
         nodeData.originalHeight = this.originalHeight;
         nodeData.isCollapsed = this.isCollapsed;
-        nodeData.positive = this.modal.querySelector("#positive").value;
-        nodeData.negative = this.modal.querySelector("#negative").value;
+        nodeData.positive = this.modal.querySelector(`#positive-${nodeId}`).value;
+        nodeData.negative = this.modal.querySelector(`#negative-${nodeId}`).value;
         nodeData.isCollapsedPositive = this.isCollapsedPositive;
         nodeData.isCollapsedNegative = this.isCollapsedNegative;
-        nodeData.showAlerts = this.showAlerts; // Persist alert preference
+        nodeData.showAlerts = this.showAlerts;
         this.setNodeData(node, nodeData);
         console.log("Modal state saved:", nodeData);
     }
-    
+
     loadModalState(node) {
-        console.log("Loading modal state...");
+        console.log("Loading modal state for node:", node.id);
         const nodeData = this.getNodeData(node) || {};
-        this.currentWidth = Math.max(nodeData.currentWidth || this.defaultWidth, this.defaultWidth); // Ensure minimum width
-        this.currentHeight = Math.max(nodeData.currentHeight || this.defaultHeight, this.minHeight); // Ensure minimum height
-        this.originalWidth = nodeData.originalWidth || this.defaultWidth; // Load original dimensions
+        const nodeId = node.id;
+        this.currentWidth = Math.max(nodeData.currentWidth || this.defaultWidth, this.defaultWidth);
+        this.currentHeight = Math.max(nodeData.currentHeight || this.defaultHeight, this.minHeight);
+        this.originalWidth = nodeData.originalWidth || this.defaultWidth;
         this.originalHeight = nodeData.originalHeight || this.defaultHeight;
         this.isCollapsed = nodeData.isCollapsed || false;
-        this.isCollapsedPositive = nodeData.isCollapsedPositive !== undefined ? nodeData.isCollapsedPositive : true; // Default to collapsed
-        this.isCollapsedNegative = nodeData.isCollapsedNegative !== undefined ? nodeData.isCollapsedNegative : true; // Default to collapsed
-        this.showAlerts = nodeData.showAlerts !== false; // Default to true for newbies
-    
+        this.isCollapsedPositive = nodeData.isCollapsedPositive !== undefined ? nodeData.isCollapsedPositive : true;
+        this.isCollapsedNegative = nodeData.isCollapsedNegative !== undefined ? nodeData.isCollapsedNegative : true;
+        this.showAlerts = nodeData.showAlerts !== false;
+
         this.modal.style.width = `${this.currentWidth}px`;
         this.modal.style.height = `${this.currentHeight}px`;
-    
+
         const contentWrapper = this.modal.querySelector(".prl-modal-content-wrapper");
         const resizeHandle = this.modal.querySelector(".prl-modal-resize-handle");
         const collapseButton = this.modal.querySelector(".prl-modal-collapse");
         contentWrapper.style.display = this.isCollapsed ? "none" : "block";
         resizeHandle.style.display = this.isCollapsed ? "none" : "block";
         collapseButton.textContent = this.isCollapsed ? "+" : "-";
-    
+
         if (this.isCollapsed) {
             this.modal.style.width = `${this.minimizedWidth}px`;
-            this.modal.style.height = `${this.minHeight}px`; // Use minHeight for collapsed state
+            this.modal.style.height = `${this.minHeight}px`;
         } else {
-            this.adjustModalHeight(); // Adjust height based on content when expanded
+            this.adjustModalHeight();
         }
-    
-        const positiveTextarea = this.modal.querySelector("#positive");
-        const negativeTextarea = this.modal.querySelector("#negative");
+
+        const positiveTextarea = this.modal.querySelector(`#positive-${nodeId}`);
+        const negativeTextarea = this.modal.querySelector(`#negative-${nodeId}`);
         const alertToggle = this.modal.querySelector(".prl-alert-toggle");
         positiveTextarea.value = nodeData.positive || "";
         negativeTextarea.value = nodeData.negative || "";
         if (alertToggle) {
             alertToggle.checked = this.showAlerts;
         }
-    
+
         const positiveContent = this.modal.querySelector('.prl-prompt-category-container[data-prompt-type="positive"] .prl-prompt-category-content');
         const negativeContent = this.modal.querySelector('.prl-prompt-category-container[data-prompt-type="negative"] .prl-prompt-category-content');
         positiveContent.classList.toggle("collapsed", this.isCollapsedPositive);
@@ -452,7 +439,7 @@ export class PromptRefinerLightModal {
     }
 
     close(node) {
-        this.saveModalState(node); // Ensure state is saved before closing
+        this.saveModalState(node);
         this.cleanup();
         if (node && node.modal === this) node.modal = null;
         this.isOpen = false;

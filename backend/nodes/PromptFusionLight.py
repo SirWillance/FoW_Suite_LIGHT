@@ -27,7 +27,8 @@ class PromptFusionLight:
     FUNCTION = "fuse"
     CATEGORY = get_category("2")
     DESCRIPTION = """Fuses Your Positive Prompt Categories into One Single Positive Conditioning Output. 
-    Note: This tier has its restrictions join me on https://www.twitch.tv/sirwillance for more informations"""
+
+Note: This tier has its limitations join me on https://www.twitch.tv/sirwillance for more informations"""
 
     def __init__(self):
         self.concat_node = ConditioningConcat()

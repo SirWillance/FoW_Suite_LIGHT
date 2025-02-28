@@ -1,0 +1,68 @@
+{
+  "FoW - Static": [
+    {
+      "id": "static_quality_001",
+      "category": "Static Quality",
+      "name": "Quality Issues",
+      "tokens": [
+        { "value": "low quality", "enabled": true, "tooltip": "Overall inferior image quality." },
+        { "value": "blurry", "enabled": true, "tooltip": "Image lacks sharpness and detail." },
+        { "value": "out of focus", "enabled": true, "tooltip": "The subject is not sharply defined." }
+      ]
+    },
+    {
+      "id": "static_artifacts_001",
+      "category": "Static Artefacts",
+      "name": "Unwanted Artefacts",
+      "tokens": [
+        { "value": "text", "enabled": true, "tooltip": "Removes any text present in the image." },
+        { "value": "logo", "enabled": true, "tooltip": "Removes logos from the image." }
+      ]
+    },
+    {
+      "id": "static_composition_001",
+      "category": "Static Composition",
+      "name": "Composition & Framing",
+      "tokens": [
+        { "value": "bad composition", "enabled": true, "tooltip": "Corrects a poorly arranged scene." },
+        { "value": "bad framing", "enabled": true, "tooltip": "Corrects poorly framed shots." }
+      ]
+    },
+    {
+      "id": "static_lighting_001",
+      "category": "Static Lighting",
+      "name": "Lighting Issues",
+      "tokens": [
+        { "value": "bad lighting", "enabled": true, "tooltip": "Corrects overall lighting issues." },
+        { "value": "underexposed", "enabled": true, "tooltip": "Brightens the image." },
+        { "value": "overexposed", "enabled": true, "tooltip": "Darks the image." }
+      ]
+    },
+    {
+      "id": "static_obscuration_001",
+      "category": "Static Obscuration",
+      "name": "Obscuration & Clarity",
+      "tokens": [
+        { "value": "obscured by elements", "enabled": true, "tooltip": "Removes elements blocking the view of the main subject." },
+        { "value": "blurry background", "enabled": true, "tooltip": "Sharpens an unwanted blurry background." }
+      ]
+    },
+    {
+      "id": "static_aesthetics_001",
+      "category": "Static Aesthetics",
+      "name": "Style & Aesthetic Issues",
+      "tokens": [
+        { "value": "surreal", "enabled": true, "tooltip": "Removes surreal styles to make the image more grounded." },
+        { "value": "cartoonish", "enabled": true, "tooltip": "Correct cartoon like image into a more realistic." }
+      ]
+    },
+    {
+      "id": "static_poses_001",
+      "category": "Static Poses",
+      "name": "Poses & Reflections",
+      "tokens": [
+        { "value": "static poses", "enabled": true, "tooltip": "Adds dynamism to stiff poses." }
+      ]
+    }
+  ]
+}

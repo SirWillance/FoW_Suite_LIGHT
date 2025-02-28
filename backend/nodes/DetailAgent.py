@@ -12,9 +12,9 @@ class DetailAgent(AgentNode):
     
     RETURN_NAMES = (f"{TYPE_NAME} Conditioning", f"{TYPE_NAME} Text", )  # No spaces in return names
     DESCRIPTION = 	"""Fine detail and enhancement prompts for image refinement.
-			Access a library of artistic details, textures, and quality enhancers.
-			Examples: 'intricate details', 'high definition', 'masterfully crafted', etc.
-			Use the widget to add professional finishing touches to your generations."""
+Access a library of artistic details, textures, and quality enhancers.
+Examples: 'intricate details', 'high definition', 'masterfully crafted', etc.
+Increase the Catalogue by increasing your Tier on https://www.twitch.tv/sirwillance/"""
 
 
 

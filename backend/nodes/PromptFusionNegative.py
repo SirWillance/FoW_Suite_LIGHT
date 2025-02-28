@@ -28,7 +28,8 @@ class PromptFusionNegative:
     FUNCTION = "fuse"
     CATEGORY = get_category("2")
     DESCRIPTION =  """Fuses Your Negative Prompt Categories into One Single Negative Conditioning Output. 
-    Note: The Pro-Version will add a general version with infit Inputs, join me on https://www.twitch.tv/sirwillance for more informations"""
+
+Note: The Pro-Version will add a general version with infit Inputs, join me on https://www.twitch.tv/sirwillance for more informations"""
 
     def __init__(self):
         self.concat_node = ConditioningConcat()

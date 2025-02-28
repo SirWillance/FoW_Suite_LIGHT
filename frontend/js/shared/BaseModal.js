@@ -1,4 +1,5 @@
-let cssLoaded = false; // Global flag for CSS loading
+// FoW_Suite_LIGHT\frontend\js\shared\BaseModal.js
+let cssLoaded = false;
 
 export class BaseModal {
     constructor(config) {
@@ -7,27 +8,28 @@ export class BaseModal {
         this.version = config?.version || "Alpha";
         this.modal = null;
         this.isOpen = false;
-        this.modalClassName = `fow-${this.type.toLowerCase()}-modal`;
+        this.modalClassName = `fow-lbm-${this.type.toLowerCase()}-modal`;
         this.selectedTokens = new Set();
         this.loadCSS();
-        this.updateSelectedTokenOutputDebounced = this.debounce(this.updateSelectedTokenOutput.bind(this), 200); // Debounce
-        this.isResizing = false; // Flag for resizing
-        this.isCollapsed = false; // Flag for collapse state
-        this.collapseWidth = config?.collapseWidth || "420px"; // Default collapse width
-        this.expandWidth = config?.expandWidth || "420px"; // Default expand width
-        this.minHeight = 40; // Minimum height in pixels
-        this.maxHeight = 800; // Maximum height to prevent excessive growth
+        this.updateSelectedTokenOutputDebounced = this.debounce(this.updateSelectedTokenOutput.bind(this), 200);
+        this.isResizing = false;
+        this.isCollapsed = false;
+        this.collapseWidth = config?.collapseWidth || "420px";
+        this.expandWidth = config?.expandWidth || "420px";
+        this.minHeight = 40;
+        this.maxHeight = 800;
+        this.rootKeyToFileMap = {};
     }
 
     loadCSS() {
         if (!cssLoaded) {
-            const cssId = 'fow-modal-styles';
+            const cssId = 'fow-lbm-modal-styles';
             if (!document.getElementById(cssId)) {
                 const link = document.createElement('link');
                 link.id = cssId;
                 link.rel = 'stylesheet';
                 link.type = 'text/css';
-                link.href = new URL('./styles.css', import.meta.url).href;
+                link.href = new URL('./fow-lbm-styles.css', import.meta.url).href;
                 document.head.appendChild(link);
                 cssLoaded = true;
             }
@@ -35,32 +37,31 @@ export class BaseModal {
     }
 
     getNodeData(node) {
-        return node.widgets_values || {};
+        return node?.widgets_values || {};
     }
 
     setNodeData(node, data) {
-        node.widgets_values = data;
+        if (node) node.widgets_values = data;
     }
 
-    create(node) {
-        console.log(`Opening ${this.type} catalogue modal...`);
+    async create(node) {
+        console.log(`Opening Light ${this.type} catalogue modal...`);
+        this.node = node;
         const modalId = `modal-${node.id}`;
         const modalClassName = `${this.modalClassName}-${modalId}`;
 
         const existingModal = document.querySelector(`.${modalClassName}`);
         if (existingModal) {
-            existingModal.style.display = "flex"; // Show the existing modal
-            this.modal = existingModal; // Ensure this.modal is set
+            existingModal.style.display = "flex";
+            this.modal = existingModal;
 
-            // Load selected tokens from node data
             const nodeData = this.getNodeData(node);
             const savedTokens = nodeData.selectedTokens || [];
             this.selectedTokens = new Set(savedTokens);
 
-            // Load collapse state
             this.isCollapsed = nodeData.isCollapsed || false;
-            const contentWrapper = this.modal.querySelector(".fow-modal-content-wrapper");
-            const resizeHandle = this.modal.querySelector(".fow-modal-resize-handle");
+            const contentWrapper = this.modal.querySelector(".fow-lbm-content-wrapper");
+            const resizeHandle = this.modal.querySelector(".fow-lbm-modal-resize-handle");
             if (contentWrapper) {
                 contentWrapper.style.display = this.isCollapsed ? "none" : "block";
             }
@@ -68,14 +69,13 @@ export class BaseModal {
                 resizeHandle.style.display = this.isCollapsed ? "none" : "block";
             }
 
-            this.updateSelectedTokenOutput(); // Update the output
-            this.adjustModalHeight(); // Set initial height based on content
+            this.updateSelectedTokenOutput();
+            this.adjustModalHeight();
             return existingModal;
         }
 
-        // Create the modal container
         this.modal = document.createElement("div");
-        this.modal.classList.add(modalClassName, "fow-modal");
+        this.modal.classList.add(modalClassName, "fow-lbm-modal");
         this.modal.style.display = "flex";
         this.modal.style.position = "fixed";
         this.modal.style.top = "100px";
@@ -85,57 +85,65 @@ export class BaseModal {
         this.modal.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.3)";
         this.modal.style.zIndex = "1001";
         this.modal.style.flexDirection = "column";
-        this.modal.style.minHeight = `${this.minHeight}px`; // Minimum height
-        this.modal.style.maxHeight = `${this.maxHeight}px`; // Maximum height
+        this.modal.style.minHeight = `${this.minHeight}px`;
+        this.modal.style.maxHeight = `${this.maxHeight}px`;
         this.modal.style.overflow = "hidden";
 
-        // Store original dimensions
         this.originalWidth = this.modal.offsetWidth;
         this.originalHeight = this.modal.offsetHeight;
 
-        // Use a DocumentFragment to build the modal content
         const modalFragment = document.createDocumentFragment();
 
-        // Create the title bar
         const titleBar = this.createTitleBar(node.title || "Modal Title", node);
         modalFragment.appendChild(titleBar);
 
-        // Create the content wrapper
         const contentWrapper = document.createElement("div");
-        contentWrapper.classList.add("fow-modal-content-wrapper");
-        contentWrapper.style.display = "block"; // Default to visible
-        contentWrapper.style.flexDirection = "column"; // Ensure content flows vertically
+        contentWrapper.classList.add("fow-lbm-content-wrapper");
+        contentWrapper.style.display = "block";
+        contentWrapper.style.flexDirection = "column";
 
-        // Create the modal content container
+        const operationWindow = document.createElement("div");
+        operationWindow.classList.add("fow-lbm-operation-window");
+        operationWindow.innerHTML = `
+            <input type="text" class="fow-lbm-search-bar" placeholder="Search tokens..." />
+            <div class="fow-lbm-button-group">
+                <button class="fow-lbm-deselect-all-button">🧼</button>
+                <button class="fow-lbm-file-button">📂</button>
+                <button class="fow-lbm-confirm-button">✔</button>
+            </div>
+        `;
+        contentWrapper.appendChild(operationWindow);
+
         const modalContent = this.createModalContent();
         contentWrapper.appendChild(modalContent);
-
-        // Set the modal content using innerHTML (for the basic structure)
         modalContent.innerHTML = this.getModalTemplate();
 
         modalFragment.appendChild(contentWrapper);
         this.modal.appendChild(modalFragment);
 
-        // Append the modal to the document body
         document.body.appendChild(this.modal);
 
-        // Force a layout recalculation to ensure sticky positioning works
         requestAnimationFrame(() => {
             this.modal.style.display = "flex";
-            this.setupEventHandlers(this.modal, node); // Setup handlers after DOM is ready
-            this.adjustModalHeight(); // Ensure initial height is set after DOM attachment
+            this.setupEventHandlers(this.modal, node);
+            const categoriesContainer = this.modal.querySelector(".fow-lbm-categories-container");
+            categoriesContainer.innerHTML = `
+                <p style="padding: 10px;">
+                    To load your catalogue, click the file loader button "📂" above.<br>
+                    Navigate to your ComfyUI directory, then go to "custom_nodes" > "FoW_Suite_LIGHT" > "data" > "Library".<br>
+                    Select "${this.rootKeyToFileMap[this.rootKey] || 'the matching .JSON file'}" and click Open.
+                </p>`;
+            this.adjustModalHeight();
         });
 
-        // Load collapse state after the modal is created and attached to the DOM
         const nodeData = this.getNodeData(node);
         this.isCollapsed = nodeData.isCollapsed || false;
         contentWrapper.style.display = this.isCollapsed ? "none" : "block";
-        const resizeHandle = this.modal.querySelector(".fow-modal-resize-handle");
+        const resizeHandle = this.modal.querySelector(".fow-lbm-modal-resize-handle");
         if (resizeHandle) {
             resizeHandle.style.display = this.isCollapsed ? "none" : "block";
         }
 
-        // Set initial dimensions based on collapse state
         if (this.isCollapsed) {
             this.toggleCollapse(node);
         }
@@ -145,26 +153,18 @@ export class BaseModal {
 
     getModalTemplate() {
         return `
-            <div class="modal-content">
-                <div class="operation-window">
-                    <input type="text" class="search-bar" placeholder="Search tokens..." />
-                    <div class="button-group">
-                        <button class="deselect-all-button">🧼</button>
-                        <button class="file-button">📂</button>
-                        <button class="confirm-button">✔</button>
-                    </div>
-                </div>
-                <div class="control-window">
-                    <p id="selected-token-output" style="white-space: pre-line;"></p>
+            <div class="fow-lbm-modal-content">
+                <div class="fow-lbm-control-window">
+                    <p id="fow-lbm-selected-token-output" style="white-space: pre-line;"></p>
                 </div>
                 <input type="file" accept=".json" style="display: none;" />
-                <div class="categories-container"></div>
+                <div class="fow-lbm-categories-container"></div>
             </div>`;
     }
 
     createTitleBar(title, node) {
         const titleBar = document.createElement("div");
-        titleBar.classList.add("fow-modal__titlebar"); // BEM naming
+        titleBar.classList.add("fow-lbm-modal__titlebar");
 
         const header = document.createElement("h3");
         header.textContent = title;
@@ -172,25 +172,23 @@ export class BaseModal {
         header.style.margin = "0";
         titleBar.appendChild(header);
 
-        // Create collapse button
         const collapseButton = document.createElement("button");
-        collapseButton.classList.add("fow-modal__collapse"); // BEM naming
-        collapseButton.innerHTML = "-"; // Or any other collapse icon
-        collapseButton.style.marginRight = "5px"; // Add some spacing
+        collapseButton.classList.add("fow-lbm-modal__collapse");
+        collapseButton.innerHTML = "-";
+        collapseButton.style.marginRight = "5px";
         titleBar.appendChild(collapseButton);
 
         const closeButton = document.createElement("button");
-        closeButton.classList.add("fow-modal__close"); // BEM naming
+        closeButton.classList.add("fow-lbm-modal__close");
         closeButton.innerHTML = "×";
         closeButton.addEventListener("click", () => {
-            this.saveModalState(node); // Save the state
+            this.saveModalState(node);
             this.close(node);
         });
         titleBar.appendChild(closeButton);
 
-        // Event listener for collapse button
         collapseButton.addEventListener("click", (event) => {
-            event.stopPropagation(); // Prevent drag from being triggered
+            event.stopPropagation();
             this.toggleCollapse(node);
         });
 
@@ -198,12 +196,12 @@ export class BaseModal {
     }
 
     toggleCollapse(node) {
-        const contentWrapper = this.modal.querySelector(".fow-modal-content-wrapper");
-        const resizeHandle = this.modal.querySelector(".fow-modal-resize-handle");
-        const titleBar = this.modal.querySelector(".fow-modal__titlebar");
+        const contentWrapper = this.modal.querySelector(".fow-lbm-content-wrapper");
+        const resizeHandle = this.modal.querySelector(".fow-lbm-modal-resize-handle");
+        const titleBar = this.modal.querySelector(".fow-lbm-modal__titlebar");
 
         this.isCollapsed = !this.isCollapsed;
-        const isCollapsed = this.isCollapsed; // Cache the value
+        const isCollapsed = this.isCollapsed;
 
         this.setModalDimensions(isCollapsed, titleBar);
 
@@ -214,87 +212,75 @@ export class BaseModal {
             resizeHandle.style.display = isCollapsed ? "none" : "block";
         }
 
-        // Save the collapse state
         const nodeData = this.getNodeData(node);
         nodeData.isCollapsed = isCollapsed;
         this.setNodeData(node, nodeData);
 
-        // Update the collapse button text
-        const collapseButton = this.modal.querySelector(".fow-modal__collapse");
+        const collapseButton = this.modal.querySelector(".fow-lbm-modal__collapse");
         collapseButton.innerHTML = isCollapsed ? "+" : "-";
 
-        // Adjust height after toggling collapse
         if (!isCollapsed) {
-            this.adjustModalHeight(); // Adjust height based on content when expanded
+            this.adjustModalHeight();
         }
     }
 
     setModalDimensions(isCollapsed, titleBar) {
         if (isCollapsed) {
             this.modal.style.width = this.collapseWidth;
-            this.modal.style.height = `${Math.max(titleBar.offsetHeight, this.minHeight)}px`; // Ensure minimum height
-            this.modal.style.minWidth = "0"; // Override min-width
-            this.modal.style.minHeight = "0"; // Override min-height
+            this.modal.style.height = `${Math.max(titleBar.offsetHeight, this.minHeight)}px`;
+            this.modal.style.minWidth = "0";
+            this.modal.style.minHeight = "0";
         } else {
             this.modal.style.width = this.expandWidth;
-            this.modal.style.height = `${this.currentHeight}px`; // Use current height, will be adjusted by adjustModalHeight
-            this.modal.style.minWidth = ""; // Remove the override
-            this.modal.style.minHeight = ""; // Remove the override
+            this.modal.style.height = `${this.currentHeight}px`;
+            this.modal.style.minWidth = "";
+            this.modal.style.minHeight = "";
         }
     }
 
     createModalContent() {
         const modalContent = document.createElement("div");
-        modalContent.classList.add("modal-content");
+        modalContent.classList.add("fow-lbm-modal-content");
         modalContent.style.flexGrow = "1";
-        modalContent.style.overflow = "visible"; // Remove scrolling, allow content to expand
+        modalContent.style.overflow = "visible";
         return modalContent;
     }
 
     setupEventHandlers(modal, node) {
-        const modalContent = modal.querySelector(".modal-content");
+        const modalContent = modal.querySelector(".fow-lbm-modal-content");
+        const operationWindow = modal.querySelector(".fow-lbm-operation-window");
         const fileInput = modal.querySelector('input[type="file"]');
-        const tokensContainer = modalContent.querySelector(".categories-container"); // Select the parent
+        const tokensContainer = modalContent.querySelector(".fow-lbm-categories-container");
 
-        // Dragging logic (applied to the title bar)
-        this.setupDragHandlers(modal, modal.querySelector(".fow-modal__titlebar")); // BEM Naming
-
-        // Button handlers
+        this.setupDragHandlers(modal, modal.querySelector(".fow-lbm-modal__titlebar"));
         this.setupButtons(modal, modalContent, node, fileInput);
-
-        // File handling
         this.setupFileHandlers(fileInput, modalContent);
+        this.setupSearch(operationWindow);
 
-        // Search handling
-        this.setupSearch(modalContent);
-
-        // Token click delegation
-        tokensContainer.addEventListener('click', (event) => { // Attach listener to the container
+        tokensContainer.addEventListener('click', (event) => {
             if (event.target.tagName === 'LI') {
                 const tokenItem = event.target;
-                const tokensList = tokenItem.closest('.tokens-list');
+                const tokensList = tokenItem.closest('.fow-lbm-tokens-list');
                 const value = tokenItem.textContent;
                 this.toggleToken(tokenItem, value, tokensList);
             }
         });
 
-        // Resize handle (if needed)
         if (this.createResizeHandle) {
             const resizeHandle = this.createResizeHandle();
             modal.appendChild(resizeHandle);
         }
 
-        // Adjust height after initial setup
-        this.adjustModalHeight(); // Set initial height based on content
+        this.adjustModalHeight();
     }
 
     createResizeHandle() {
         const resizeHandle = document.createElement("div");
-        resizeHandle.classList.add("fow-modal-resize-handle");
+        resizeHandle.classList.add("fow-lbm-modal-resize-handle");
 
         resizeHandle.addEventListener("mousedown", (e) => {
             e.preventDefault();
-            if (this.isCollapsed) return; // Prevent resizing when collapsed
+            if (this.isCollapsed) return;
             this.isResizing = true;
 
             const startWidth = this.modal.offsetWidth;
@@ -305,13 +291,13 @@ export class BaseModal {
             const mousemoveHandler = (e) => {
                 if (!this.isResizing) return;
 
-                const newWidth = Math.max(startWidth + (e.clientX - startX), 200); // Minimum width of 200px
-                const newHeight = Math.max(startHeight + (e.clientY - startY), this.minHeight); // Ensure minimum height
+                const newWidth = Math.max(startWidth + (e.clientX - startX), 200);
+                const newHeight = Math.max(startHeight + (e.clientY - startY), this.minHeight);
                 this.modal.style.width = `${newWidth}px`;
-                this.modal.style.height = `${Math.min(newHeight, this.maxHeight)}px`; // Cap at maxHeight
+                this.modal.style.height = `${Math.min(newHeight, this.maxHeight)}px`;
                 this.currentWidth = newWidth;
                 this.currentHeight = Math.min(newHeight, this.maxHeight);
-                this.originalWidth = this.currentWidth; // Update original dimensions
+                this.originalWidth = this.currentWidth;
                 this.originalHeight = this.currentHeight;
             };
 
@@ -322,7 +308,7 @@ export class BaseModal {
                 if (this.node) {
                     this.saveModalState(this.node);
                 }
-                this.adjustModalHeight(); // Re-adjust height after resize to ensure content fits
+                this.adjustModalHeight();
             };
 
             document.addEventListener("mousemove", mousemoveHandler);
@@ -337,7 +323,7 @@ export class BaseModal {
         let offsetX, offsetY;
 
         const mousemoveHandler = (e) => {
-            if (!isDragging || this.isResizing) return; // Prevent dragging during resizing
+            if (!isDragging || this.isResizing) return;
             modal.style.left = `${e.clientX - offsetX}px`;
             modal.style.top = `${e.clientY - offsetY}px`;
         };
@@ -358,26 +344,26 @@ export class BaseModal {
     }
 
     setupButtons(modal, modalContent, node, fileInput) {
-        modal.querySelector(".file-button").onclick = () => fileInput.click();
+        modal.querySelector(".fow-lbm-file-button").onclick = () => fileInput.click();
 
-        modal.querySelector(".confirm-button").onclick = () => {
-            this.updateNodeInput(node); // Updates node AND saves state
-            this.close(node);
-            this.adjustModalHeight(); // Adjust height on content change
+        modal.querySelector(".fow-lbm-confirm-button").onclick = () => {
+            this.updateNodeInput(node);
+            this.adjustModalHeight();
+            alert("Selection Confirmed. Enjoy your image 😁.");
         };
 
-        modal.querySelector(".deselect-all-button").onclick = () => {
+        modal.querySelector(".fow-lbm-deselect-all-button").onclick = () => {
             this.selectedTokens.clear();
-            modalContent.querySelectorAll(".tokens-list li").forEach(item => {
+            modalContent.querySelectorAll(".fow-lbm-tokens-list li").forEach(item => {
                 item.classList.remove("token-enabled");
             });
-            this.updateSelectedTokenOutputDebounced(); // Use debounced version
-            this.adjustModalHeight(); // Adjust height on content change
+            this.updateSelectedTokenOutputDebounced();
+            this.adjustModalHeight();
         };
 
-        modal.querySelector(".fow-modal__close").addEventListener("click", () => { // BEM naming
-            this.saveModalState(node); // Save the state
-            this.close(node); // Close the modal
+        modal.querySelector(".fow-lbm-modal__close").addEventListener("click", () => {
+            this.saveModalState(node);
+            this.close(node);
         });
     }
 
@@ -387,27 +373,27 @@ export class BaseModal {
             if (file) {
                 this.loadFile(file, modalContent);
             }
-            this.adjustModalHeight(); // Adjust height on content change
+            this.adjustModalHeight();
         });
     }
 
     setupSearch(modalContent) {
-        const searchBar = modalContent.querySelector(".search-bar");
-    
+        const searchBar = modalContent.querySelector(".fow-lbm-search-bar");
+        
         const performSearch = () => {
             const searchTerm = searchBar.value.toLowerCase();
-            const styleItems = modalContent.querySelectorAll(".style-item");
-            const categoryElements = modalContent.querySelectorAll(".category"); // Get all category elements
-    
+            const styleItems = modalContent.querySelectorAll(".fow-lbm-style-item");
+            const categoryElements = modalContent.querySelectorAll(".fow-lbm-category");
+
             styleItems.forEach(styleItem => {
                 const label = styleItem.querySelector('label');
-                const tokensList = styleItem.querySelector('.tokens-list');
+                const tokensList = styleItem.querySelector('.fow-lbm-tokens-list');
                 const tokens = tokensList.querySelectorAll('li');
-                const stylesContainer = styleItem.closest('.styles-container');
-    
+                const stylesContainer = styleItem.closest('.fow-lbm-styles-container');
+
                 let hasMatchingTokens = false;
                 let matchCount = 0;
-    
+
                 tokens.forEach(token => {
                     const tokenText = token.textContent.toLowerCase();
                     const matches = tokenText.includes(searchTerm);
@@ -417,61 +403,52 @@ export class BaseModal {
                         matchCount++;
                     }
                 });
-    
+
                 if (hasMatchingTokens) {
-                    styleItem.style.display = ""; //Show style item
+                    styleItem.style.display = "";
                     tokensList.style.display = "block";
-                    //Uncollapse the Styles Container
                     if (stylesContainer) {
                         stylesContainer.style.display = "block";
                     }
                     label.textContent = `${label.getAttribute('data-original-name') || label.textContent} (${matchCount})`;
                 } else {
-                    styleItem.style.display = "none"; //Hide style item
+                    styleItem.style.display = "none";
                     tokensList.style.display = "none";
                 }
             });
-    
-            // Iterate through each category element
+
             categoryElements.forEach(categoryElement => {
-                const hasVisibleStyleItems = Array.from(categoryElement.querySelectorAll(".style-item"))
-                    .some(styleItem => styleItem.style.display !== "none"); // at least one style item is visible
-    
-                // If there are visible style items, display the category, otherwise hide it
+                const hasVisibleStyleItems = Array.from(categoryElement.querySelectorAll(".fow-lbm-style-item"))
+                    .some(styleItem => styleItem.style.display !== "none");
                 categoryElement.style.display = hasVisibleStyleItems ? "" : "none";
             });
-    
-            // Reset display if search term is empty
+
             if (searchTerm === "") {
                 styleItems.forEach(styleItem => {
-                    styleItem.style.display = ""; // Show the style item
+                    styleItem.style.display = "";
                     const label = styleItem.querySelector('label');
-                    const tokensList = styleItem.querySelector('.tokens-list');
-                    const stylesContainer = styleItem.closest('.styles-container');
+                    const tokensList = styleItem.querySelector('.fow-lbm-tokens-list');
+                    const stylesContainer = styleItem.closest('.fow-lbm-styles-container');
                     const tokens = tokensList.querySelectorAll('li');
-    
-                    label.textContent = label.getAttribute('data-original-name') || label.textContent; // Restore original label
-    
-                    tokens.forEach(token => token.style.display = ""); // Show all tokens
+
+                    label.textContent = label.getAttribute('data-original-name') || label.textContent;
+                    tokens.forEach(token => token.style.display = "");
                     if (stylesContainer) {
-                        stylesContainer.style.display = "none"; // Collapse the styles container
+                        stylesContainer.style.display = "none";
                     }
-                    tokensList.style.display = 'none'; // Hide the token List
+                    tokensList.style.display = 'none';
                 });
-                 // Make all category elements visible again
-                 categoryElements.forEach(categoryElement => {
+                categoryElements.forEach(categoryElement => {
                     categoryElement.style.display = "";
                 });
             }
         };
-    
-        // Add event listener for the "Enter" key
+
         searchBar.addEventListener("keydown", (event) => {
             if (event.key === "Enter") {
-                // Prevent search if the search bar is empty
                 if (searchBar.value.trim() === "") {
                     performSearch();
-                    return; // and perform the reset
+                    return;
                 }
                 performSearch();
             }
@@ -484,8 +461,10 @@ export class BaseModal {
             try {
                 const jsonData = JSON.parse(e.target.result);
                 this.updateModalWithTokens(jsonData, modalContent);
+                this.selectedTokens.clear();
+                this.updateSelectedTokenOutput();
                 requestAnimationFrame(() => {
-                    this.adjustModalHeight(); // Adjust height on content change after JSON parsing, ensure DOM is ready
+                    this.adjustModalHeight();
                 });
             } catch (error) {
                 console.error("Error parsing JSON:", error);
@@ -496,11 +475,10 @@ export class BaseModal {
     }
 
     updateModalWithTokens(jsonData, modalContent) {
-        const categoriesContainer = modalContent.querySelector(".categories-container");
-        categoriesContainer.innerHTML = ""; // Clear existing content
+        const categoriesContainer = modalContent.querySelector(".fow-lbm-categories-container");
+        categoriesContainer.innerHTML = "";
 
         if (jsonData[this.rootKey] && Array.isArray(jsonData[this.rootKey])) {
-            // Group styles by category
             const groupedStyles = jsonData[this.rootKey].reduce((acc, style) => {
                 const category = style.category || "Uncategorized";
                 acc[category] = acc[category] || [];
@@ -508,10 +486,9 @@ export class BaseModal {
                 return acc;
             }, {});
 
-            // Create UI for each category
             for (const categoryName in groupedStyles) {
                 const categoryStyles = groupedStyles[categoryName];
-                const categoryElement = this.createCategoryElement(categoryName, categoryStyles, jsonData, modalContent); // Pass modalContent
+                const categoryElement = this.createCategoryElement(categoryName, categoryStyles, jsonData, modalContent);
                 categoriesContainer.appendChild(categoryElement);
             }
         } else {
@@ -520,13 +497,13 @@ export class BaseModal {
             categoriesContainer.appendChild(noStylesMessage);
         }
         requestAnimationFrame(() => {
-            this.adjustModalHeight(); // Adjust height on content change after rendering, ensure DOM is ready
+            this.adjustModalHeight();
         });
     }
 
     createCategoryElement(categoryName, categoryStyles, jsonData, modalContent) {
         const categoryElement = document.createElement("div");
-        categoryElement.classList.add("category");
+        categoryElement.classList.add("fow-lbm-category");
 
         const categoryTitle = document.createElement("h4");
         categoryTitle.textContent = categoryName;
@@ -534,11 +511,11 @@ export class BaseModal {
         categoryElement.appendChild(categoryTitle);
 
         const stylesContainer = document.createElement("div");
-        stylesContainer.classList.add("styles-container");
-        stylesContainer.style.display = "none"; // Initially hide the styles
+        stylesContainer.classList.add("fow-lbm-styles-container");
+        stylesContainer.style.display = "none";
 
         categoryStyles.forEach(style => {
-            const styleItem = this.createStyleItem(style, jsonData, modalContent); // Pass modalContent
+            const styleItem = this.createStyleItem(style, jsonData, modalContent);
             stylesContainer.appendChild(styleItem);
         });
 
@@ -547,7 +524,7 @@ export class BaseModal {
         categoryTitle.addEventListener("click", () => {
             stylesContainer.style.display = stylesContainer.style.display === "none" ? "block" : "none";
             requestAnimationFrame(() => {
-                this.adjustModalHeight(); // Adjust height on content change
+                this.adjustModalHeight();
             });
         });
 
@@ -556,21 +533,21 @@ export class BaseModal {
 
     createStyleItem(style, jsonData, modalContent) {
         const styleItem = document.createElement("div");
-        styleItem.classList.add("style-item");
+        styleItem.classList.add("fow-lbm-style-item");
 
         const styleName = document.createElement("label");
         styleName.textContent = style.name;
-        styleName.setAttribute('data-original-name', style.name); // Store the original name
+        styleName.setAttribute('data-original-name', style.name);
         styleName.style.fontWeight = "bold";
         styleName.style.cursor = "pointer";
-        styleName.title = style.notes || ""; // Add tooltip here
+        styleName.title = style.notes || "";
 
         const tokensList = document.createElement("ul");
-        tokensList.classList.add("tokens-list");
+        tokensList.classList.add("fow-lbm-tokens-list");
         tokensList.style.display = "none";
 
         if (style.tokens && Array.isArray(style.tokens)) {
-            this.createTokenItems(style, tokensList, jsonData, modalContent); // Pass modalContent
+            this.createTokenItems(style, tokensList, jsonData, modalContent);
         }
 
         styleItem.appendChild(styleName);
@@ -588,6 +565,10 @@ export class BaseModal {
             tokenItem.textContent = token.value;
             tokenItem.id = `token-${token.value}`;
 
+            if (token.tooltip) {
+                tokenItem.title = token.tooltip;
+            }
+
             if (this.selectedTokens.has(token.value)) {
                 tokenItem.classList.add("token-enabled");
             }
@@ -595,7 +576,7 @@ export class BaseModal {
         });
         tokensList.appendChild(fragment);
         requestAnimationFrame(() => {
-            this.adjustModalHeight(); // Adjust height on content change
+            this.adjustModalHeight();
         });
     }
 
@@ -608,24 +589,23 @@ export class BaseModal {
             tokenItem.classList.add("token-enabled");
         }
 
-        this.updateSelectedTokenOutputDebounced(); // Use debounced version
+        this.updateSelectedTokenOutputDebounced();
         requestAnimationFrame(() => {
-            this.adjustModalHeight(); // Adjust height on content change
+            this.adjustModalHeight();
         });
     }
 
     toggleTokensList(tokensList, style, jsonData) {
-        const isExpanding = tokensList.style.display === "none"; // Determine if we are expanding or collapsing
-
+        const isExpanding = tokensList.style.display === "none";
         tokensList.style.display = isExpanding ? "block" : "none";
 
         if (isExpanding) {
-            this.updateTokensState(tokensList, style, jsonData, true); // Call updateTokensState when expanding, and pass a flag
+            this.updateTokensState(tokensList, style, jsonData, true);
         } else {
-            this.updateTokensState(tokensList, style, jsonData, false); // and pass the opposite flag for collapsing
+            this.updateTokensState(tokensList, style, jsonData, false);
         }
         requestAnimationFrame(() => {
-            this.adjustModalHeight(); // Adjust height on content change
+            this.adjustModalHeight();
         });
     }
 
@@ -636,7 +616,7 @@ export class BaseModal {
 
             if (jsonStyle?.tokens) {
                 const originalToken = jsonStyle.tokens.find(t => t.value === tokenValue);
-                if (originalToken?.enabled) { // Only process pre-selected tokens
+                if (originalToken?.enabled) {
                     if (isExpanding) {
                         if (!this.selectedTokens.has(tokenValue)) {
                             this.selectedTokens.add(tokenValue);
@@ -653,7 +633,7 @@ export class BaseModal {
         });
         this.updateSelectedTokenOutputDebounced();
         requestAnimationFrame(() => {
-            this.adjustModalHeight(); // Adjust height on content change
+            this.adjustModalHeight();
         });
     }
 
@@ -663,16 +643,14 @@ export class BaseModal {
         if (userInputWidget) {
             userInputWidget.value = selectedTokens.join(", ");
         }
-        this.saveModalState(node); // Save the state
+        this.saveModalState(node);
         requestAnimationFrame(() => {
-            this.adjustModalHeight(); // Adjust height on content change
+            this.adjustModalHeight();
         });
     }
 
     saveModalState(node) {
         const selectedTokens = Array.from(this.selectedTokens);
-
-        // Save the selected tokens and collapse state to the node's data
         const nodeData = this.getNodeData(node);
         nodeData.selectedTokens = selectedTokens;
         nodeData.isCollapsed = this.isCollapsed;
@@ -689,37 +667,38 @@ export class BaseModal {
 
     close(node) {
         if (this.modal) {
-            this.modal.style.display = "none"; // Hide the modal instead of removing it
+            this.modal.style.display = "none";
             this.isOpen = false;
-            this.saveModalState(node); // Save state before closing
+            this.saveModalState(node);
         }
     }
 
     updateSelectedTokenOutput() {
         const selectedTokens = Array.from(this.selectedTokens);
-        const modalContent = this.modal.querySelector(".modal-content");
+        const modalContent = this.modal.querySelector(".fow-lbm-modal-content");
         if (modalContent) {
-            const outputElement = modalContent.querySelector("#selected-token-output");
+            const outputElement = modalContent.querySelector("#fow-lbm-selected-token-output");
             if (outputElement) {
                 outputElement.textContent = selectedTokens.join(", ");
             }
         }
         requestAnimationFrame(() => {
-            this.adjustModalHeight(); // Adjust height on content change
+            this.adjustModalHeight();
         });
     }
 
     adjustModalHeight() {
         if (!this.isCollapsed && this.modal) {
-            const contentWrapper = this.modal.querySelector(".fow-modal-content-wrapper");
+            const contentWrapper = this.modal.querySelector(".fow-lbm-content-wrapper");
             if (contentWrapper) {
-                // Only adjust if content is visible and not being manipulated by other operations
                 requestAnimationFrame(() => {
-                    const contentHeight = contentWrapper.scrollHeight + 40; // Add padding for spacing
-                    const newHeight = Math.max(this.minHeight, Math.min(contentHeight, this.maxHeight)); // Cap at maxHeight, ensure minHeight
+                    const contentHeight = contentWrapper.scrollHeight + 40;
+                    const newHeight = Math.max(this.minHeight, Math.min(contentHeight, this.maxHeight));
                     this.currentHeight = newHeight;
                     this.modal.style.height = `${newHeight}px`;
-                    this.saveModalState(this.node); // Save the new height state
+                    if (this.node) {
+                        this.saveModalState(this.node);
+                    }
                 });
             }
         }

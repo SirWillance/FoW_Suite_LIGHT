@@ -1,0 +1,113 @@
+{
+  "FoW - Content": [
+    {
+      "id": "content_appearance_001",
+      "category": "Content Appearance",
+      "name": "Appearance Attributes",
+      "notes": "Tokens to modify specific appearance attributes like hair color, hair style and facial features.",
+      "tokens": [
+        { "value": "unnatural hair color", "enabled": true, "tooltip": "Reverts hair color to natural tones." },
+        { "value": "purple hair", "enabled": true, "tooltip": "Changes purple hair to a more common color." },
+        { "value": "dark blue hair", "enabled": true, "tooltip": "Changes dark blue hair to a more common color." },
+        { "value": "green hair", "enabled": true, "tooltip": "Changes green hair to a more common color." },
+        { "value": "pink hair", "enabled": true, "tooltip": "Changes pink hair to a more common color." }
+      ]
+    },
+    {
+      "id": "content_safety_001",
+      "category": "Content Safety",
+      "name": "Safety & Ethical Concerns",
+      "notes": "Tokens to restrict content based on maturity, suggestive themes, or other potentially unwanted or unethical elements. Use with caution, as AI interpretation can vary.",
+      "tokens": [
+        { "value": "nsfw", "enabled": true, "tooltip": "Removes content that is not safe for work." },
+        { "value": "suggestive", "enabled": true, "tooltip": "Removes hints at or indirect references to explicit content." },
+        { "value": "sexual content", "enabled": true, "tooltip": "Removes sexually explicit material." },
+        { "value": "explicit", "enabled": true, "tooltip": "Removes content that directly depicts sexual acts or nudity." },
+        { "value": "mature content", "enabled": true, "tooltip": "Removes content suitable only for adults." },
+         { "value": "child exploitation", "enabled": true, "tooltip": "Remove the image." },
+        { "value": "bestiality", "enabled": true, "tooltip": "Remove the image." }
+      ]
+    },
+    {
+      "id": "content_charactercount_001",
+      "category": "Content Charactercount",
+      "name": "Character Control",
+      "notes": "Tokens to control the number and variety of characters in the image.",
+      "tokens": [
+        { "value": "multiple characters", "enabled": true, "tooltip": "Adds more than one character to the image." },
+        { "value": "different characters", "enabled": true, "tooltip": "Ensures that any multiple characters are distinct individuals." }
+      ]
+    },
+    {
+      "id": "content_demographics_001",
+      "category": "Content Demographics",
+      "name": "Demographics",
+      "notes": "Tokens to influence the demographic characteristics of the subjects in the image (e.g., age, ethnicity, nationality). Use with sensitivity and awareness of potential biases.",
+      "tokens": [
+        { "value": "child", "enabled": true, "tooltip": "Depicts a young person." },
+        { "value": "baby", "enabled": true, "tooltip": "Depicts a very young child." },
+        { "value": "teenager", "enabled": true, "tooltip": "Depicts an adolescent." },
+        { "value": "adult", "enabled": true, "tooltip": "Depicts a fully grown person." }
+      ]
+    },
+    {
+      "id": "content_physical_001",
+      "category": "Content Physical",
+      "name": "Physical Characteristics",
+      "notes": "Tokens to modify specific physical characteristics and physiques in a descriptive and inclusive manner.",
+      "tokens": [
+        { "value": "muscular", "enabled": true, "tooltip": "Character with well-defined and prominent muscles." },
+        { "value": "thin", "enabled": true, "tooltip": "Petite look" }
+      ]
+    },
+    {
+      "id": "content_clothing_001",
+      "category": "Content Clothing",
+      "name": "Clothing & Accessories",
+      "notes": "Tokens to restrict or modify clothing items and accessories.",
+      "tokens": [
+        { "value": "overly detailed dress", "enabled": true, "tooltip": "Simplify the design." },
+        { "value": "overly detailed shoes", "enabled": true, "tooltip": "Simplify the design." }
+      ]
+    },
+    {
+      "id": "content_style_001",
+      "category": "Content Style",
+      "name": "Style & Theme Restrictions",
+      "notes": "Tokens to exclude specific styles or themes that might be automatically applied by the AI.",
+      "tokens": [
+        { "value": "photorealistic", "enabled": true, "tooltip": "Prevents images from being overly realistic." },
+        { "value": "anime", "enabled": true, "tooltip": "Prevents anime-style drawing." },
+        { "value": "cartoon", "enabled": true, "tooltip": "Prevents cartoon-style drawing." }
+      ]
+    },
+    {
+      "id": "content_technical_001",
+      "category": "Content Technical",
+      "name": "Technical/Undesired Elements",
+      "notes": "Tokens to remove technical issues and undesired elements.",
+      "tokens": [
+        { "value": "hybrid parts", "enabled": true, "tooltip": "Removes unnaturally merged components." },
+        { "value": "blended tokens", "enabled": true, "tooltip": "Remove image that were the mix of 2 images" }
+      ]
+    },
+    {
+      "id": "content_censorship_001",
+      "category": "Content Censorship",
+      "name": "Censorship",
+      "notes": "Tokens to enforce censorship or prevent un-censored content.",
+      "tokens": [
+        { "value": "censored", "enabled": true, "tooltip": "Hides part of body." }
+      ]
+    },
+        {
+      "id": "content_species_001",
+      "category": "Content Species",
+      "name": "Species Control",
+      "notes": "Tokens to force the model to not use specific species",
+      "tokens": [
+        { "value": "non human", "enabled": true, "tooltip": "Enforce it to only create organic being" }
+      ]
+    }
+  ]
+}

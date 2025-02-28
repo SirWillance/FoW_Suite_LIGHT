@@ -1,0 +1,479 @@
+{
+  "FoW - Styles": [
+    {
+      "id": "style_abstract_005",
+      "category": "Abstract",
+      "name": "Minimalism",
+      "notes": "Relies on minimal elements to create maximum impact, emphasizing simplicity and form.",
+      "preview": "style_minimalism_001.jpg",
+      "tokens": [
+        { "value": "minimalism", "enabled": true, "type": "positive", "tooltip": "The core style of Minimalism." },
+        { "value": "simplicity", "enabled": true, "type": "positive", "tooltip": "Emphasizes simplicity." },
+        { "value": "form", "enabled": true, "type": "positive", "tooltip": "Focuses on form over content." },
+        { "value": "sparse", "enabled": true, "type": "positive", "tooltip": "Uses sparse elements." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_abstract_007",
+      "category": "Abstract",
+      "name": "Fluid Dynamics",
+      "notes": "Modern digital abstract style with 3D fluid renders, vibrant colors, and dynamic motion.",
+      "preview": null,
+      "tokens": [
+        { "value": "3d fluid render", "enabled": true, "type": "positive", "tooltip": "A 3D render of fluid dynamics." },
+        { "value": "vibrant colors", "enabled": true, "type": "positive", "tooltip": "Features vibrant colors." },
+        { "value": "dynamic motion", "enabled": true, "type": "positive", "tooltip": "Emphasizes dynamic motion." },
+        { "value": "abstract", "enabled": true, "type": "positive", "tooltip": "Indicates an abstract style." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_abstract_006",
+      "category": "Abstract",
+      "name": "Surrealism",
+      "notes": "Explores dreams and the subconscious with illogical, bizarre imagery.",
+      "preview": "style_surrealism_001.jpg",
+      "tokens": [
+        { "value": "surreal", "enabled": true, "type": "positive", "tooltip": "The core style of Surrealism." },
+        { "value": "dreamlike", "enabled": true, "type": "positive", "tooltip": "Emphasizes dreamlike quality." },
+        { "value": "subconscious", "enabled": true, "type": "positive", "tooltip": "Explores the subconscious." },
+        { "value": "illogical", "enabled": true, "type": "positive", "tooltip": "Features illogical elements." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_analogart_002",
+      "category": "Analog Art",
+      "name": "Pencil Drawing",
+      "notes": "Focuses on realistic depictions using pencil techniques.",
+      "preview": "style_pencil_drawing_001.jpg",
+      "tokens": [
+        { "value": "pencil drawing", "enabled": true, "type": "positive", "tooltip": "Resembles a pencil drawing." },
+        { "value": "realistic", "enabled": true, "type": "positive", "tooltip": "Aims for realistic depiction." },
+        { "value": "shading", "enabled": true, "type": "positive", "tooltip": "Uses pencil shading techniques." },
+        { "value": "sketch", "enabled": true, "type": "positive", "tooltip": "Emphasizes sketch-like quality." }
+      ],
+      "combination": null
+    },
+   {
+      "id": "style_analogart_008",
+      "category": "Analog Art",
+      "name": "Ink Drawing",
+      "notes": "Bold lines and high contrast with intricate details and expressive strokes.",
+      "preview": null,
+      "tokens": [
+        { "value": "ink drawing", "enabled": true, "type": "positive", "tooltip": "Resembles an ink drawing." },
+        { "value": "bold lines", "enabled": true, "type": "positive", "tooltip": "Features bold lines." },
+        { "value": "high contrast", "enabled": true, "type": "positive", "tooltip": "Uses high contrast." },
+        { "value": "intricate details", "enabled": true, "type": "positive", "tooltip": "Includes intricate details." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_analogart_009",
+      "category": "Analog Art",
+      "name": "Sumi-e Painting",
+      "notes": "Traditional Japanese ink wash painting emphasizing simplicity and minimal strokes.",
+      "preview": null,
+      "tokens": [
+        { "value": "sumi-e", "enabled": true, "type": "positive", "tooltip": "Core style of Sumi-e painting." },
+        { "value": "ink wash", "enabled": true, "type": "positive", "tooltip": "Uses ink wash techniques." },
+        { "value": "simplicity", "enabled": true, "type": "positive", "tooltip": "Emphasizes simplicity." },
+        { "value": "minimal strokes", "enabled": true, "type": "positive", "tooltip": "Captures essence with few strokes." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_architecture_003",
+      "category": "Architecture",
+      "name": "Gothic",
+      "notes": "Medieval architectural style with pointed arches, dramatic lighting, and rich symbolism.",
+      "preview": "style_gothic_001.jpg",
+      "tokens": [
+        { "value": "gothic", "enabled": true, "type": "positive", "tooltip": "Core Gothic architecture style." },
+        { "value": "pointed arches", "enabled": true, "type": "positive", "tooltip": "Features pointed arches." },
+        { "value": "dramatic lighting", "enabled": true, "type": "lighting", "tooltip": "Uses dramatic lighting." },
+        { "value": "symbolism", "enabled": true, "type": "positive", "tooltip": "Incorporates rich symbolism." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_architecture_004",
+      "category": "Architecture",
+      "name": "Art Deco",
+      "notes": "1920s-30s style with symmetry, geometric patterns, and luxurious modernity.",
+      "preview": "style_art_deco_001.jpg",
+      "tokens": [
+        { "value": "art deco", "enabled": true, "type": "positive", "tooltip": "Core Art Deco style." },
+        { "value": "symmetry", "enabled": true, "type": "positive", "tooltip": "Emphasizes symmetry." },
+        { "value": "geometric patterns", "enabled": true, "type": "positive", "tooltip": "Features geometric patterns." },
+        { "value": "luxury", "enabled": true, "type": "positive", "tooltip": "Conveys luxury." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_architecture_006",
+      "category": "Architecture",
+      "name": "Modernism",
+      "notes": "20th-century style embracing experimentation, simplicity, and functional forms.",
+      "preview": null,
+      "tokens": [
+        { "value": "modernism", "enabled": true, "type": "positive", "tooltip": "Core Modernism style." },
+        { "value": "simplicity", "enabled": true, "type": "positive", "tooltip": "Emphasizes simplicity." },
+        { "value": "functional", "enabled": true, "type": "positive", "tooltip": "Focuses on functionality." },
+        { "value": "experimentation", "enabled": true, "type": "positive", "tooltip": "Encourages new techniques." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_atmosphere_001",
+      "category": "Atmosphere",
+      "name": "Gloomy",
+      "notes": "Evokes sadness, darkness, and foreboding.",
+      "preview": null,
+      "tokens": [
+        { "value": "gloomy", "enabled": true, "type": "positive", "tooltip": "Core Gloomy atmosphere style." },
+        { "value": "dark", "enabled": true, "type": "positive", "tooltip": "Emphasizes darkness." },
+        { "value": "foreboding", "enabled": true, "type": "positive", "tooltip": "Creates a sense of foreboding." },
+        { "value": "muted colors", "enabled": true, "type": "positive", "tooltip": "Uses desaturated colors." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_atmosphere_010",
+      "category": "Atmosphere",
+      "name": "Sunny",
+      "notes": "Bright, cheerful atmosphere with warm sunlight.",
+      "preview": null,
+      "tokens": [
+        { "value": "sunny", "enabled": true, "type": "positive", "tooltip": "Core Sunny atmosphere style." },
+        { "value": "sunlight", "enabled": true, "type": "lighting", "tooltip": "Features sunlight." },
+        { "value": "bright", "enabled": true, "type": "positive", "tooltip": "Creates a bright image." },
+        { "value": "warm", "enabled": true, "type": "positive", "tooltip": "Uses warm tones." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_atmosphere_008",
+      "category": "Atmosphere",
+      "name": "Foggy",
+      "notes": "Creates a dense, obscuring atmosphere with thick fog.",
+      "preview": null,
+      "tokens": [
+        { "value": "foggy", "enabled": true, "type": "positive", "tooltip": "Core Foggy atmosphere style." },
+        { "value": "thick fog", "enabled": true, "type": "positive", "tooltip": "Features thick fog." },
+        { "value": "obscuring", "enabled": true, "type": "positive", "tooltip": "Obscures visibility." },
+        { "value": "eerie", "enabled": true, "type": "positive", "tooltip": "Creates an eerie feel." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_conceptart_008",
+      "category": "Concept Art",
+      "name": "Cyberpunk",
+      "notes": "High-tech, gritty world with cybernetic enhancements and neon aesthetics.",
+      "preview": "style_cyberpunk_001.jpg",
+      "tokens": [
+        { "value": "cyberpunk", "enabled": true, "type": "positive", "tooltip": "Core Cyberpunk style." },
+        { "value": "high-tech", "enabled": true, "type": "positive", "tooltip": "Features high-tech elements." },
+        { "value": "gritty", "enabled": true, "type": "positive", "tooltip": "Creates a gritty atmosphere." },
+        { "value": "neon", "enabled": true, "type": "lighting", "tooltip": "Uses neon lighting." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_conceptart_005",
+      "category": "Concept Art",
+      "name": "3D Character",
+      "notes": "Professional 3D character design with dynamic poses and storytelling.",
+      "preview": null,
+      "tokens": [
+        { "value": "3d character", "enabled": true, "type": "positive", "tooltip": "Core 3D Character design style." },
+        { "value": "dynamic pose", "enabled": true, "type": "positive", "tooltip": "Features dynamic poses." },
+        { "value": "detailed", "enabled": true, "type": "positive", "tooltip": "Includes detailed design." },
+        { "value": "storytelling", "enabled": true, "type": "positive", "tooltip": "Conveys a story." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_conceptart_003",
+      "category": "Concept Art",
+      "name": "Game Item",
+      "notes": "Detailed painterly design of fantasy game items on a solid background.",
+      "preview": null,
+      "tokens": [
+        { "value": "game item", "enabled": true, "type": "positive", "tooltip": "Core Game Item design style." },
+        { "value": "fantasy", "enabled": true, "type": "positive", "tooltip": "Focuses on fantasy elements." },
+        { "value": "detailed", "enabled": true, "type": "positive", "tooltip": "Features detailed design." },
+        { "value": "painterly", "enabled": true, "type": "positive", "tooltip": "Uses a painterly style." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_fantasy_003",
+      "category": "Fantasy",
+      "name": "Fairytale",
+      "notes": "Inspired by folklore with magical creatures and moral lessons.",
+      "preview": "style_fairytale_001.jpg",
+      "tokens": [
+        { "value": "fairytale", "enabled": true, "type": "positive", "tooltip": "Core Fairytale style." },
+        { "value": "magical", "enabled": true, "type": "positive", "tooltip": "Features magical elements." },
+        { "value": "folklore", "enabled": true, "type": "positive", "tooltip": "Inspired by traditional folklore." },
+        { "value": "whimsical", "enabled": true, "type": "positive", "tooltip": "Creates a whimsical atmosphere." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_photography_013",
+      "category": "Photography",
+      "name": "Low Key",
+      "notes": "Dark photography with deep shadows and minimal highlights.",
+      "preview": "low_key.jpg",
+      "tokens": [
+        { "value": "low key", "enabled": true, "type": "positive", "tooltip": "Core Low Key style." },
+        { "value": "dark", "enabled": true, "type": "positive", "tooltip": "Emphasizes darkness." },
+        { "value": "deep shadows", "enabled": true, "type": "positive", "tooltip": "Features deep shadows." },
+        { "value": "contrast", "enabled": true, "type": "positive", "tooltip": "Uses rich contrast." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_photography_021",
+      "category": "Photography",
+      "name": "Reflection",
+      "notes": "Photography using reflections for symmetry and visual depth.",
+      "preview": "reflection.jpg",
+      "tokens": [
+        { "value": "reflection", "enabled": true, "type": "positive", "tooltip": "Core Reflection style." },
+        { "value": "symmetry", "enabled": true, "type": "positive", "tooltip": "Emphasizes symmetry." },
+        { "value": "mirrors", "enabled": true, "type": "positive", "tooltip": "Uses mirror-like surfaces." },
+        { "value": "depth", "enabled": true, "type": "positive", "tooltip": "Creates visual depth." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_fashion_005",
+      "category": "Fashion",
+      "name": "Streetwear",
+      "notes": "Urban-inspired casual fashion with bold graphics and self-expression.",
+      "preview": null,
+      "tokens": [
+        { "value": "streetwear", "enabled": true, "type": "positive", "tooltip": "Core Streetwear style." },
+        { "value": "urban", "enabled": true, "type": "positive", "tooltip": "Inspired by urban culture." },
+        { "value": "casual", "enabled": true, "type": "positive", "tooltip": "Features casual clothing." },
+        { "value": "bold graphics", "enabled": true, "type": "positive", "tooltip": "Uses bold graphics." }
+      ],
+      "combination": null
+    },
+     {
+      "id": "style_fashion_004",
+      "category": "Fashion",
+      "name": "Glamour",
+      "notes": "Sophisticated elegance with luxurious fabrics and embellishments.",
+      "preview": null,
+      "tokens": [
+        { "value": "glamour", "enabled": true, "type": "positive", "tooltip": "Core Glamour style." },
+        { "value": "elegance", "enabled": true, "type": "positive", "tooltip": "Emphasizes elegance." },
+        { "value": "luxurious", "enabled": true, "type": "positive", "tooltip": "Uses luxurious fabrics." },
+        { "value": "embellished", "enabled": true, "type": "positive", "tooltip": "Features embellishments." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_fashion_001",
+      "category": "Fashion",
+      "name": "Fashion General",
+      "notes": "Mainstream fashion reflecting current trends and accessibility.",
+      "preview": null,
+      "tokens": [
+        { "value": "fashion", "enabled": true, "type": "positive", "tooltip": "Core Fashion style." },
+        { "value": "mainstream", "enabled": true, "type": "positive", "tooltip": "Reflects mainstream trends." },
+        { "value": "stylish", "enabled": true, "type": "positive", "tooltip": "Creates a stylish look." },
+        { "value": "accessible", "enabled": true, "type": "positive", "tooltip": "Appeals to a wide audience." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_gameart_006",
+      "category": "Game Art",
+      "name": "Pixel Art",
+      "notes": "Pixelated design reminiscent of classic video games with charming simplicity.",
+      "preview": "style_pixel_art_002.jpg",
+      "tokens": [
+        { "value": "pixel art", "enabled": true, "type": "positive", "tooltip": "Core Pixel Art style." },
+        { "value": "pixelated", "enabled": true, "type": "positive", "tooltip": "Features pixelated graphics." },
+        { "value": "retro", "enabled": true, "type": "positive", "tooltip": "Mimics classic game aesthetics." },
+        { "value": "simplicity", "enabled": true, "type": "positive", "tooltip": "Emphasizes charming simplicity." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_photography_020",
+      "category": "Game Art",
+      "name": "Product",
+      "notes": "Crisp, clean photography showcasing products for commercial use.",
+      "preview": "product.jpg",
+      "tokens": [
+        { "value": "product", "enabled": true, "type": "positive", "tooltip": "Core Product style." },
+        { "value": "crisp", "enabled": true, "type": "positive", "tooltip": "Features crisp details." },
+        { "value": "clean", "enabled": true, "type": "positive", "tooltip": "Uses clean compositions." },
+        { "value": "commercial", "enabled": true, "type": "positive", "tooltip": "Has commercial appeal." }
+      ],
+      "combination": null
+    },
+   {
+      "id": "style_illustration_017",
+      "category": "Game Art",
+      "name": "Sticker",
+      "notes": "Simple sticker-style art on a solid background.",
+      "preview": null,
+      "tokens": [
+        { "value": "sticker", "enabled": true, "type": "positive", "tooltip": "Core Sticker style." },
+        { "value": "simple", "enabled": true, "type": "positive", "tooltip": "Features simple design." },
+        { "value": "solid background", "enabled": true, "type": "positive", "tooltip": "Uses a solid color background." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_historical_002",
+      "category": "Historical",
+      "name": "Baroque",
+      "notes": "17th-century style with dramatic compositions and ornate grandeur.",
+      "preview": "style_baroque_001.jpg",
+      "tokens": [
+        { "value": "baroque", "enabled": true, "type": "positive", "tooltip": "Core Baroque style." },
+        { "value": "dramatic", "enabled": true, "type": "positive", "tooltip": "Features dramatic compositions." },
+        { "value": "ornate", "enabled": true, "type": "positive", "tooltip": "Uses ornate details." },
+        { "value": "grandeur", "enabled": true, "type": "positive", "tooltip": "Conveys grandeur." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_historical_001",
+      "category": "Historical",
+      "name": "Renaissance",
+      "notes": "14th-16th century European style with classical inspiration and naturalism.",
+      "preview": "style_renaissance_001.jpg",
+      "tokens": [
+        { "value": "renaissance", "enabled": true, "type": "positive", "tooltip": "Core Renaissance style." },
+        { "value": "classical", "enabled": true, "type": "positive", "tooltip": "Inspired by antiquity." },
+        { "value": "naturalism", "enabled": true, "type": "positive", "tooltip": "Focuses on realistic depiction." },
+        { "value": "humanism", "enabled": true, "type": "positive", "tooltip": "Emphasizes human themes." }
+      ],
+      "combination": null
+    },
+      {
+      "id": "style_historical_008",
+      "category": "Historical",
+      "name": "Impressionism",
+      "notes": "19th-century style capturing fleeting light and moments with loose brushwork.",
+      "preview": "style_impressionism_001.jpg",
+      "tokens": [
+        { "value": "impressionism", "enabled": true, "type": "positive", "tooltip": "Core Impressionism style." },
+        { "value": "light", "enabled": true, "type": "positive", "tooltip": "Focuses on light effects." },
+        { "value": "loose brushwork", "enabled": true, "type": "positive", "tooltip": "Uses loose brushstrokes." },
+        { "value": "color", "enabled": true, "type": "positive", "tooltip": "Emphasizes vibrant colors." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_illustration_002",
+      "category": "Illustration",
+      "name": "Anime",
+      "notes": "Expressive Japanese-style illustrations with vibrant, dynamic visuals.",
+      "preview": null,
+      "tokens": [
+        { "value": "anime", "enabled": true, "type": "positive", "tooltip": "Core Anime style." },
+        { "value": "expressive", "enabled": true, "type": "positive", "tooltip": "Features expressive art." },
+        { "value": "vibrant", "enabled": true, "type": "positive", "tooltip": "Uses vibrant colors." },
+        { "value": "dynamic", "enabled": true, "type": "positive", "tooltip": "Creates dynamic compositions." }
+      ],
+      "combination": null
+    },
+     {
+      "id": "style_illustration_003",
+      "category": "Illustration",
+      "name": "Chibi",
+      "notes": "Cute anime style with exaggerated, small characters.",
+      "preview": null,
+      "tokens": [
+        { "value": "chibi", "enabled": true, "type": "positive", "tooltip": "Core Chibi style." },
+        { "value": "cute", "enabled": true, "type": "positive", "tooltip": "Features cute characters." },
+       { "value": "exaggerated", "enabled": true, "type": "positive", "tooltip": "Uses exaggerated proportions." },
+           { "value": "cartoony", "enabled": true, "type": "positive", "tooltip": "Child like style" }
+      ],
+      "combination": null
+    },
+   {
+      "id": "style_illustration_008",
+      "category": "Illustration",
+      "name": "Children's Book",
+      "notes": "Charming, playful illustrations for kids with bright colors.",
+      "preview": null,
+      "tokens": [
+           { "value": "illustrations", "enable": true, "type": "positive", "tooltip": "Make the art look like a child like picture" },
+           { "value": "storytelling", "enable": true, "type": "positive", "tooltip": "Express what would expect them to express" },
+           { "value": "positive", "enable": true, "type": "positive", "tooltip": "Keep in mind what they think at this age." },
+           { "value": "minimalist", "enable": true, "type": "positive", "tooltip": "No excessive addition." }
+           ],
+      "combination": null
+    },
+      {
+         "id": "community_photoprocess_001",
+           "category": "Photographic Process",
+           "name": "Line Art",
+           "notes": "Photographic process with clean black lines and a white backgound.",
+           "preview": null,
+           "tokens": [
+              { "value": "Line-art", "enabled": true, "type": "positive", "tooltip": "Show basic shapes with minimal colors." },
+               { "value": "black and white", "enabled": true, "type": "positive", "tooltip": "Renders monochrome scheme." },
+                { "value": "outlines", "enabled": true, "type": "positive", "tooltip": "Enforces bolder strokes." },
+                 { "value": "clean", "enabled": true, "type": "positive", "tooltip": "To have zero imperfections." }
+           ],
+        "combination": null
+      },
+    {
+      "id": "style_sciencefiction_005",
+      "category": "Science Fiction",
+      "name": "Tech Noir",
+      "notes": "Sci-fi fusion of technology and crime with a dark, high-tech edge.",
+      "preview": "style_tech_noir_001.jpg",
+      "tokens": [
+        { "value": "tech noir", "enabled": true, "type": "positive", "tooltip": "Core Tech Noir style." },
+        { "value": "technology", "enabled": true, "type": "positive", "tooltip": "Emphasizes technology." },
+        { "value": "crime", "enabled": true, "type": "positive", "tooltip": "Features crime themes." },
+        { "value": "gadgets", "enabled": true, "type": "positive", "tooltip": "Includes high-tech gadgets." }
+      ],
+      "combination": null
+    },
+    {
+      "id": "style_sciencefiction_001",
+      "category": "Science Fiction",
+      "name": "Space Opera",
+      "notes": "Epic sci-fi with galactic battles and heroic adventures.",
+      "preview": "style_space_opera_001.jpg",
+      "tokens": [
+        { "value": "space opera", "enabled": true, "type": "positive", "tooltip": "Core Space Opera style." },
+        { "value": "epic", "enabled": true, "type": "positive", "tooltip": "Features epic scale." },
+        { "value": "galactic", "enabled": true, "type": "positive", "tooltip": "Includes galactic themes." },
+        { "value": "heroic", "enabled": true, "type": "positive", "tooltip": "Emphasizes heroic adventures." }
+      ],
+      "combination": null
+    },
+     {
+      "id": "style_sciencefiction_009",
+      "category": "Science Fiction",
+      "name": "Retrofuturism",
+      "notes": "Nostalgic sci-fi blending retro aesthetics with futuristic visions.",
+      "preview": null,
+      "tokens": [
+        { "value": "retrofuturism", "enabled": true, "type": "positive", "tooltip": "Core Retrofuturism style." },
+        { "value": "nostalgic", "enabled": true, "type": "positive", "tooltip": "Evokes nostalgia." },
+        { "value": "retro", "enabled": true, "type": "positive", "tooltip": "Features retro aesthetics." },
+        { "value": "futuristic", "enabled": true, "type": "positive", "tooltip": "Includes futuristic elements." }
+      ],
+      "combination": null
+    }
+  ]
+}

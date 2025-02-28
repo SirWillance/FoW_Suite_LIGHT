@@ -9,14 +9,14 @@ NODE_VERSION = "Light"
 NODE_EMOJI = "🔱"
 
 class PromptSplitterLight:
-    MAX_OUTPUT_COUNT = 5  
+    MAX_OUTPUT_COUNT = 7  
 
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "prompt": ("STRING", {"multiline": True, "default": "Insert your Prompt her. For the most accurate experience remove all weighting. Enjoy. Also, disconnect the node after dividing your prompt 😁"}),  # Default example
-                "inputcount": ("INT", {"default": 5, "min": 1, "max": cls.MAX_OUTPUT_COUNT, "hidden": True}),  # Default to 5 outputs
+                "prompt": ("STRING", {"multiline": True, "default": "Insert your Prompt her. For the most accurate experience remove all weighting. You can drag the output of a textfield onto this textfield.  Enjoy. :)"}),  # Default example
+                "inputcount": ("INT", {"default": 1, "min": 1, "max": cls.MAX_OUTPUT_COUNT, "hidden": True}),  # Default to 5 outputs
             },
             "optional": {},
         }
@@ -31,16 +31,30 @@ This node allows you to easily separate complex prompts into smaller, manageable
 
 Key Features:
 - Divides prompts into components based on delimiters, points, and parenthesis, weight etc
-- Provides a dynamically adjustable number of output nozzles (up to 5).
+- Provides a dynamically adjustable number of output nozzles (up to 20).
 - This allows for clean access for the tokens/components, and easy maniplation over the outputs.
-
-PS: Follow me on https://www.twitch.tv/sirwillance/ for more information"""
-
+"""
     def split_prompt(self, prompt: str, inputcount: int) -> Tuple[str, ...]:
         """Splits the input prompt into individual components."""
+
         if not prompt.strip():
             print("⚠️ Warning: Empty prompt received.")
-            return tuple([""] * inputcount)  # Return empty strings if input is empty
+
+            # Ensure inputcount is an integer before using it
+            try:
+                inputcount = int(inputcount)
+            except ValueError:
+                print(f"⚠️ Warning: 'inputcount' has an invalid format ({inputcount}). Using default value of 5.")
+                inputcount = 1  # Default to 5 if conversion fails
+
+            return tuple([""] * inputcount)  # ✅ Now inputcount is always an integer
+
+        # Ensure inputcount is an integer
+        try:
+            inputcount = int(inputcount)
+        except ValueError:
+            print(f"⚠️ Warning: 'inputcount' has an invalid format ({inputcount}). Using default value of 5.")
+            inputcount = 1  # Default to 5 if conversion fails
 
         # **Improved Delimiters:** Handles various punctuation and logical separators
         delimiters = r"\s*(?:,|\||\.|\band\b|\bor\b|\bwith\b|\bfeaturing\b)\s*"
@@ -57,7 +71,6 @@ PS: Follow me on https://www.twitch.tv/sirwillance/ for more information"""
 
         print(f"🔹 Splitting prompt: '{prompt}' → {output}")
         return tuple(output)
-
 
 NODE_CLASS_MAPPINGS = {f"{NODE_ID_PREFIX}{TYPE_NAME}{NODE_FUNCTION}{NODE_VERSION}": PromptSplitterLight}
 

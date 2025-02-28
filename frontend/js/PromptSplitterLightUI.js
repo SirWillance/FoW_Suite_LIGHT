@@ -8,7 +8,7 @@ app.registerExtension({
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if (nodeData.name === "FoWLPromptSplitterLight") {
              nodeType.prototype.onNodeCreated = function () {
-                const MAX_OUTPUT_COUNT = 5;
+                const MAX_OUTPUT_COUNT = 7;
 
                 // Dropdown for selecting output count
                 const outputOptions = Array.from({ length: MAX_OUTPUT_COUNT }, (_, i) => (i + 1).toString());
@@ -29,7 +29,7 @@ app.registerExtension({
             };
 
             nodeType.prototype.updateOutputs = function (outputCount) {
-                const MAX_OUTPUT_COUNT = 5;
+                const MAX_OUTPUT_COUNT = 7;
                 const currentOutputCount = this.outputs.length;
 
                 if (outputCount > currentOutputCount) {

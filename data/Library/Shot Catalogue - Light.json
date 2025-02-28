@@ -1,0 +1,55 @@
+{
+  "FoW - Shots": [
+    {
+      "category": "Shot Catalogue - Light",
+      "name": "Shot Type",
+      "tokens": [
+        { "value": "Close-Up", "enable": false, "tooltip": "Focuses tightly on the subject, showing detail and emotion." },
+        { "value": "Medium Shot", "enable": false, "tooltip": "Shows the subject from the waist up, providing context." },
+        { "value": "Wide Shot", "enable": false, "tooltip": "Shows the subject in relation to their surroundings, emphasizing environment." },
+        { "value": "Full Shot", "enable": false, "tooltip": "A view of a figure in its entirety" }
+      ]
+    },
+    {
+      "category": "Shot Catalogue - Light",
+      "name": "Camera Angle",
+      "tokens": [
+        { "value": "Eye-Level", "enable": false, "tooltip": "Positions the camera at the same height as the subject's eyes, creating a neutral perspective." },
+        { "value": "High Angle", "enable": false, "tooltip": "Positions the camera above the subject, making them appear smaller or weaker." },
+        { "value": "Low Angle", "enable": false, "tooltip": "Positions the camera below the subject, making them appear larger or more powerful." }
+      ]
+    },
+    {
+      "category": "Shot Catalogue - Light",
+      "name": "Composition",
+      "tokens": [
+        { "value": "Centered", "enable": false, "tooltip": "Places the subject in the exact middle of the frame, emphasizing balance and stability." },
+        { "value": "Rule of Thirds", "enable": false, "tooltip": "Divides the frame into thirds, placing key elements along these lines or intersections for visual interest." }
+      ]
+    },
+    {
+      "category": "Shot Catalogue - Light",
+      "name": "Camera Movement",
+      "tokens": [
+        { "value": "Static", "enable": false, "tooltip": "Keeps the camera stationary, focusing on the subject without any movement." },
+        { "value": "Panning", "enable": false, "tooltip": "Horizontally rotates the camera on a fixed axis, following a moving subject or revealing a wide scene." },
+        { "value": "Tilting", "enable": false, "tooltip": "Vertically rotates the camera on a fixed axis, scanning up or down a subject or scene." }
+      ]
+    },
+    {
+      "category": "Shot Catalogue - Light",
+      "name": "Lens Type",
+      "tokens": [
+        { "value": "Standard", "enable": false, "tooltip": "Provides a natural perspective, similar to human vision." }
+      ]
+    },
+    {
+      "category": "Shot Catalogue - Light",
+      "name": "Subject Placement",
+      "tokens": [
+        { "value": "Foreground", "enable": false, "tooltip": "Places the subject in the foreground, making them the primary focus of the image." },
+        { "value": "Background", "enable": false, "tooltip": "Places the subject in the background, emphasizing their relationship to the environment." }
+      ]
+    }
+  ]
+}

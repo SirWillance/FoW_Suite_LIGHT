@@ -29,7 +29,8 @@ class PromptRefinerLight:
     RETURN_TYPES = ("CONDITIONING", "CONDITIONING", "STRING", "STRING")
     RETURN_NAMES = ("Positive Conditioning", "Negative Conditioning", "Combined Positive Prompt", "Combined Negative Prompt")
     FUNCTION = "fuse"  # The main function to execute
-    DESCRIPTION = """Defines raw prompts—Light tier simplicity, no customization (Pro/Ultimate only)."""
+    DESCRIPTION = """The only Node interface u will need! Enter your Positive and your Negative Prompt in here.
+Standard-Version includes Tokeniztion of your prompt. Pro-Version enhancements feature token weighting plus much much more."""
 
     @classmethod
     def INPUT_TYPES(cls):

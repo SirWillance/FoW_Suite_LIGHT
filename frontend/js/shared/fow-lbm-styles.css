@@ -1,0 +1,341 @@
+/* --- START OF FILE fow-lbm-styles.css --- */
+
+/* --- ============================ BASE STYLES ============================ --- */
+:root {
+  --fow-lbm-modal-background: #333333;
+  --fow-lbm-modal-text: #ffffff;
+  --fow-lbm-modal-accent: #79c257;
+  --fow-lbm-modal-accent-hover: #66a34a;
+  --fow-lbm-modal-border: #555;
+  --fow-lbm-modal-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --fow-lbm-token-background: #444444;
+
+  /* Collapsed/Expanded dimensions */
+  --fow-lbm-modal-collapse-width: 320px;
+  --fow-lbm-modal-expand-width: 420px;
+  --fow-lbm-modal-expand-height: 175px;
+}
+
+/* --- ============================ GENERAL MODAL STYLES ============================ --- */
+.fow-lbm-modal { /* Tier-specific */
+  position: fixed;
+  top: 100px;
+  left: 100px;
+  background-color: var(--fow-lbm-modal-background);
+  border-radius: 12px;
+  box-shadow: var(--fow-lbm-modal-box-shadow);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  color: var(--fow-lbm-modal-text);
+  font-family: sans-serif;
+  width: var(--fow-lbm-modal-expand-width);
+  height: var(--fow-lbm-modal-expand-height);
+  min-width: var(--fow-lbm-modal-expand-width);
+  min-height: var(--fow-lbm-modal-expand-height);
+  max-height: 80vh;
+  max-width: 800px;
+  overflow: hidden;
+}
+
+/* --- ============================ TITLE BAR STYLES ============================ --- */
+.fow-lbm-modal__titlebar { /* Tier-specific */
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--fow-lbm-modal-border);
+  cursor: grab;
+  padding-left: 40px;
+  border-color: #101010;
+  height: 40px;
+  background-color: var(--fow-lbm-modal-background);
+}
+
+.fow-lbm-modal__titlebar h3 { /* Tier-specific */
+  flex-grow: 1;
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #808080;
+}
+
+/* --- ============================ CLOSE BUTTON STYLES ============================ --- */
+.fow-lbm-modal__close { /* Tier-specific */
+  background: none;
+  border: none;
+  color: var(--fow-lbm-modal-text);
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 10px;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  outline: none;
+}
+
+.fow-lbm-modal__close:hover { /* Tier-specific */
+  opacity: 1;
+}
+
+/* --- ============================ MODAL Collapse STYLES ============================ --- */
+.fow-lbm-modal__collapse { /* Tier-specific */
+  background: none;
+  border: none;
+  color: var(--fow-lbm-modal-text);
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  outline: none;
+  margin-right: 5px;
+}
+
+.fow-lbm-modal__collapse:hover { /* Tier-specific */
+  opacity: 1;
+}
+
+/* --- ============================ MODAL CONTENT STYLES ============================ --- */
+.fow-lbm-modal-content { /* Tier-specific */
+  flex-grow: 1;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  overflow: visible;
+}
+
+.fow-lbm-content-wrapper { /* Tier-specific */
+  height: 100%;
+  overflow: auto;
+  background-color: var(--fow-lbm-modal-background);
+  color: var(--fow-lbm-modal-text);
+}
+
+/* --- ============================ OPERATION WINDOW STYLES ============================ --- */
+.fow-lbm-operation-window { /* Tier-specific */
+    position: sticky;
+    top: 0;
+    background-color: #202020;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border-radius: 50px;
+    border: 2px solid var(--fow-lbm-modal-border);
+    z-index: 10;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+/* --- ============================ CONTROL WINDOW STYLES ============================ --- */
+.fow-lbm-control-window { /* Tier-specific */
+  position: sticky;
+  background-color: #555;
+  padding: 1px;
+  margin-bottom: 10px;
+  border: 1px solid var(--fow-lbm-modal-border);
+}
+
+#fow-lbm-selected-token-output { /* Tier-specific */
+  white-space: pre-line;
+  margin: 0;
+  font-size: 0.9em;
+  color: #ccc;
+  background-color: #202020;
+  padding: 15px;
+}
+
+/* --- ============================ SEARCH BAR STYLES ============================ --- */
+.fow-lbm-operation-window .fow-lbm-search-bar { /* Tier-specific */
+  flex: 1;
+  padding: 6px 12px;
+  margin-right: 8px;
+  border: 1px solid #777;
+  border-radius: 20px;
+  background-color: #555;
+  color: #ccc;
+  font-size: 14px;
+  height: 28px;
+  outline: none;
+}
+
+.fow-lbm-operation-window .fow-lbm-search-bar:focus { /* Tier-specific */
+  border-color: #999;
+  box-shadow: none;
+}
+
+/* --- ============================ BUTTON GROUP STYLES ============================ --- */
+.fow-lbm-operation-window .fow-lbm-button-group { /* Tier-specific */
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* --- ============================ BUTTON STYLES ============================ --- */
+.fow-lbm-operation-window .fow-lbm-button-group button { /* Tier-specific */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  transform: scale(1.05);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.fow-lbm-operation-window .fow-lbm-button-group .fow-lbm-deselect-all-button { /* Tier-specific */
+  background-color: #8a1d16;
+  color: white;
+}
+
+.fow-lbm-operation-window .fow-lbm-button-group button.fow-lbm-deselect-all-button:hover { /* Tier-specific */
+  background-color: #da190b;
+}
+
+.fow-lbm-operation-window .fow-lbm-button-group .fow-lbm-file-button { /* Tier-specific */
+  background-color: #1e2772;
+  color: #101010;
+}
+
+.fow-lbm-operation-window .fow-lbm-button-group button.fow-lbm-file-button:hover { /* Tier-specific */
+  background-color: #3333ff;
+}
+
+.fow-lbm-operation-window .fow-lbm-button-group .fow-lbm-confirm-button { /* Tier-specific */
+  background-color: #127015;
+  color: white;
+}
+
+.fow-lbm-operation-window .fow-lbm-button-group button.fow-lbm-confirm-button:hover { /* Tier-specific */
+  background-color: #45a049;
+}
+
+/* --- ============================ CATEGORIES CONTAINER STYLES ============================ --- */
+.fow-lbm-categories-container { /* Tier-specific */
+  margin-top: 12px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- ============================ CATEGORY STYLES ============================ --- */
+.fow-lbm-category { /* Tier-specific */
+  margin-bottom: 10px;
+  border: 1px solid var(--fow-lbm-modal-border);
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.fow-lbm-category h4 { /* Tier-specific */
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #ddd;
+  padding: 8px;
+  background-color: #444;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.fow-lbm-category h4:hover { /* Tier-specific */
+  background-color: #555;
+}
+
+/* --- ============================ STYLES CONTAINER STYLES ============================ --- */
+.fow-lbm-styles-container { /* Tier-specific */
+  margin-top: 12px;
+}
+
+/* --- ============================ STYLE ITEM STYLES ============================ --- */
+.fow-lbm-style-item { /* Tier-specific */
+  margin-bottom: 5px;
+  padding-left: 15px;
+}
+
+.fow-lbm-style-item label { /* Tier-specific */
+  display: block;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  border-bottom: 1px solid var(--fow-lbm-modal-border);
+  transition: background-color 0.2s ease;
+}
+
+.fow-lbm-style-item label:hover { /* Tier-specific */
+  background-color: #555;
+}
+
+/* --- ============================ TOKENS LIST STYLES ============================ --- */
+.fow-lbm-tokens-list { /* Tier-specific */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: flex-start;
+}
+
+/* --- ============================ TOKEN LIST ITEM STYLES ============================ --- */
+.fow-lbm-tokens-list li { /* Tier-specific */
+  padding: 3px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 1px;
+  background-color: var(--fow-lbm-token-background);
+  transition: background-color 0.2s ease;
+  font-size: 0.85em;
+  display: inline-block;
+  white-space: nowrap;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 4px;
+  margin-top: 4px;
+}
+
+.fow-lbm-tokens-list li:hover { /* Tier-specific */
+  background-color: #666;
+}
+
+.fow-lbm-tokens-list li.token-enabled { /* Tier-specific */
+  background-color: var(--fow-lbm-modal-accent);
+  color: var(--fow-lbm-modal-text);
+}
+
+/* --- ============================ RESIZE HANDLE STYLES ============================ --- */
+.fow-lbm-modal-resize-handle { /* Tier-specific */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background-color: #ccc;
+  cursor: se-resize;
+  z-index: 1002;
+  border-radius: 2px;
+}
+
+.fow-lbm-modal-resize-handle:hover { /* Tier-specific */
+  background-color: #999;
+}
+
+/* --- ============================ UTILITY CLASSES ============================ --- */
+.fow-lbm-hidden { /* Tier-specific */
+  display: none !important;
+}
+
+/* --- END OF FILE fow-lbm-styles.css --- */

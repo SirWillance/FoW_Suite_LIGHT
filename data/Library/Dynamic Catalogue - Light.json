@@ -1,0 +1,935 @@
+{
+  "FoW - Dynamic": [
+    {
+      "id": "dynamic_abstract_005",
+      "category": "Dynamic Abstract",
+      "name": "Minimalism",
+      "notes": "Remove if artwork is not meant to be minimalist. Useful to create busy, excessive designs.",
+      "tokens": [
+        {
+          "value": "clutter",
+          "enabled": true,
+          "tooltip": "Remove crowded elements to preserve simplicity."
+        },
+        {
+          "value": "excess",
+          "enabled": true,
+          "tooltip": "Remove overabundance countering sparse forms."
+        },
+        {
+          "value": "ornamentation",
+          "enabled": true,
+          "tooltip": "Remove decorative excess to focus on form."
+        },
+        {
+          "value": "distraction",
+          "enabled": true,
+          "tooltip": "Remove chaotic noise to maintain sparse impact."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_abstract_007",
+      "category": "Dynamic Abstract",
+      "name": "Fluid Dynamics",
+      "notes": "Remove if artwork is not meant to be fluid dynamics. Useful to create static, muted designs.",
+      "tokens": [
+        {
+          "value": "flatness",
+          "enabled": true,
+          "tooltip": "Remove depth countering 3D fluid renders."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove vibrant colors to mute the palette."
+        },
+        {
+          "value": "stagnation",
+          "enabled": true,
+          "tooltip": "Remove motion to halt dynamic flow."
+        },
+        {
+          "value": "realism",
+          "enabled": true,
+          "tooltip": "Remove concrete forms to maintain abstraction."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_abstract_006",
+      "category": "Dynamic Abstract",
+      "name": "Surrealism",
+      "notes": "Remove if artwork is not meant to be surrealist. Useful to create literal, grounded designs.",
+      "tokens": [
+        {
+          "value": "realism",
+          "enabled": true,
+          "tooltip": "Remove realistic elements countering surreal oddity."
+        },
+        {
+          "value": "clarity",
+          "enabled": true,
+          "tooltip": "Remove clear logic to preserve dreamlike quality."
+        },
+        {
+          "value": "consciousness",
+          "enabled": true,
+          "tooltip": "Remove rational thought disrupting subconscious."
+        },
+        {
+          "value": "predictability",
+          "enabled": true,
+          "tooltip": "Remove expected forms to keep illogical charm."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_analogart_002",
+      "category": "Dynamic Analog Art",
+      "name": "Pencil Drawing",
+      "notes": "Remove if artwork is not meant to be pencil drawing. Useful to create abstract, rough designs.",
+      "tokens": [
+        {
+          "value": "abstraction",
+          "enabled": true,
+          "tooltip": "Remove vague forms countering realism."
+        },
+        {
+          "value": "color",
+          "enabled": true,
+          "tooltip": "Remove hues disrupting monochromatic style."
+        },
+        {
+          "value": "flatness",
+          "enabled": true,
+          "tooltip": "Remove lack of shading to maintain depth."
+        },
+        {
+          "value": "messiness",
+          "enabled": true,
+          "tooltip": "Remove sloppy lines to preserve sketch precision."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_analogart_008",
+      "category": "Dynamic Analog Art",
+      "name": "Ink Drawing",
+      "notes": "Remove if artwork is not meant to be ink drawing. Useful to create soft, vague designs.",
+      "tokens": [
+        {
+          "value": "softness",
+          "enabled": true,
+          "tooltip": "Remove gentle lines countering bold strokes."
+        },
+        {
+          "value": "evenness",
+          "enabled": true,
+          "tooltip": "Remove uniform tones disrupting high contrast."
+        },
+        {
+          "value": "simplicity",
+          "enabled": true,
+          "tooltip": "Remove basic forms to maintain intricate detail."
+        },
+        {
+          "value": "color",
+          "enabled": true,
+          "tooltip": "Remove hues countering stark ink lines."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_analogart_009",
+      "category": "Dynamic Analog Art",
+      "name": "Sumi-e Painting",
+      "notes": "Remove if artwork is not meant to be sumi-e. Useful to create busy, colorful designs.",
+      "tokens": [
+        {
+          "value": "clutter",
+          "enabled": true,
+          "tooltip": "Remove crowded elements countering simplicity."
+        },
+        {
+          "value": "color",
+          "enabled": true,
+          "tooltip": "Remove hues disrupting ink wash purity."
+        },
+        {
+          "value": "excess",
+          "enabled": true,
+          "tooltip": "Remove overabundance to maintain minimal strokes."
+        },
+        {
+          "value": "chaos",
+          "enabled": true,
+          "tooltip": "Remove disorder to preserve meditative calm."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_architecture_003",
+      "category": "Dynamic Architecture",
+      "name": "Gothic",
+      "notes": "Remove if artwork is not meant to be gothic. Useful to create modern, flat designs.",
+      "tokens": [
+        {
+          "value": "modernity",
+          "enabled": true,
+          "tooltip": "Remove contemporary elements countering medieval style."
+        },
+        {
+          "value": "flatness",
+          "enabled": true,
+          "tooltip": "Remove uniform shapes disrupting pointed arches."
+        },
+        {
+          "value": "even lighting",
+          "enabled": true,
+          "tooltip": "Remove bland illumination to maintain dramatic effects."
+        },
+        {
+          "value": "literalism",
+          "enabled": true,
+          "tooltip": "Remove plain forms countering rich symbolism."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_architecture_004",
+      "category": "Dynamic Architecture",
+      "name": "Art Deco",
+      "notes": "Remove if artwork is not meant to be art deco. Useful to create organic, austere designs.",
+      "tokens": [
+        {
+          "value": "organic forms",
+          "enabled": true,
+          "tooltip": "Remove flowing shapes countering geometric patterns."
+        },
+        {
+          "value": "asymmetry",
+          "enabled": true,
+          "tooltip": "Remove uneven layouts disrupting symmetry."
+        },
+        {
+          "value": "simplicity",
+          "enabled": true,
+          "tooltip": "Remove basic forms to maintain luxurious detail."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones countering modern luxury."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_architecture_006",
+      "category": "Dynamic Architecture",
+      "name": "Modernism",
+      "notes": "Remove if artwork is not meant to be modernist. Useful to create ornate, traditional designs.",
+      "tokens": [
+        {
+          "value": "ornamentation",
+          "enabled": true,
+          "tooltip": "Remove decorative excess countering simplicity."
+        },
+        {
+          "value": "tradition",
+          "enabled": true,
+          "tooltip": "Remove old-fashioned elements to maintain innovation."
+        },
+        {
+          "value": "complexity",
+          "enabled": true,
+          "tooltip": "Remove cluttered forms disrupting functional design."
+        },
+        {
+          "value": "rigidity",
+          "enabled": true,
+          "tooltip": "Remove stiff structures countering experimentation."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_atmosphere_001",
+      "category": "Dynamic Atmosphere",
+      "name": "Gloomy",
+      "notes": "Remove if artwork is not meant to be gloomy. Useful to create bright, cheerful designs.",
+      "tokens": [
+        {
+          "value": "brightness",
+          "enabled": true,
+          "tooltip": "Remove vivid light countering darkness."
+        },
+        {
+          "value": "cheerfulness",
+          "enabled": true,
+          "tooltip": "Remove happy tones disrupting foreboding mood."
+        },
+        {
+          "value": "clarity",
+          "enabled": true,
+          "tooltip": "Remove clear elements to maintain dark gloom."
+        },
+        {
+          "value": "vibrancy",
+          "enabled": true,
+          "tooltip": "Remove lively colors countering muted tones."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_atmosphere_010",
+      "category": "Dynamic Atmosphere",
+      "name": "Sunny",
+      "notes": "Remove if artwork is not meant to be sunny. Useful to create dark, gloomy designs.",
+      "tokens": [
+        {
+          "value": "darkness",
+          "enabled": true,
+          "tooltip": "Remove dim elements countering bright sunlight."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones disrupting vivid warmth."
+        },
+        {
+          "value": "gloom",
+          "enabled": true,
+          "tooltip": "Remove somber mood to maintain cheerful light."
+        },
+        {
+          "value": "coldness",
+          "enabled": true,
+          "tooltip": "Remove cool tones countering warm sunlight."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_atmosphere_008",
+      "category": "Dynamic Atmosphere",
+      "name": "Foggy",
+      "notes": "Remove if artwork is not meant to be foggy. Useful to create bright, clear designs.",
+      "tokens": [
+        {
+          "value": "clarity",
+          "enabled": true,
+          "tooltip": "Remove sharp visibility countering thick fog."
+        },
+        {
+          "value": "brightness",
+          "enabled": true,
+          "tooltip": "Remove vivid light disrupting obscured mood."
+        },
+        {
+          "value": "calmness",
+          "enabled": true,
+          "tooltip": "Remove peaceful tones to maintain eerie feel."
+        },
+        {
+          "value": "definition",
+          "enabled": true,
+          "tooltip": "Remove clear forms countering foggy haze."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_conceptart_008",
+      "category": "Dynamic Concept Art",
+      "name": "Cyberpunk",
+      "notes": "Remove if artwork is not meant to be cyberpunk. Useful to create soft, natural designs.",
+      "tokens": [
+        {
+          "value": "softness",
+          "enabled": true,
+          "tooltip": "Remove gentle forms countering high-tech grit."
+        },
+        {
+          "value": "nature",
+          "enabled": true,
+          "tooltip": "Remove organic elements disrupting dystopian tech."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones to maintain neon vibrancy."
+        },
+        {
+          "value": "simplicity",
+          "enabled": true,
+          "tooltip": "Remove basic forms countering gritty complexity."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_conceptart_005",
+      "category": "Dynamic Concept Art",
+      "name": "3D Character",
+      "notes": "Remove if artwork is not meant to be 3D character. Useful to create flat, abstract designs.",
+      "tokens": [
+        {
+          "value": "flatness",
+          "enabled": true,
+          "tooltip": "Remove 2D elements countering dynamic 3D poses."
+        },
+        {
+          "value": "abstraction",
+          "enabled": true,
+          "tooltip": "Remove vague forms disrupting detailed design."
+        },
+        {
+          "value": "static",
+          "enabled": true,
+          "tooltip": "Remove still forms to maintain dynamic poses."
+        },
+        {
+          "value": "simplicity",
+          "enabled": true,
+          "tooltip": "Remove basic forms countering storytelling depth."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_conceptart_003",
+      "category": "Dynamic Concept Art",
+      "name": "Game Item",
+      "notes": "Remove if artwork is not meant to be game item. Useful to create abstract, vague designs.",
+      "tokens": [
+        {
+          "value": "abstraction",
+          "enabled": true,
+          "tooltip": "Remove vague forms countering detailed fantasy."
+        },
+        {
+          "value": "simplicity",
+          "enabled": true,
+          "tooltip": "Remove basic forms disrupting painterly detail."
+        },
+        {
+          "value": "realism",
+          "enabled": true,
+          "tooltip": "Remove literal elements to maintain fantastical items."
+        },
+        {
+          "value": "clutter",
+          "enabled": true,
+          "tooltip": "Remove crowded elements countering solid background."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_fantasy_003",
+      "category": "Dynamic Fantasy",
+      "name": "Fairytale",
+      "notes": "Remove if artwork is not meant to be fairytale. Useful to create realistic, harsh designs.",
+      "tokens": [
+        {
+          "value": "realism",
+          "enabled": true,
+          "tooltip": "Remove literal elements countering magical whimsy."
+        },
+        {
+          "value": "harshness",
+          "enabled": true,
+          "tooltip": "Remove stark forms disrupting folklore charm."
+        },
+        {
+          "value": "modernity",
+          "enabled": true,
+          "tooltip": "Remove contemporary tones to maintain traditional feel."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones countering whimsical vibrancy."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_photography_013",
+      "category": "Dynamic Photography",
+      "name": "Low Key",
+      "notes": "Remove if artwork is not meant to be low key. Useful to create bright, even designs.",
+      "tokens": [
+        {
+          "value": "brightness",
+          "enabled": true,
+          "tooltip": "Remove vivid light countering dark shadows."
+        },
+        {
+          "value": "evenness",
+          "enabled": true,
+          "tooltip": "Remove uniform tones disrupting deep contrast."
+        },
+        {
+          "value": "clarity",
+          "enabled": true,
+          "tooltip": "Remove sharp forms to maintain moody depth."
+        },
+        {
+          "value": "vibrancy",
+          "enabled": true,
+          "tooltip": "Remove lively tones countering low key drama."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_photography_021",
+      "category": "Dynamic Photography",
+      "name": "Reflection",
+      "notes": "Remove if artwork is not meant to be reflection photography. Useful to create chaotic, flat designs.",
+      "tokens": [
+        {
+          "value": "chaos",
+          "enabled": true,
+          "tooltip": "Remove disorder countering symmetrical reflections."
+        },
+        {
+          "value": "flatness",
+          "enabled": true,
+          "tooltip": "Remove even forms disrupting mirrored depth."
+        },
+        {
+          "value": "distortion",
+          "enabled": true,
+          "tooltip": "Remove warped forms to maintain clear symmetry."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones countering reflective vibrancy."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_fashion_005",
+      "category": "Dynamic Fashion",
+      "name": "Streetwear",
+      "notes": "Remove if artwork is not meant to be streetwear. Useful to create formal, subdued designs.",
+      "tokens": [
+        {
+          "value": "formality",
+          "enabled": true,
+          "tooltip": "Remove stiff elements countering urban casual."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones disrupting bold graphics."
+        },
+        {
+          "value": "restraint",
+          "enabled": true,
+          "tooltip": "Remove timid forms to maintain self-expression."
+        },
+        {
+          "value": "rural",
+          "enabled": true,
+          "tooltip": "Remove pastoral elements countering urban vibe."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_fashion_004",
+      "category": "Dynamic Fashion",
+      "name": "Glamour",
+      "notes": "Remove if artwork is not meant to be glamour. Useful to create plain, rugged designs.",
+      "tokens": [
+        {
+          "value": "plainness",
+          "enabled": true,
+          "tooltip": "Remove simple forms countering elegant luxury."
+        },
+        {
+          "value": "ruggedness",
+          "enabled": true,
+          "tooltip": "Remove rough tones disrupting sophistication."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones to maintain luxurious vibrancy."
+        },
+        {
+          "value": "minimalism",
+          "enabled": true,
+          "tooltip": "Remove sparse forms countering embellished detail."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_fashion_001",
+      "category": "Dynamic Fashion",
+      "name": "Fashion General",
+      "notes": "Remove if artwork is not meant to be fashion general. Useful to create niche, outdated designs.",
+      "tokens": [
+        {
+          "value": "niche",
+          "enabled": true,
+          "tooltip": "Remove exclusive elements countering mainstream appeal."
+        },
+        {
+          "value": "dated",
+          "enabled": true,
+          "tooltip": "Remove old-fashioned tones disrupting current trends."
+        },
+        {
+          "value": "drabness",
+          "enabled": true,
+          "tooltip": "Remove dull tones to maintain stylish flair."
+        },
+        {
+          "value": "complexity",
+          "enabled": true,
+          "tooltip": "Remove intricate forms countering accessibility."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_gameart_006",
+      "category": "Dynamic Game Art",
+      "name": "Pixel Art",
+      "notes": "Remove if artwork is not meant to be pixel art. Useful to create smooth, modern designs.",
+      "tokens": [
+        {
+          "value": "smoothness",
+          "enabled": true,
+          "tooltip": "Remove fluid forms countering pixelated style."
+        },
+        {
+          "value": "modernity",
+          "enabled": true,
+          "tooltip": "Remove contemporary elements disrupting retro feel."
+        },
+        {
+          "value": "complexity",
+          "enabled": true,
+          "tooltip": "Remove intricate forms to maintain charming simplicity."
+        },
+        {
+          "value": "realism",
+          "enabled": true,
+          "tooltip": "Remove literal elements countering pixel charm."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_photography_020",
+      "category": "Dynamic Photography",
+      "name": "Product",
+      "notes": "Remove if artwork is not meant to be product photography. Useful to create cluttered, dull designs.",
+      "tokens": [
+        {
+          "value": "clutter",
+          "enabled": true,
+          "tooltip": "Remove crowded forms countering crisp clarity."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones disrupting clean vibrancy."
+        },
+        {
+          "value": "chaos",
+          "enabled": true,
+          "tooltip": "Remove disorder to maintain commercial appeal."
+        },
+        {
+          "value": "abstraction",
+          "enabled": true,
+          "tooltip": "Remove vague forms countering product focus."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_illustration_017",
+      "category": "Dynamic Illustration",
+      "name": "Sticker",
+      "notes": "Remove if artwork is not meant to be sticker illustration. Useful to create complex, cluttered designs.",
+      "tokens": [
+        {
+          "value": "complexity",
+          "enabled": true,
+          "tooltip": "Remove intricate forms countering simple design."
+        },
+        {
+          "value": "clutter",
+          "enabled": true,
+          "tooltip": "Remove crowded elements disrupting solid background."
+        },
+        {
+          "value": "depth",
+          "enabled": true,
+          "tooltip": "Remove 3D forms to maintain flat sticker style."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_historical_002",
+      "category": "Dynamic Historical",
+      "name": "Baroque",
+      "notes": "Remove if artwork is not meant to be baroque. Useful to create simple, muted designs.",
+      "tokens": [
+        {
+          "value": "simplicity",
+          "enabled": true,
+          "tooltip": "Remove basic forms countering dramatic grandeur."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones disrupting ornate richness."
+        },
+        {
+          "value": "flatness",
+          "enabled": true,
+          "tooltip": "Remove even forms to maintain dramatic composition."
+        },
+        {
+          "value": "restraint",
+          "enabled": true,
+          "tooltip": "Remove timid elements countering baroque excess."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_historical_001",
+      "category": "Dynamic Historical",
+      "name": "Renaissance",
+      "notes": "Remove if artwork is not meant to be renaissance. Useful to create abstract, modern designs.",
+      "tokens": [
+        {
+          "value": "abstraction",
+          "enabled": true,
+          "tooltip": "Remove vague forms countering classical naturalism."
+        },
+        {
+          "value": "modernity",
+          "enabled": true,
+          "tooltip": "Remove contemporary elements disrupting antiquity."
+        },
+        {
+          "value": "distortion",
+          "enabled": true,
+          "tooltip": "Remove warped forms to maintain realistic depiction."
+        },
+        {
+          "value": "chaos",
+          "enabled": true,
+          "tooltip": "Remove disorder countering humanist harmony."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_historical_008",
+      "category": "Dynamic Historical",
+      "name": "Impressionism",
+      "notes": "Remove if artwork is not meant to be impressionist. Useful to create rigid, detailed designs.",
+      "tokens": [
+        {
+          "value": "rigidity",
+          "enabled": true,
+          "tooltip": "Remove stiff forms countering loose brushwork."
+        },
+        {
+          "value": "darkness",
+          "enabled": true,
+          "tooltip": "Remove dim tones disrupting light effects."
+        },
+        {
+          "value": "precision",
+          "enabled": true,
+          "tooltip": "Remove exact forms to maintain fleeting color."
+        },
+        {
+          "value": "realism",
+          "enabled": true,
+          "tooltip": "Remove literal elements countering impressionist moments."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_illustration_002",
+      "category": "Dynamic Illustration",
+      "name": "Anime",
+      "notes": "Remove if artwork is not meant to be anime. Useful to create static, muted designs.",
+      "tokens": [
+        {
+          "value": "static",
+          "enabled": true,
+          "tooltip": "Remove still forms countering expressive dynamics."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones disrupting vibrant visuals."
+        },
+        {
+          "value": "realism",
+          "enabled": true,
+          "tooltip": "Remove literal forms to maintain anime expressiveness."
+        },
+        {
+          "value": "simplicity",
+          "enabled": true,
+          "tooltip": "Remove basic forms countering dynamic flair."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_illustration_003",
+      "category": "Dynamic Illustration",
+      "name": "Chibi",
+      "notes": "Remove if artwork is not meant to be chibi. Useful to create realistic, serious designs.",
+      "tokens": [
+        {
+          "value": "realism",
+          "enabled": true,
+          "tooltip": "Remove literal forms countering cute exaggeration."
+        },
+        {
+          "value": "seriousness",
+          "enabled": true,
+          "tooltip": "Remove stern tones disrupting playful charm."
+        },
+        {
+          "value": "proportion",
+          "enabled": true,
+          "tooltip": "Remove realistic scale to maintain exaggerated forms."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones countering chibi vibrancy."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_illustration_008",
+      "category": "Dynamic Illustration",
+      "name": "Children's Book",
+      "notes": "Remove if artwork is not meant to be children's book. Useful to create dark, complex designs.",
+      "tokens": [
+        {
+          "value": "darkness",
+          "enabled": true,
+          "tooltip": "Remove dim tones countering charming brightness."
+        },
+        {
+          "value": "complexity",
+          "enabled": true,
+          "tooltip": "Remove intricate forms disrupting playful simplicity."
+        },
+        {
+          "value": "seriousness",
+          "enabled": true,
+          "tooltip": "Remove stern tones to maintain engaging charm."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones countering bright colors."
+        }
+      ]
+    },
+    {
+        "id": "dynamic_photoprocess_001",
+        "category": "Dynamic Photographic Process",
+        "name": "Albumen Print",
+        "notes": "Remove if artwork is not meant to be albumen print. Useful to create modern, colorful designs.",
+        "tokens": [
+          { "value": "modernity", "enabled": true, "tooltip": "Remove contemporary forms countering vintage style." },
+          { "value": "color", "enabled": true, "tooltip": "Remove hues disrupting sepia tones." },
+          { "value": "coarseness", "enabled": true, "tooltip": "Remove rough forms to maintain fine detail." },
+          { "value": "brightness", "enabled": true, "tooltip": "Remove vivid tones countering soft vintage." }
+        ]
+      },
+    {
+      "id": "dynamic_sciencefiction_005",
+      "category": "Dynamic Science Fiction",
+      "name": "Tech Noir",
+      "notes": "Remove if artwork is not meant to be tech noir. Useful to create soft, low-tech designs.",
+      "tokens": [
+        {
+          "value": "softness",
+          "enabled": true,
+          "tooltip": "Remove gentle forms countering high-tech edge."
+        },
+        {
+          "value": "simplicity",
+          "enabled": true,
+          "tooltip": "Remove basic forms disrupting tech complexity."
+        },
+        {
+          "value": "brightness",
+          "enabled": true,
+          "tooltip": "Remove vivid tones to maintain dark crime mood."
+        },
+        {
+          "value": "nature",
+          "enabled": true,
+          "tooltip": "Remove organic forms countering gadget focus."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_sciencefiction_001",
+      "category": "Dynamic Science Fiction",
+      "name": "Space Opera",
+      "notes": "Remove if artwork is not meant to be space opera. Useful to create mundane, simple designs.",
+      "tokens": [
+        {
+          "value": "mundanity",
+          "enabled": true,
+          "tooltip": "Remove ordinary forms countering epic galactic scale."
+        },
+        {
+          "value": "simplicity",
+          "enabled": true,
+          "tooltip": "Remove basic forms disrupting heroic grandeur."
+        },
+        {
+          "value": "realism",
+          "enabled": true,
+          "tooltip": "Remove literal forms to maintain fantastical battles."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones countering space opera vibrancy."
+        }
+      ]
+    },
+    {
+      "id": "dynamic_sciencefiction_009",
+      "category": "Dynamic Science Fiction",
+      "name": "Retrofuturism",
+      "notes": "Remove if artwork is not meant to be retrofuturism. Useful to create modern, realistic designs.",
+      "tokens": [
+        {
+          "value": "modernity",
+          "enabled": true,
+          "tooltip": "Remove contemporary forms countering retro vision."
+        },
+        {
+          "value": "realism",
+          "enabled": true,
+          "tooltip": "Remove literal forms disrupting futuristic nostalgia."
+        },
+        {
+          "value": "dullness",
+          "enabled": true,
+          "tooltip": "Remove muted tones to maintain retro vibrancy."
+        },
+        {
+          "value": "simplicity",
+          "enabled": true,
+          "tooltip": "Remove basic forms countering nostalgic flair."
+        }
+      ]
+    }
+  ]
+}

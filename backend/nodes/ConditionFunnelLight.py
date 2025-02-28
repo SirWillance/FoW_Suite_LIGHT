@@ -24,7 +24,7 @@ class ConditionFunnelLight:
         Install via ComfyUI Manager (“Install Custom Nodes” → “Force of Will Suite Light”) or clone from GitHub (https://github.com/SirWillance/FoW_Suite_LIGHT). Help me level up on Twitch (https://www.twitch.tv/sirwillance) for free `FoW_Suite_Standard` (€15) via Discord (https://discord.gg/BHSxf8HB)!
     """
 
-    MAX_INPUT_COUNT = 5
+    MAX_INPUT_COUNT = 8
 
     @classmethod
     def INPUT_TYPES(cls):

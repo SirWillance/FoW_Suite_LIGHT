@@ -22,7 +22,7 @@ Welcome to the behind-the-scenes story of building `FoW_Suite_LIGHT`, especially
 ## 3. Victories and Lessons
 - **Light Version Success**: Finalizing `FoW_Suite_LIGHT` as a simple, stable suite with `PromptRefinerLight` was a win—users can enter prompts, save/load files, and use predefined libraries easily.
 - **Community Feedback**: Testing with newbies showed alerts were helpful but overwhelming, leading to the “Show Tips” toggle. Twitch followers helped refine `FoW_Suite_Standard` (€15) ideas.
-- **Future Plans**: I plan to expand to `FoW_Suite_Standard` (€15, enhanced Light nodes), `FoW_Suite_Pro` (€25, `PromptRefinerPro` with customized tokens), and `FoW_Suite_Ultimate` (€100, premium), but `FoW_Suite_LIGHT` keeps it approachable.
+- **Future Plans**: I plan to expand to `FoW_Suite_Standard` (€15, enhanced Light nodes), `FoW_Suite_Pro` (€25, `PromptRefinerPro` with customized tokens), and `FoW_Suite_Ultimate` (€100, premium decoy), but `FoW_Suite_LIGHT` keeps it approachable.
 
 ---
 

@@ -8,13 +8,13 @@ app.registerExtension({
         if (nodeData.name === "FoWLConditionFunnelLight") {
 
             // **Fetch MAX_INPUT_COUNT from the Python backend**
-            let MAX_INPUT_COUNT = 6; // Default value, will be overwritten if fetch fails
+            let MAX_INPUT_COUNT = 8; // Default value, will be overwritten if fetch fails
             try {
                 // Assuming the ConditionFunnel class has a MAX_INPUT_COUNT attribute
                 MAX_INPUT_COUNT = nodeData.input_types.required.MAX_INPUT_COUNT[0];
                 if (typeof MAX_INPUT_COUNT !== 'number' || MAX_INPUT_COUNT <= 0) {
                     console.warn("Invalid MAX_INPUT_COUNT from backend, using default: 11");
-                    MAX_INPUT_COUNT = 6; // Revert to default
+                    MAX_INPUT_COUNT = 8; // Revert to default
                 }
             } catch (error) {
                 console.warn("Failed to fetch MAX_INPUT_COUNT from backend, using default: 11", error);

@@ -247,171 +247,6 @@
       "bgcolor": "#653"
     },
     {
-      "id": 36,
-      "type": "FoWLTextWeight",
-      "pos": [
-        -2663.957763671875,
-        2026.06298828125
-      ],
-      "size": [
-        400,
-        200
-      ],
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "Weighted Text",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "title": "Base",
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9",
-        "Node name for S&R": "FoWLTextWeight"
-      },
-      "widgets_values": [
-        1,
-        ""
-      ]
-    },
-    {
-      "id": 37,
-      "type": "FoWLTextWeight",
-      "pos": [
-        -2663.957763671875,
-        2262.5771484375
-      ],
-      "size": [
-        400,
-        200
-      ],
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "Weighted Text",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "title": "Characteristics",
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9",
-        "Node name for S&R": "FoWLTextWeight"
-      },
-      "widgets_values": [
-        1,
-        ""
-      ]
-    },
-    {
-      "id": 38,
-      "type": "FoWLTextWeight",
-      "pos": [
-        -2663.957763671875,
-        2499.0908203125
-      ],
-      "size": [
-        400,
-        200
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "Weighted Text",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "title": "Attire and Gear",
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9",
-        "Node name for S&R": "FoWLTextWeight"
-      },
-      "widgets_values": [
-        1,
-        ""
-      ]
-    },
-    {
-      "id": 39,
-      "type": "FoWLTextWeight",
-      "pos": [
-        -2663.957763671875,
-        2735.6044921875
-      ],
-      "size": [
-        400,
-        200
-      ],
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "Weighted Text",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "title": "Details",
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9",
-        "Node name for S&R": "FoWLTextWeight"
-      },
-      "widgets_values": [
-        1,
-        ""
-      ]
-    },
-    {
-      "id": 40,
-      "type": "FoWLTextWeight",
-      "pos": [
-        -538.8796997070312,
-        2033.0419921875
-      ],
-      "size": [
-        400,
-        200
-      ],
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "Weighted Text",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "title": "Setting",
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9",
-        "Node name for S&R": "FoWLTextWeight"
-      },
-      "widgets_values": [
-        1,
-        ""
-      ]
-    },
-    {
       "id": 41,
       "type": "FoWLTextWeight",
       "pos": [
@@ -423,7 +258,7 @@
         200
       ],
       "flags": {},
-      "order": 15,
+      "order": 10,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -442,7 +277,9 @@
       "widgets_values": [
         1,
         ""
-      ]
+      ],
+      "color": "#4c4c14",
+      "bgcolor": "#383800"
     },
     {
       "id": 42,
@@ -456,7 +293,7 @@
         200
       ],
       "flags": {},
-      "order": 16,
+      "order": 11,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -475,7 +312,9 @@
       "widgets_values": [
         1,
         ""
-      ]
+      ],
+      "color": "#4c4c14",
+      "bgcolor": "#383800"
     },
     {
       "id": 30,
@@ -491,7 +330,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 17,
+      "order": 12,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -517,7 +356,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 18,
+      "order": 13,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -543,7 +382,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 19,
+      "order": 14,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -569,7 +408,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 20,
+      "order": 15,
       "mode": 0,
       "inputs": [
         {
@@ -613,7 +452,7 @@
         78
       ],
       "flags": {},
-      "order": 21,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
@@ -657,7 +496,7 @@
         228.38612365722656
       ],
       "flags": {},
-      "order": 22,
+      "order": 17,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -681,7 +520,7 @@
         78
       ],
       "flags": {},
-      "order": 23,
+      "order": 18,
       "mode": 0,
       "inputs": [
         {
@@ -727,7 +566,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 24,
+      "order": 19,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -751,7 +590,7 @@
         232.88861083984375
       ],
       "flags": {},
-      "order": 25,
+      "order": 20,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -762,6 +601,888 @@
       ],
       "color": "#432",
       "bgcolor": "#653"
+    },
+    {
+      "id": 69,
+      "type": "FoWLStyleAgent",
+      "pos": [
+        681.449951171875,
+        5867.66943359375
+      ],
+      "size": [
+        218.39999389648438,
+        78
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Style Conditioning",
+          "type": "CONDITIONING",
+          "links": null
+        },
+        {
+          "name": "Style Text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
+      },
+      "widgets_values": [
+        "",
+        "Load Style Catalogue"
+      ]
+    },
+    {
+      "id": 70,
+      "type": "FoWLShotAgent",
+      "pos": [
+        681.449951171875,
+        6022.25732421875
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Shot Conditioning",
+          "type": "CONDITIONING",
+          "links": null
+        },
+        {
+          "name": "Shot Text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
+      },
+      "widgets_values": [
+        "",
+        "Load Shot Catalogue"
+      ]
+    },
+    {
+      "id": 71,
+      "type": "FoWLDetailAgent",
+      "pos": [
+        681.449951171875,
+        6176.845703125
+      ],
+      "size": [
+        226.8000030517578,
+        78
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Detail Conditioning",
+          "type": "CONDITIONING",
+          "links": null
+        },
+        {
+          "name": "Detail Text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
+      },
+      "widgets_values": [
+        "",
+        "Load Detail Catalogue"
+      ]
+    },
+    {
+      "id": 72,
+      "type": "FoWLStaticVillain",
+      "pos": [
+        1141.4737548828125,
+        5844.8388671875
+      ],
+      "size": [
+        243.60000610351562,
+        78
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Static Conditioning",
+          "type": "CONDITIONING",
+          "links": null
+        },
+        {
+          "name": "Static Text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
+      },
+      "widgets_values": [
+        "",
+        "Load Static Bank"
+      ]
+    },
+    {
+      "id": 73,
+      "type": "FoWLDefinitionVillain",
+      "pos": [
+        1141.4737548828125,
+        5998.7509765625
+      ],
+      "size": [
+        277.20001220703125,
+        78
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Definition Conditioning",
+          "type": "CONDITIONING",
+          "links": null
+        },
+        {
+          "name": "Definition Text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
+      },
+      "widgets_values": [
+        "",
+        "Load Definition Bank"
+      ]
+    },
+    {
+      "id": 74,
+      "type": "FoWLContentVillain",
+      "pos": [
+        1141.4737548828125,
+        6152.6630859375
+      ],
+      "size": [
+        252,
+        78
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Content Conditioning",
+          "type": "CONDITIONING",
+          "links": null
+        },
+        {
+          "name": "Content Text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
+      },
+      "widgets_values": [
+        "",
+        "Load Content Bank"
+      ]
+    },
+    {
+      "id": 75,
+      "type": "FoWLStyleVillain",
+      "pos": [
+        1141.4737548828125,
+        6306.5751953125
+      ],
+      "size": [
+        235.1999969482422,
+        78
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Dynamic Conditioning",
+          "type": "CONDITIONING",
+          "links": null
+        },
+        {
+          "name": "Style Text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
+      },
+      "widgets_values": [
+        "",
+        "Load Style Bank"
+      ]
+    },
+    {
+      "id": 76,
+      "type": "Fast Groups Muter (rgthree)",
+      "pos": [
+        65.51177978515625,
+        6053.71435546875
+      ],
+      "size": [
+        226.8000030517578,
+        442
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 43,
+      "type": "FoWLTextWeight",
+      "pos": [
+        61.84747314453125,
+        5855.96484375
+      ],
+      "size": [
+        377.97869873046875,
+        129.59764099121094
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Weighted Text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9",
+        "Node name for S&R": "FoWLTextWeight"
+      },
+      "widgets_values": [
+        1,
+        ""
+      ]
+    },
+    {
+      "id": 60,
+      "type": "Note",
+      "pos": [
+        -1460.020751953125,
+        4243.31005859375
+      ],
+      "size": [
+        233.36358642578125,
+        487.0691833496094
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Static Explained",
+      "properties": {},
+      "widgets_values": [
+        "FoW - Static\n\nCategories: \nQuality Issues, Unwanted Artefacts, Composition & Framing, Lighting Issues, Obscuration & Clarity, Style & Aesthetic Issues, Poses & Reflections.\n\nPurpose: \nRemove noise, blur, artifacts, and other static issues to keep images clean and clear.\n\nExamples:\n“low quality,” “blurry,” “text,” “bad lighting,” “surreal.”\n\nFoW - Static Catalogue\n\nWhat It Does: \nRemoves noise, blur, or unwanted static effects to keep your image clean and clear, like fixing a messy photo.\n\nExamples:\n“low quality,” “blurry,” “text,” “bad lighting,” “surreal.”"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 62,
+      "type": "Note",
+      "pos": [
+        -55.42174530029297,
+        4245.01171875
+      ],
+      "size": [
+        244.30921936035156,
+        497.7445373535156
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Definition Explained",
+      "properties": {},
+      "widgets_values": [
+        "FoW - Definition\n\nCategories: Definition Anatomy, Definition Body, Definition Rendering, Definition Features, Definition Drawing.\n\nPurpose: \nFix sharpness, clarity, and anatomical/form issues to ensure precision and realism.\n\nExamples:\n“bad anatomy,” “shape distortion,” “plastic skin,” “merged features,” “poorly drawn.”\n\nFoW - Definition Catalogue\n\nWhat It Does: \nFixes blurry or unclear parts, improves anatomy and details, and makes your image sharp and realistic, like refining a sketch.\n\nExamples: \n“bad anatomy,” “shape distortion,” “plastic skin,” “merged features,” “poorly drawn.”"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 63,
+      "type": "Note",
+      "pos": [
+        1345.196044921875,
+        4249.9404296875
+      ],
+      "size": [
+        237.55276489257812,
+        500.4471740722656
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Content Explained",
+      "properties": {},
+      "widgets_values": [
+        "FoW - Content\n\nCategories: \nContent Appearance, Content Safety, Content Charactercount, Content Demographics, Content Physical, Content Clothing, Content Style, Content Technical, Content Censorship, Content Species.\n\nPurpose: \nEliminate unwanted objects, themes, or characteristics to maintain focus and appropriateness.\n\nExamples:\n“unnatural hair color,” “nsfw,” “multiple characters,” “child,” “muscular,” “photorealistic,” “hybrid parts.”\n\nFoW - Content Catalogue\n\nWhat It Does: \nGets rid of unwanted stuff, like odd colors, inappropriate themes, or extra characters, to keep your image focused and appropriate.\n\nExamples: \n“unnatural hair color,” “nsfw,” “multiple characters,” “child,” “muscular,” “photorealistic.”"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 64,
+      "type": "Note",
+      "pos": [
+        2747.15673828125,
+        4244.01416015625
+      ],
+      "size": [
+        242.95777893066406,
+        493.6905822753906
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Dynamic Explained",
+      "properties": {},
+      "widgets_values": [
+        "FoW - Dynamic\n\nCategories: \nDynamic Abstract, Dynamic Analog Art, Dynamic Architecture, Dynamic Atmosphere, Dynamic Concept Art, Dynamic Fantasy, Dynamic Photography, Dynamic Fashion, Dynamic Game Art, Dynamic Illustration, Dynamic Historical, Dynamic Science Fiction.\n\nPurpose: \nRemove movement, jittery effects, or style-specific distractions to ensure stability and alignment with the intended design.\n\nExamples:\n“clutter,” “flatness,” “realism,” “softness,” “modernity,” “brightness.”\n\nFoW - Dynamic Catalogue\n\nWhat It Does: \nRemoves shaky or distracting movement and specific style effects to make your image steady and match your vision, like calming a busy scene.\n\nExamples: “clutter,” “flatness,” “realism,” “softness,” “modernity,” “brightness.”"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 31,
+      "type": "Note",
+      "pos": [
+        1075.290771484375,
+        651.39892578125
+      ],
+      "size": [
+        299.0815734863281,
+        91.94768524169922
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 34,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Important !!!",
+      "properties": {},
+      "widgets_values": [
+        "While Subject and Environment tent to change frequently, \nStyle, Shot, and Detail are usually \"static\" once u have defined the overall look of your image.\nThat is where my Nodes come in Handy!"
+      ],
+      "color": "#952291",
+      "bgcolor": "#810e7d"
+    },
+    {
+      "id": 32,
+      "type": "Fast Groups Muter (rgthree)",
+      "pos": [
+        -2948.566162109375,
+        2322.2255859375
+      ],
+      "size": [
+        226.8000030517578,
+        442
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 33,
+      "type": "Fast Groups Muter (rgthree)",
+      "pos": [
+        -842.327392578125,
+        2322.2255859375
+      ],
+      "size": [
+        226.8000030517578,
+        442
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 49,
+      "type": "Fast Groups Muter (rgthree)",
+      "pos": [
+        1085.246826171875,
+        2322.2255859375
+      ],
+      "size": [
+        226.8000030517578,
+        442
+      ],
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 50,
+      "type": "Fast Groups Muter (rgthree)",
+      "pos": [
+        2494.2978515625,
+        2322.2255859375
+      ],
+      "size": [
+        226.8000030517578,
+        442
+      ],
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 51,
+      "type": "Fast Groups Muter (rgthree)",
+      "pos": [
+        3899.739501953125,
+        2322.2255859375
+      ],
+      "size": [
+        226.8000030517578,
+        442
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 65,
+      "type": "Fast Groups Muter (rgthree)",
+      "pos": [
+        -1736.527587890625,
+        4298.41357421875
+      ],
+      "size": [
+        226.8000030517578,
+        442
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 66,
+      "type": "Fast Groups Muter (rgthree)",
+      "pos": [
+        -333.629150390625,
+        4298.41357421875
+      ],
+      "size": [
+        226.8000030517578,
+        442
+      ],
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 68,
+      "type": "Fast Groups Muter (rgthree)",
+      "pos": [
+        2475.43798828125,
+        4298.41357421875
+      ],
+      "size": [
+        226.8000030517578,
+        442
+      ],
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 67,
+      "type": "Fast Groups Muter (rgthree)",
+      "pos": [
+        1073.763427734375,
+        4298.41357421875
+      ],
+      "size": [
+        226.8000030517578,
+        442
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 1,
+      "type": "Fast Groups Muter (rgthree)",
+      "pos": [
+        603.3453369140625,
+        250.51747131347656
+      ],
+      "size": [
+        396.28338623046875,
+        442
+      ],
+      "flags": {},
+      "order": 44,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 56,
+      "type": "FoWLStaticVillain",
+      "pos": [
+        -1466.09814453125,
+        4077.53662109375
+      ],
+      "size": [
+        243.60000610351562,
+        78
+      ],
+      "flags": {},
+      "order": 45,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Static Conditioning",
+          "type": "CONDITIONING",
+          "links": [],
+          "slot_index": 0
+        },
+        {
+          "name": "Static Text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
+      },
+      "widgets_values": [
+        "low quality, blurry, out of focus",
+        "Load Static Bank"
+      ],
+      "color": "#471414",
+      "bgcolor": "#330000"
+    },
+    {
+      "id": 57,
+      "type": "FoWLDefinitionVillain",
+      "pos": [
+        -81.84712982177734,
+        4081.502685546875
+      ],
+      "size": [
+        285.6000061035156,
+        78
+      ],
+      "flags": {},
+      "order": 46,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Definition Conditioning",
+          "type": "CONDITIONING",
+          "links": [],
+          "slot_index": 0
+        },
+        {
+          "name": "Definition Text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "title": "👺 FoW - Definition  Villain Light",
+      "properties": {
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
+      },
+      "widgets_values": [
+        "",
+        "Load Definition Bank"
+      ],
+      "color": "#591414",
+      "bgcolor": "#450000"
     },
     {
       "id": 58,
@@ -775,8 +1496,8 @@
         78
       ],
       "flags": {},
-      "order": 26,
-      "mode": 2,
+      "order": 47,
+      "mode": 0,
       "inputs": [
         {
           "name": "clip",
@@ -821,8 +1542,8 @@
         78
       ],
       "flags": {},
-      "order": 27,
-      "mode": 2,
+      "order": 48,
+      "mode": 0,
       "inputs": [
         {
           "name": "clip",
@@ -854,389 +1575,18 @@
       "bgcolor": "#600000"
     },
     {
-      "id": 56,
-      "type": "FoWLStaticVillain",
-      "pos": [
-        -1466.09814453125,
-        4077.53662109375
-      ],
-      "size": [
-        243.60000610351562,
-        78
-      ],
-      "flags": {},
-      "order": 28,
-      "mode": 2,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Static Conditioning",
-          "type": "CONDITIONING",
-          "links": [],
-          "slot_index": 0
-        },
-        {
-          "name": "Static Text",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
-      },
-      "widgets_values": [
-        "low quality, blurry, out of focus",
-        "Load Static Bank"
-      ],
-      "color": "#471414",
-      "bgcolor": "#330000"
-    },
-    {
-      "id": 69,
-      "type": "FoWLStyleAgent",
-      "pos": [
-        681.449951171875,
-        5867.66943359375
-      ],
-      "size": [
-        218.39999389648438,
-        78
-      ],
-      "flags": {},
-      "order": 29,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Style Conditioning",
-          "type": "CONDITIONING",
-          "links": null
-        },
-        {
-          "name": "Style Text",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
-      },
-      "widgets_values": [
-        "",
-        "Load Style Catalogue"
-      ]
-    },
-    {
-      "id": 70,
-      "type": "FoWLShotAgent",
-      "pos": [
-        681.449951171875,
-        6022.25732421875
-      ],
-      "size": [
-        210,
-        78
-      ],
-      "flags": {},
-      "order": 30,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Shot Conditioning",
-          "type": "CONDITIONING",
-          "links": null
-        },
-        {
-          "name": "Shot Text",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
-      },
-      "widgets_values": [
-        "",
-        "Load Shot Catalogue"
-      ]
-    },
-    {
-      "id": 71,
-      "type": "FoWLDetailAgent",
-      "pos": [
-        681.449951171875,
-        6176.845703125
-      ],
-      "size": [
-        226.8000030517578,
-        78
-      ],
-      "flags": {},
-      "order": 31,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Detail Conditioning",
-          "type": "CONDITIONING",
-          "links": null
-        },
-        {
-          "name": "Detail Text",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
-      },
-      "widgets_values": [
-        "",
-        "Load Detail Catalogue"
-      ]
-    },
-    {
-      "id": 72,
-      "type": "FoWLStaticVillain",
-      "pos": [
-        1141.4737548828125,
-        5844.8388671875
-      ],
-      "size": [
-        243.60000610351562,
-        78
-      ],
-      "flags": {},
-      "order": 32,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Static Conditioning",
-          "type": "CONDITIONING",
-          "links": null
-        },
-        {
-          "name": "Static Text",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
-      },
-      "widgets_values": [
-        "",
-        "Load Static Bank"
-      ]
-    },
-    {
-      "id": 73,
-      "type": "FoWLDefinitionVillain",
-      "pos": [
-        1141.4737548828125,
-        5998.7509765625
-      ],
-      "size": [
-        277.20001220703125,
-        78
-      ],
-      "flags": {},
-      "order": 33,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Definition Conditioning",
-          "type": "CONDITIONING",
-          "links": null
-        },
-        {
-          "name": "Definition Text",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
-      },
-      "widgets_values": [
-        "",
-        "Load Definition Bank"
-      ]
-    },
-    {
-      "id": 74,
-      "type": "FoWLContentVillain",
-      "pos": [
-        1141.4737548828125,
-        6152.6630859375
-      ],
-      "size": [
-        252,
-        78
-      ],
-      "flags": {},
-      "order": 34,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Content Conditioning",
-          "type": "CONDITIONING",
-          "links": null
-        },
-        {
-          "name": "Content Text",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
-      },
-      "widgets_values": [
-        "",
-        "Load Content Bank"
-      ]
-    },
-    {
-      "id": 75,
-      "type": "FoWLStyleVillain",
-      "pos": [
-        1141.4737548828125,
-        6306.5751953125
-      ],
-      "size": [
-        235.1999969482422,
-        78
-      ],
-      "flags": {},
-      "order": 35,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Dynamic Conditioning",
-          "type": "CONDITIONING",
-          "links": null
-        },
-        {
-          "name": "Style Text",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
-      },
-      "widgets_values": [
-        "",
-        "Load Style Bank"
-      ]
-    },
-    {
-      "id": 76,
-      "type": "Fast Groups Muter (rgthree)",
-      "pos": [
-        65.51177978515625,
-        6053.71435546875
-      ],
-      "size": [
-        226.8000030517578,
-        442
-      ],
-      "flags": {},
-      "order": 36,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "OPT_CONNECTION",
-          "type": "*",
-          "links": null
-        }
-      ],
-      "properties": {
-        "matchColors": "",
-        "matchTitle": "",
-        "showNav": true,
-        "sort": "position",
-        "customSortAlphabet": "",
-        "toggleRestriction": "default"
-      }
-    },
-    {
-      "id": 43,
+      "id": 36,
       "type": "FoWLTextWeight",
       "pos": [
-        61.84747314453125,
-        5855.96484375
+        -2663.957763671875,
+        2026.06298828125
       ],
       "size": [
-        377.97869873046875,
-        129.59764099121094
+        400,
+        200
       ],
       "flags": {},
-      "order": 37,
+      "order": 49,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1246,6 +1596,7 @@
           "links": null
         }
       ],
+      "title": "Base",
       "properties": {
         "aux_id": "SirWillance/FoW_Suite_LIGHT",
         "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9",
@@ -1254,373 +1605,20 @@
       "widgets_values": [
         1,
         ""
-      ]
+      ],
+      "color": "#4c154c",
+      "bgcolor": "#380138"
     },
     {
-      "id": 57,
-      "type": "FoWLDefinitionVillain",
+      "id": 37,
+      "type": "FoWLTextWeight",
       "pos": [
-        -81.84712982177734,
-        4081.502685546875
+        -2663.957763671875,
+        2262.5771484375
       ],
       "size": [
-        277.20001220703125,
-        78
-      ],
-      "flags": {},
-      "order": 38,
-      "mode": 2,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Definition Conditioning",
-          "type": "CONDITIONING",
-          "links": [],
-          "slot_index": 0
-        },
-        {
-          "name": "Definition Text",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 1
-        }
-      ],
-      "title": "👺 FoW - Definition  Villain Light",
-      "properties": {
-        "aux_id": "SirWillance/FoW_Suite_LIGHT",
-        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9"
-      },
-      "widgets_values": [
-        "",
-        "Load Definition Bank"
-      ],
-      "color": "#591414",
-      "bgcolor": "#450000"
-    },
-    {
-      "id": 60,
-      "type": "Note",
-      "pos": [
-        -1460.020751953125,
-        4243.31005859375
-      ],
-      "size": [
-        233.36358642578125,
-        487.0691833496094
-      ],
-      "flags": {},
-      "order": 39,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "Note: Static Explained",
-      "properties": {},
-      "widgets_values": [
-        "FoW - Static\n\nCategories: \nQuality Issues, Unwanted Artefacts, Composition & Framing, Lighting Issues, Obscuration & Clarity, Style & Aesthetic Issues, Poses & Reflections.\n\nPurpose: \nRemove noise, blur, artifacts, and other static issues to keep images clean and clear.\n\nExamples:\n“low quality,” “blurry,” “text,” “bad lighting,” “surreal.”\n\nFoW - Static Catalogue\n\nWhat It Does: \nRemoves noise, blur, or unwanted static effects to keep your image clean and clear, like fixing a messy photo.\n\nExamples:\n“low quality,” “blurry,” “text,” “bad lighting,” “surreal.”"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
-      "id": 62,
-      "type": "Note",
-      "pos": [
-        -55.42174530029297,
-        4245.01171875
-      ],
-      "size": [
-        244.30921936035156,
-        497.7445373535156
-      ],
-      "flags": {},
-      "order": 40,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "Note: Definition Explained",
-      "properties": {},
-      "widgets_values": [
-        "FoW - Definition\n\nCategories: Definition Anatomy, Definition Body, Definition Rendering, Definition Features, Definition Drawing.\n\nPurpose: \nFix sharpness, clarity, and anatomical/form issues to ensure precision and realism.\n\nExamples:\n“bad anatomy,” “shape distortion,” “plastic skin,” “merged features,” “poorly drawn.”\n\nFoW - Definition Catalogue\n\nWhat It Does: \nFixes blurry or unclear parts, improves anatomy and details, and makes your image sharp and realistic, like refining a sketch.\n\nExamples: \n“bad anatomy,” “shape distortion,” “plastic skin,” “merged features,” “poorly drawn.”"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
-      "id": 63,
-      "type": "Note",
-      "pos": [
-        1345.196044921875,
-        4249.9404296875
-      ],
-      "size": [
-        237.55276489257812,
-        500.4471740722656
-      ],
-      "flags": {},
-      "order": 41,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "Note: Content Explained",
-      "properties": {},
-      "widgets_values": [
-        "FoW - Content\n\nCategories: \nContent Appearance, Content Safety, Content Charactercount, Content Demographics, Content Physical, Content Clothing, Content Style, Content Technical, Content Censorship, Content Species.\n\nPurpose: \nEliminate unwanted objects, themes, or characteristics to maintain focus and appropriateness.\n\nExamples:\n“unnatural hair color,” “nsfw,” “multiple characters,” “child,” “muscular,” “photorealistic,” “hybrid parts.”\n\nFoW - Content Catalogue\n\nWhat It Does: \nGets rid of unwanted stuff, like odd colors, inappropriate themes, or extra characters, to keep your image focused and appropriate.\n\nExamples: \n“unnatural hair color,” “nsfw,” “multiple characters,” “child,” “muscular,” “photorealistic.”"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
-      "id": 64,
-      "type": "Note",
-      "pos": [
-        2747.15673828125,
-        4244.01416015625
-      ],
-      "size": [
-        242.95777893066406,
-        493.6905822753906
-      ],
-      "flags": {},
-      "order": 42,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "Note: Dynamic Explained",
-      "properties": {},
-      "widgets_values": [
-        "FoW - Dynamic\n\nCategories: \nDynamic Abstract, Dynamic Analog Art, Dynamic Architecture, Dynamic Atmosphere, Dynamic Concept Art, Dynamic Fantasy, Dynamic Photography, Dynamic Fashion, Dynamic Game Art, Dynamic Illustration, Dynamic Historical, Dynamic Science Fiction.\n\nPurpose: \nRemove movement, jittery effects, or style-specific distractions to ensure stability and alignment with the intended design.\n\nExamples:\n“clutter,” “flatness,” “realism,” “softness,” “modernity,” “brightness.”\n\nFoW - Dynamic Catalogue\n\nWhat It Does: \nRemoves shaky or distracting movement and specific style effects to make your image steady and match your vision, like calming a busy scene.\n\nExamples: “clutter,” “flatness,” “realism,” “softness,” “modernity,” “brightness.”"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
-      "id": 31,
-      "type": "Note",
-      "pos": [
-        1075.290771484375,
-        651.39892578125
-      ],
-      "size": [
-        299.0815734863281,
-        91.94768524169922
-      ],
-      "flags": {
-        "collapsed": false
-      },
-      "order": 43,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "Note: Important !!!",
-      "properties": {},
-      "widgets_values": [
-        "While Subject and Environment tent to change frequently, \nStyle, Shot, and Detail are usually \"static\" once u have defined the overall look of your image.\nThat is where my Nodes come in Handy!"
-      ],
-      "color": "#952291",
-      "bgcolor": "#810e7d"
-    },
-    {
-      "id": 32,
-      "type": "Fast Groups Muter (rgthree)",
-      "pos": [
-        -2948.566162109375,
-        2322.2255859375
-      ],
-      "size": [
-        226.8000030517578,
-        442
-      ],
-      "flags": {},
-      "order": 44,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "OPT_CONNECTION",
-          "type": "*",
-          "links": null
-        }
-      ],
-      "properties": {
-        "matchColors": "",
-        "matchTitle": "",
-        "showNav": true,
-        "sort": "position",
-        "customSortAlphabet": "",
-        "toggleRestriction": "default"
-      }
-    },
-    {
-      "id": 33,
-      "type": "Fast Groups Muter (rgthree)",
-      "pos": [
-        -842.327392578125,
-        2322.2255859375
-      ],
-      "size": [
-        226.8000030517578,
-        442
-      ],
-      "flags": {},
-      "order": 45,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "OPT_CONNECTION",
-          "type": "*",
-          "links": null
-        }
-      ],
-      "properties": {
-        "matchColors": "",
-        "matchTitle": "",
-        "showNav": true,
-        "sort": "position",
-        "customSortAlphabet": "",
-        "toggleRestriction": "default"
-      }
-    },
-    {
-      "id": 49,
-      "type": "Fast Groups Muter (rgthree)",
-      "pos": [
-        1085.246826171875,
-        2322.2255859375
-      ],
-      "size": [
-        226.8000030517578,
-        442
-      ],
-      "flags": {},
-      "order": 46,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "OPT_CONNECTION",
-          "type": "*",
-          "links": null
-        }
-      ],
-      "properties": {
-        "matchColors": "",
-        "matchTitle": "",
-        "showNav": true,
-        "sort": "position",
-        "customSortAlphabet": "",
-        "toggleRestriction": "default"
-      }
-    },
-    {
-      "id": 50,
-      "type": "Fast Groups Muter (rgthree)",
-      "pos": [
-        2494.2978515625,
-        2322.2255859375
-      ],
-      "size": [
-        226.8000030517578,
-        442
-      ],
-      "flags": {},
-      "order": 47,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "OPT_CONNECTION",
-          "type": "*",
-          "links": null
-        }
-      ],
-      "properties": {
-        "matchColors": "",
-        "matchTitle": "",
-        "showNav": true,
-        "sort": "position",
-        "customSortAlphabet": "",
-        "toggleRestriction": "default"
-      }
-    },
-    {
-      "id": 51,
-      "type": "Fast Groups Muter (rgthree)",
-      "pos": [
-        3899.739501953125,
-        2322.2255859375
-      ],
-      "size": [
-        226.8000030517578,
-        442
-      ],
-      "flags": {},
-      "order": 48,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "OPT_CONNECTION",
-          "type": "*",
-          "links": null
-        }
-      ],
-      "properties": {
-        "matchColors": "",
-        "matchTitle": "",
-        "showNav": true,
-        "sort": "position",
-        "customSortAlphabet": "",
-        "toggleRestriction": "default"
-      }
-    },
-    {
-      "id": 65,
-      "type": "Fast Groups Muter (rgthree)",
-      "pos": [
-        -1736.527587890625,
-        4298.41357421875
-      ],
-      "size": [
-        226.8000030517578,
-        442
-      ],
-      "flags": {},
-      "order": 49,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "OPT_CONNECTION",
-          "type": "*",
-          "links": null
-        }
-      ],
-      "properties": {
-        "matchColors": "",
-        "matchTitle": "",
-        "showNav": true,
-        "sort": "position",
-        "customSortAlphabet": "",
-        "toggleRestriction": "default"
-      }
-    },
-    {
-      "id": 66,
-      "type": "Fast Groups Muter (rgthree)",
-      "pos": [
-        -333.629150390625,
-        4298.41357421875
-      ],
-      "size": [
-        226.8000030517578,
-        442
+        400,
+        200
       ],
       "flags": {},
       "order": 50,
@@ -1628,30 +1626,34 @@
       "inputs": [],
       "outputs": [
         {
-          "name": "OPT_CONNECTION",
-          "type": "*",
+          "name": "Weighted Text",
+          "type": "STRING",
           "links": null
         }
       ],
+      "title": "Characteristics",
       "properties": {
-        "matchColors": "",
-        "matchTitle": "",
-        "showNav": true,
-        "sort": "position",
-        "customSortAlphabet": "",
-        "toggleRestriction": "default"
-      }
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9",
+        "Node name for S&R": "FoWLTextWeight"
+      },
+      "widgets_values": [
+        1,
+        ""
+      ],
+      "color": "#4c154c",
+      "bgcolor": "#380138"
     },
     {
-      "id": 68,
-      "type": "Fast Groups Muter (rgthree)",
+      "id": 38,
+      "type": "FoWLTextWeight",
       "pos": [
-        2475.43798828125,
-        4298.41357421875
+        -2663.957763671875,
+        2499.0908203125
       ],
       "size": [
-        226.8000030517578,
-        442
+        400,
+        200
       ],
       "flags": {},
       "order": 51,
@@ -1659,30 +1661,34 @@
       "inputs": [],
       "outputs": [
         {
-          "name": "OPT_CONNECTION",
-          "type": "*",
+          "name": "Weighted Text",
+          "type": "STRING",
           "links": null
         }
       ],
+      "title": "Attire and Gear",
       "properties": {
-        "matchColors": "",
-        "matchTitle": "",
-        "showNav": true,
-        "sort": "position",
-        "customSortAlphabet": "",
-        "toggleRestriction": "default"
-      }
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9",
+        "Node name for S&R": "FoWLTextWeight"
+      },
+      "widgets_values": [
+        1,
+        ""
+      ],
+      "color": "#4c154c",
+      "bgcolor": "#380138"
     },
     {
-      "id": 67,
-      "type": "Fast Groups Muter (rgthree)",
+      "id": 39,
+      "type": "FoWLTextWeight",
       "pos": [
-        1073.763427734375,
-        4298.41357421875
+        -2663.957763671875,
+        2735.6044921875
       ],
       "size": [
-        226.8000030517578,
-        442
+        400,
+        200
       ],
       "flags": {},
       "order": 52,
@@ -1690,30 +1696,34 @@
       "inputs": [],
       "outputs": [
         {
-          "name": "OPT_CONNECTION",
-          "type": "*",
+          "name": "Weighted Text",
+          "type": "STRING",
           "links": null
         }
       ],
+      "title": "Details",
       "properties": {
-        "matchColors": "",
-        "matchTitle": "",
-        "showNav": true,
-        "sort": "position",
-        "customSortAlphabet": "",
-        "toggleRestriction": "default"
-      }
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9",
+        "Node name for S&R": "FoWLTextWeight"
+      },
+      "widgets_values": [
+        1,
+        ""
+      ],
+      "color": "#4c154c",
+      "bgcolor": "#380138"
     },
     {
-      "id": 1,
-      "type": "Fast Groups Muter (rgthree)",
+      "id": 40,
+      "type": "FoWLTextWeight",
       "pos": [
-        603.3453369140625,
-        250.51747131347656
+        -538.8796997070312,
+        2033.0419921875
       ],
       "size": [
-        396.28338623046875,
-        442
+        400,
+        200
       ],
       "flags": {},
       "order": 53,
@@ -1721,19 +1731,23 @@
       "inputs": [],
       "outputs": [
         {
-          "name": "OPT_CONNECTION",
-          "type": "*",
+          "name": "Weighted Text",
+          "type": "STRING",
           "links": null
         }
       ],
+      "title": "Setting",
       "properties": {
-        "matchColors": "",
-        "matchTitle": "",
-        "showNav": true,
-        "sort": "position",
-        "customSortAlphabet": "",
-        "toggleRestriction": "default"
-      }
+        "aux_id": "SirWillance/FoW_Suite_LIGHT",
+        "ver": "b1b1fdbbe776159465d0246e37533e9ecd8265a9",
+        "Node name for S&R": "FoWLTextWeight"
+      },
+      "widgets_values": [
+        1,
+        ""
+      ],
+      "color": "#4c4c14",
+      "bgcolor": "#383800"
     }
   ],
   "links": [],
@@ -1950,10 +1964,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6727499949325609,
+      "scale": 0.14641000000000023,
       "offset": [
-        446.7946986000891,
-        201.6959231845019
+        5032.155451691805,
+        208.7350921704176
       ]
     },
     "ue_links": [],

@@ -72,12 +72,12 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     add_prefix("StyleWeight"): create_display_name("🎨", "Style Weight Light"),
     add_prefix("ShotWeight"): create_display_name("📷", "Shot Weight Light"),
     add_prefix("DetailsWeight"): create_display_name("🔍", "Details Weight Light"),
-    add_prefix("ConditionWeight"): create_display_name("⚖", "Condition Weight"),
+    add_prefix("ConditionWeight"): create_display_name("⚖️", "Condition Weight"),
     add_prefix("StaticWeight"): create_display_name("💀", "Static Weight Light"),
     add_prefix("DefinitionWeight"): create_display_name("👺", "Definition Weight Light"),
     add_prefix("ContentWeight"): create_display_name("🙈", "Content Weight Light"),
     add_prefix("DynamicWeight"): create_display_name("😈", "Dynamic Weight Light"),
-    add_prefix("TextWeight"): create_display_name("⚖", "Text Weight Light"),
+    add_prefix("TextWeight"): create_display_name("⚖️", "Text Weight Light"),
     add_prefix("StyleAgent"): create_display_name("🎨", "Style Agent Light"),
     add_prefix("ShotAgent"): create_display_name("📷", "Shot Agent Light"),
     add_prefix("DetailAgent"): create_display_name("🔍", "Detail Agent Light"),
@@ -85,7 +85,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     add_prefix("DefinitionVillain"): create_display_name("👺", "Definition Villain Light"),
     add_prefix("ContentVillain"): create_display_name("🙈", "Content Villain Light"),
     add_prefix("StyleVillain"): create_display_name("😈", "Style Villain Light"),
-    add_prefix("PromptRefinerLight"): create_display_name("⌨", "Prompt Refiner Light"),
+    add_prefix("PromptRefinerLight"): create_display_name("⌨️​", "Prompt Refiner Light"),
     
 }
 

@@ -66,7 +66,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     add_prefix("PromptSplitterLight"): create_display_name("🔱", "Prompt Splitter Light"),
     add_prefix("PromptFusionLight"): create_display_name("🧬", "Prompt Fusion Light"),
     add_prefix("PromptFusionNegative"): create_display_name("🧬", "Prompt Fusion Negative"),
-    add_prefix("ConditionFunnelLight"): create_display_name("💫", "Condition Funnel Light"),
+    add_prefix("ConditionFunnelLight"): create_display_name("💫", "Text Funnel Light"),
     add_prefix("SubjectWeight"): create_display_name("👤", "Subject Weight Light"),
     add_prefix("EnvironmentWeight"): create_display_name("🌍", "Environment Weight Light"),
     add_prefix("StyleWeight"): create_display_name("🎨", "Style Weight Light"),

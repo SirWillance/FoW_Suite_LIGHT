@@ -15,7 +15,7 @@ class PromptSplitterLight:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "prompt": ("STRING", {"multiline": True, "default": "Insert your Prompt her. For the most accurate experience remove all weighting. You can drag the output of a textfield onto this textfield.  Enjoy. :)"}),  # Default example
+                "prompt": ("STRING", {"multiline": True, "placeholder": "Paste Text/Prompt in here"}),  # Default example
                 "inputcount": ("INT", {"default": 1, "min": 1, "max": cls.MAX_OUTPUT_COUNT, "hidden": True}),  # Default to 5 outputs
             },
             "optional": {},
@@ -25,14 +25,14 @@ class PromptSplitterLight:
     RETURN_NAMES = tuple([f"Prompt Token {i+1}" for i in range(MAX_OUTPUT_COUNT)])
     FUNCTION = "split_prompt"
     CATEGORY = get_category("2") 
-    DESCRIPTION = """Splits a text prompt into individual components based on common delimiters (commas, periods, "and", "with", etc.).
+    DESCRIPTION = """Splits a text prompt into individual components based on common delimiters.
 
-This node allows you to easily separate complex prompts into smaller, manageable parts, for more granular control over different aspects of the image generation process.
+Define your 9 Categories and get them split up individually by this node into single tokens.
 
 Key Features:
 - Divides prompts into components based on delimiters, points, and parenthesis, weight etc
-- Provides a dynamically adjustable number of output nozzles (up to 20).
-- This allows for clean access for the tokens/components, and easy maniplation over the outputs.
+- Provides a dynamically adjustable number of output nozzles (up to 7).
+
 """
     def split_prompt(self, prompt: str, inputcount: int) -> Tuple[str, ...]:
         """Splits the input prompt into individual components."""
@@ -57,7 +57,7 @@ Key Features:
             inputcount = 1  # Default to 5 if conversion fails
 
         # **Improved Delimiters:** Handles various punctuation and logical separators
-        delimiters = r"\s*(?:,|\||\.|\band\b|\bor\b|\bwith\b|\bfeaturing\b)\s*"
+        delimiters = r"\s*(?:,|\||\.|*"
 
         # Split and clean components
         components = [c.strip() for c in re.split(delimiters, prompt) if c.strip()]
@@ -73,5 +73,3 @@ Key Features:
         return tuple(output)
 
 NODE_CLASS_MAPPINGS = {f"{NODE_ID_PREFIX}{TYPE_NAME}{NODE_FUNCTION}{NODE_VERSION}": PromptSplitterLight}
-
-

@@ -30,7 +30,7 @@ class PromptSplitterLight:
 Define your 9 Categories and get them split up individually by this node into single tokens.
 
 Key Features:
-- Divides prompts into components based on delimiters, points, and parenthesis, weight etc
+- Divides prompts into components based on delimiters, points, and parenthesis, "and", "with", "or", "featuring".
 - Provides a dynamically adjustable number of output nozzles (up to 7).
 
 """
@@ -57,7 +57,7 @@ Key Features:
             inputcount = 1  # Default to 5 if conversion fails
 
         # **Improved Delimiters:** Handles various punctuation and logical separators
-        delimiters = r"\s*(?:,|\||\.|*"
+        delimiters = r"\s*(?:,|\||\.|\band\b|\bor\b|\bwith\b|\bfeaturing\b)\s*"
 
         # Split and clean components
         components = [c.strip() for c in re.split(delimiters, prompt) if c.strip()]

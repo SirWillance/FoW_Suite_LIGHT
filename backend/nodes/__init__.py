@@ -63,7 +63,7 @@ NODE_CLASS_MAPPINGS = {
 
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    add_prefix("PromptSplitterLight"): create_display_name("🔱", "Prompt Splitter Light"),
+    add_prefix("PromptSplitterLight"): create_display_name("🔱", "Category Prompt Splitter Light"),
     add_prefix("PromptFusionLight"): create_display_name("🧬", "Prompt Fusion Light"),
     add_prefix("PromptFusionNegative"): create_display_name("🧬", "Prompt Fusion Negative"),
     add_prefix("ConditionFunnelLight"): create_display_name("💫", "Text Funnel Light"),

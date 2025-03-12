@@ -176,7 +176,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 ## Workflows
-In this reposetory u will find a couple of workflows that will Guide you how to use the Suite efficiently.
+Within this Repository u will find a couple of [Workflows](Workflows) that will Guide you how to use the Suite efficiently. To get access to those [Workflows](Workflows) you can whether manually download them here or look at the Directory of your Local ComfyUI Repository and find the FoW_Suite_LIGHT in your custom_node section. You are basically looking for "ComfyUI\custom_nodes\FoW_Suite_LIGHT\data\Workflows". You can now Drag and Drop it into your ComfiyUI interface or load it manually by looking for the top left of your interface, select "Workflow" then select "Open" and navigate to the directory. You sadly have to go threw this until im able to create a node that does this for you. 😅
 
 ---
 

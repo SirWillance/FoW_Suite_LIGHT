@@ -1,6 +1,6 @@
 # FoW_Suite_LIGHT
 
-Welcome to the **FoW Suite**, a user-friendly node suite designed for beginners and experienced users alike! Whether you’re just starting out or already a coding wizard, this suite has something for everyone. Developing this suite took me 2 month without any prior knowledge of coding or what ComfyUI is capable of. If u encounter any severe bugs feel free to join in on my stream and tell me
+Welcome to the **FoW Suite**, a user-friendly node suite designed for beginners and experienced users alike! Whether you’re just starting out or already a coding wizard, this suite has something for everyone. Developing this suite took me 2 month without any prior knowledge of coding or what ComfyUI is capable of. If u encounter any severe bugs feel free to join in on my stream and tell me. You cals also read more about my Journey [here](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/Development_Journey.md)
  ---   https://www.twitch.tv/sirwillance   ---
 
 ## Table of Contents
@@ -47,7 +47,7 @@ Ready to join the guild? Here’s how to install `FoW_Suite_LIGHT` in ComfyUI:
 2. **Place the Files**: Copy the `FoW_Suite_LIGHT` folder into the `custom_nodes` directory of your ComfyUI installation (e.g., `ComfyUI/custom_nodes/FoW_Suite_LIGHT`).
 3. **Restart ComfyUI**: Refresh your ComfyUI browser interface or restart the server to load the suite.
 
-See [FAQs](docs/FAQs.md) for troubleshooting or [Legends](docs/Legends.md) for widget tips.
+See [FAQs](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/FAQ.md) for troubleshooting or [Legends](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/Legends.md) for widget tips.
 
 ---
 
@@ -64,7 +64,7 @@ See [FAQs](docs/FAQs.md) for troubleshooting or [Legends](docs/Legends.md) for w
    - Click 🧼 to clear individual or all prompts.
 5. **Toggle Tips**: Use the “Show Tips” checkbox to enable/disable guidance alerts (on by default for newbies).
 
-Check [How_to_Use_FoW_Suite.md](docs/How_to_Use_FoW_Suite.md) for step-by-step workflows and [Examples](docs/Examples/) for ready-to-use snippets.
+Check [GUIDE.md](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/GUIDE.md) for step-by-step workflows and [Examples](https://github.com/SirWillance/FoW_Suite_LIGHT/tree/main/docs/HoW%20to%20FoW%20Suite/Examples) for ready-to-use snippets.
 
 ---
 
@@ -75,7 +75,7 @@ Want to help me level up my Twitch channel (`https://www.twitch.tv/sirwillance`)
 - Stream regularly (500+ minutes, 7+ days, 3+ viewers in 30 days) to help me meet Twitch Affiliate requirements (50 followers minimum, plus streaming/engagement goals).
 - Engage on Discord to share workflows, report bugs, and suggest features—I’ll use your feedback to improve `FoW_Suite` and grow my community.
 
-Check [Gamers_Corner](docs/Gamers_Corner.md) for tips on streaming success and [Contribution_Guide](docs/Contribution_Guide.md) to contribute to `FoW_Suite`.
+Check [Gamers_Corner](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/GamersCorner.md) for tips on streaming success and [Contribution_Guide](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/CONTRIBUTING.md) to contribute to `FoW_Suite`.
 
 ---
 
@@ -135,25 +135,25 @@ All nodes are streamlined for ease of use, focusing on raw prompts and simple co
 
 ## Documentation
 Dive deeper into `FoW_Suite_LIGHT` with our epic guides:
-- **[Changelog](docs/Changelog.md)**: Track updates (e.g., `[0.14.0] - Light Version Released`).
-- **[Legends](docs/Legends.md)**: Master tips, tricks, and widget types for all nodes, focusing on `PromptRefinerLight`.
-- **[FAQs](docs/FAQs.md)**: Solve common issues (e.g., 403 errors,).
-- **[Troubleshooting](docs/Troubleshooting.md)**: Fix bugs like a pro.
-- **[Gamers_Corner](docs/Gamers_Corner.md)**: Level up your coding skills with fun analogies for `PromptRefinerLight`.
-- **[Glossary](docs/Glossary.md)**: Understand terms like “node” and “prompt” for `FoW_Suite_LIGHT`.
-- **[Contribution_Guide](docs/Contribution_Guide.md)**: Join the guild and contribute to `FoW_Suite_LIGHT`!
-- **[Development_Journey](docs/Development_Journey.md)**: Learn my 2-month quest to build `FoW_Suite_LIGHT` from scratch.
+- **[Changelog](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/CHANGELOG.md)**: Track updates (e.g., `[0.14.0] - Light Version Released`).
+- **[Legends](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/Legends.md)**: Master tips, tricks, and widget types for all nodes, focusing on `PromptRefinerLight`.
+- **[FAQs](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/FAQ.md)**: Solve common issues (e.g., 403 errors,).
+- **[Troubleshooting](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/Troubleshooting.md)**: Fix bugs like a pro.
+- **[Gamers_Corner](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/GamersCorner.md)**: Level up your coding skills with fun analogies for `PromptRefinerLight`.
+- **[Glossary](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/Glossary.md)**: Understand terms like “node” and “prompt” for `FoW_Suite_LIGHT`.
+- **[Contribution_Guide](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/CONTRIBUTING.md)**: Join the guild and contribute to `FoW_Suite_LIGHT`!
+- **[Development_Journey](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/Development_Journey.md)**: Learn my 2-month quest to build `FoW_Suite_LIGHT` from scratch.
 
-For detailed instructions on each node, check out the [FoW Suite Documentation](docs/).
+For detailed instructions on each node, check out the [FoW Suite Documentation](https://github.com/SirWillance/FoW_Suite_LIGHT/tree/main/data/Workflows).
 
 
 ---
 
 ## Troubleshooting
 - **Issue**: Nodes not appearing in ComfyUI.
-  **Solution**: Ensure the `FoW_Suite_LIGHT` folder is in `custom_nodes/` and restart ComfyUI. Check [Troubleshooting](docs/Troubleshooting.md) for more.
+  **Solution**: Ensure the `FoW_Suite_LIGHT` folder is in `custom_nodes/` and restart ComfyUI. Check [Troubleshooting](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/Troubleshooting.md) for more.
 - **Issue**: Prompts not saving correctly in `PromptRefinerLight`.
-  **Solution**: Verify `.txt` files use newline-separated Positive/Negative prompts. See [FAQs](docs/FAQs.md) for path issues.
+  **Solution**: Verify `.txt` files use newline-separated Positive/Negative prompts. See [FAQs](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/FAQ.md) for path issues.
 
 
 
@@ -166,17 +166,17 @@ Have questions or want to share your workflows? Join our [Discord server](https:
 ---
 
 ## Contribute
-Found a bug or have an idea for `FoW_Suite_LIGHT` or its nodes? Join the guild! Check out the [Contribution Guide](docs/Contribution_Guide.md) for reporting bugs, suggesting features, or submitting code.
+Found a bug or have an idea for `FoW_Suite_LIGHT` or its nodes? Join the guild! Check out the [Contribution Guide](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/HoW%20to%20FoW%20Suite/CONTRIBUTING.md) for reporting bugs, suggesting features, or submitting code.
 
 ---
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/SirWillance/FoW_Suite_LIGHT/blob/main/docs/LICENSE.md) file for details.
 
 ---
 
 ## Workflows
-Within this Repository u will find a couple of [Workflows](Workflows) that will Guide you how to use the Suite efficiently. To get access to those [Workflows](Workflows) you can whether manually download them here or look at the Directory of your Local ComfyUI Repository and find the FoW_Suite_LIGHT in your custom_node section. You are basically looking for "ComfyUI\custom_nodes\FoW_Suite_LIGHT\data\Workflows". You can now Drag and Drop it into your ComfiyUI interface or load it manually by looking for the top left of your interface, select "Workflow" then select "Open" and navigate to the directory. You sadly have to go threw this until im able to create a node that does this for you. 😅
+Within this Repository u will find a couple of [Workflows](https://github.com/SirWillance/FoW_Suite_LIGHT/tree/main/data/Workflows) that will Guide you how to use the Suite efficiently. To get access to those [Workflows](https://github.com/SirWillance/FoW_Suite_LIGHT/tree/main/data/Workflows) you can whether manually download them here or look at the Directory of your Local ComfyUI Repository and find the FoW_Suite_LIGHT in your custom_node section. You are basically looking for "ComfyUI\custom_nodes\FoW_Suite_LIGHT\data\Workflows". You can now Drag and Drop it into your ComfiyUI interface or load it manually by looking for the top left of your interface, select "Workflow" then select "Open" and navigate to the directory. You sadly have to go threw this until im able to create a node that does this for you. 😅
 
 ---
 

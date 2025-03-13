@@ -20,7 +20,7 @@ class WeightNode:
     # Shared properties—your guild’s core strength for Light tier weights
     RETURN_TYPES = ("CONDITIONING",)
     FUNCTION = "apply_weight"  # The spell to boost prompt influence
-    CATEGORY = get_category("3")  # Category for weight nodes in Light tier
+    CATEGORY = get_category("1")  # Category for weight nodes in Light tier
     DESCRIPTION = """Increases the influence of your prompt by adjusting the weight"""
 
     @classmethod

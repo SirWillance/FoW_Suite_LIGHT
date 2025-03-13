@@ -25,7 +25,7 @@ app.registerExtension({
                 
                 const openModalButton = this.addWidget(
                     "button",
-                    "Enter Style Catalogue",
+                    "Open Style Catalogue",
                     "Load Style Catalogue",
                     () => modal.create(this)
                 );

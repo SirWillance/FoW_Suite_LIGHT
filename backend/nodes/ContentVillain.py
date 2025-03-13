@@ -10,7 +10,7 @@ NODE_EMOJI = "🙈"
 class ContentVillain(VillainNode):
     """Content Villain node for FoW Suite."""
     
-    # Define node properties—your guild’s defense against content negatives in Light tier
+    CATALOGUE = "🙈 Content Catalogue - Light.json"   
     DESCRIPTION = """The Content Villain fights against unwanted visual elements—your guild’s shield in Light tier.
 Increase the Catalogue by increasing your Tier on https://www.twitch.tv/sirwillance/"""
     RETURN_NAMES = (f"{TYPE_NAME} Conditioning", f"{TYPE_NAME} Text", )  # No spaces in return names

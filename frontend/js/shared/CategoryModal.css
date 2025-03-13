@@ -1,0 +1,737 @@
+/* --- ============================ BASE STYLES ============================ --- */
+:root {
+  --catl-modal-background: #333333; 
+  --catl-modal-text: #ffffff; 
+  --catl-modal-border: #555; 
+  --catl-modal-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+  --catl-token-background: #444444; 
+  --catl-button-color: #ddd; 
+  --catl-button-hover-background: #777; 
+  --catl-button-hover-color: #fff; 
+  --catl-operation-window-button-size: 30px; 
+  --catl-slider-track: #555; 
+  --catl-slider-thumb: #79c257; 
+  --catl-token-background: #444444;
+  --catl-button-border: black;
+  --catl-core-red: #8a1d16;
+  --catl-core-green: #127015;
+  --catl-core-blue: #273080;
+  --catl-core-orange: #b48401;
+  --catl-core-red-hover: #da190b;
+  --catl-core-green-hover: #45a049;
+  --catl-core-blue-hover: #0000ff;
+  --catl-core-orange-hover: #f3cb46;
+  --catl-button-border-hover: #ccc;  
+  --catl-transition-hover: opacity 0.2s ease;
+}
+
+/* --- ============================ GENERAL MODAL STYLES ============================ --- */
+.catl-modal {
+  position: fixed;
+  top: 100px;
+  left: 100px;
+  background-color: var(--catl-modal-background);
+  border-radius: 12px;
+  box-shadow: var(--catl-modal-box-shadow);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  color: var(--catl-modal-text);
+  font-family: sans-serif;
+  overflow: hidden;
+  border: 1px solid var(--catl-modal-border);
+}
+
+.catl-modal-titlebar {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--catl-modal-border);
+  cursor: grab;
+  background-color: #202020;
+  height: 40px;
+}
+
+.catl-modal-collapse {
+  background: none;
+  border: none;
+  color: var(--catl-modal-text);
+  font-size: 1.2em;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  margin-right: 5px;
+}
+
+.catl-modal-collapse:hover {
+  opacity: 1;
+}
+
+.catl-modal-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+  padding: 10px;
+  background-color: var(--catl-modal-background);
+  color: var(--catl-modal-text);
+}
+
+.catl-modal-resize-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  cursor: se-resize;
+}
+
+.catl-modal-resize-handle:hover {
+  opacity: 1;
+  border-color: transparent #999;
+}
+
+/* --- ============================ TITLE BAR STYLES ============================ --- */
+.catl-modal-titlebar {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--catl-modal-border);
+  cursor: grab;
+  padding-left: 40px;
+  border-color: #101010;
+  height: 40px;
+  background-color: #202020;
+}
+
+.catl-modal-titlebar h3 {
+  flex-grow: 1;
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #808080;
+}
+
+.catl-modal-close {
+  background: none;
+  border: none;
+  color: var(--catl-modal-text);
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 10px;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  outline: none;
+}
+
+.catl-modal-close:hover {
+  opacity: 1;
+}
+
+.catl-modal-collapse {
+  background: none;
+  border: none;
+  color: var(--catl-modal-text);
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  outline: none;
+  margin-right: 5px;
+}
+
+.catl-modal-collapse:hover {
+  opacity: 1;
+}
+
+/* --- ============================ OPERATION WINDOW STYLES ============================ --- */
+.catl-operation-window {
+  position: sticky;
+  top: 0;
+  background-color: #202020;
+  padding: 5px 20px;
+  margin-bottom: 5px;
+  border-radius: 50px;
+  border: 1px solid #777;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.catl-search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.catl-search-bar {
+  flex: 1;
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #777;
+  border-radius: 5px;
+  background-color: #555;
+  color: #ccc;
+  outline: none;
+}
+
+.catl-search-bar:focus {
+  border-color: #999;
+  box-shadow: none;
+}
+
+.catl-clear-search {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #ddd;
+  cursor: pointer;
+  font-size: 0.8em;
+  padding: 0;
+  margin: 0;
+  transition: color 0.2s;
+  opacity: 0.5;
+}
+
+.catl-clear-search:hover {
+  color: #fff;
+  opacity: 1;
+}
+
+.catl-button-group {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.catl-modal .catl-operation-window .catl-button-group button {
+  border-radius: 50%;
+  width: var(--catl-operation-window-button-size);
+  height: var(--catl-operation-window-button-size);
+  text-align: center;
+  transform: scale(1.05);
+  transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 12px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: var(--catl-button-border);
+}
+
+.catl-modal .catl-operation-window .catl-button-group button:hover{
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: var(--leq-button-border-hover);
+}
+
+/* Color-coded buttons */
+.catl-file-loader {
+  background-color: var(--catl-core-blue);
+  color: #101010;
+}
+
+.catl-file-loader:hover {
+  background-color: var(--catl-core-blue-hover);
+  color: #101010;
+}
+
+.catl-file-saver {
+  background-color: var(--catl-core-orange);
+  color: white !important;
+}
+
+.catl-file-saver:hover {
+  background-color: var(--catl-core-orange-hover);
+  color: white !important;
+}
+
+.catl-clear-all {
+  background-color: var(--catl-core-red);
+  color: white;
+}
+
+.catl-clear-all:hover {
+  background-color: var(--catl-core-red-hover);
+  color: white;
+}
+
+.catl-confirm-input {
+  background-color: var(--catl-core-green);
+  color: white;
+}
+
+.catl-confirm-input:hover {
+  background-color: var(--catl-core-green-hover);
+  color: white;
+}
+
+.catl-tokenize {
+  background-color: var(--catl-core-blue);
+  color: rgb(0, 0, 0);
+}
+
+.catl-tokenize:hover {
+  background-color: var(--catl-core-blue-hover);
+  color: white;
+}
+
+.catl-tokenize.active {
+  background-color: var(--catl-core-green-hover); 
+  color: white;
+  opacity: 1;
+}
+
+.catl-modal .catl-operation-window .catl-button-group button:hover {
+  opacity: 1;
+}
+
+/* --- ============================ Top-level category STYLES ============================ --- */
+.catl-prompt-category-container {
+  margin-bottom: 20px;
+  border: 1px solid var(--catl-modal-border);
+  border-radius: 10px;
+  background-color: #202020;
+  padding: 10px;
+}
+
+.catl-prompt-category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #303030;
+  border-bottom: 1px solid var(--catl-modal-border);
+  cursor: pointer;
+}
+
+.catl-prompt-category-header h3 {
+  color: var(--catl-modal-text);
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.catl-prompt-category-collapse-button {
+  background: none;
+  border: none;
+  color: var(--catl-modal-text);
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.catl-prompt-category-collapse-button:hover {
+  opacity: 1;
+}
+
+.catl-prompt-category-content {
+  padding: 10px;
+  background-color: #252525;
+}
+
+.catl-prompt-category-content.collapsed {
+  display: none;
+}
+
+/* --- ============================ Subcategory container STYLES ============================ --- */
+.catl-category-container {
+  margin-bottom: 10px;
+  border: 1px solid var(--catl-modal-border);
+  border-radius: 8px;
+  background-color: #303030;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.catl-category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background-color: #383838;
+  border-bottom: 1px solid var(--catl-modal-border);
+  cursor: pointer;
+  position: relative;
+}
+
+.catl-category-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--catl-modal-text);
+  display: block;
+}
+
+.catl-category-controls {
+  display: flex;
+  align-items: center;
+}
+
+.catl-clear-category,
+.catl-weight-toggle {
+  background: none;
+  border: none;
+  color: var(--catl-modal-text);
+  font-size: 1em;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  margin-left: 5px;
+  padding: 0;
+  line-height: 1;
+}
+
+.catl-clear-category:hover,
+.catl-weight-toggle:hover {
+  opacity: 1;
+}
+
+.catl-outer-weight-container {
+  display: none;
+  padding: 8px;
+  background-color: #252525;
+}
+
+.catl-outer-weight-container.active {
+  display: block;
+}
+
+.catl-outer-weight-slider {
+  width: 100%;
+  height: 6px;
+  background: var(--catl-slider-track);
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.catl-outer-weight-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--catl-slider-thumb);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.catl-outer-weight-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--catl-slider-thumb);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.catl-outer-weight-value {
+  margin-left: 10px;
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+.catl-category-textarea {
+  width: 100%;
+  min-height: 60px;
+  padding: 8px;
+  border: 1px solid var(--catl-modal-border);
+  border-radius: 4px;
+  background-color: #404040;
+  color: var(--catl-modal-text);
+  font-size: 14px;
+  resize: vertical;
+  margin-top: 8px;
+}
+
+/* --- ============================ TOKENS LIST STYLES ============================ --- */
+.catl-tokens-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  min-height: 20px;
+}
+
+.catl-token {
+  padding: 3px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: var(--catl-modal-accent);
+  transition: background-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  margin: 2px;
+  white-space: nowrap;
+}
+
+.catl-token.token-disabled {
+  background-color: var(--catl-core-red-hover);
+  opacity: 0.6; 
+  text-decoration: line-through; 
+  color: #fff; 
+}
+
+.catl-token-text {
+  margin-right: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.catl-token-weight-container {
+  display: flex;
+  align-items: center;
+}
+
+.catl-token-weight-slider {
+  width: 60px;
+  height: 6px;
+  background: var(--catl-slider-track);
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.catl-token-weight-slider::-webkit-slider-thumb,
+.catl-outer-weight-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--catl-slider-thumb);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.1s ease; 
+}
+
+.catl-token-weight-slider::-moz-range-thumb,
+.catl-outer-weight-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: var(--catl-slider-thumb);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.1s ease; /* Add smooth transition for thumb movement */
+}
+
+.catl-token-weight-value {
+  margin-left: 5px;
+  font-size: 0.9em;
+  color: #352f2f;
+}
+
+/* --- ============================ UTILITY CLASSES ============================ --- */
+.hidden {
+  display: none !important;
+}
+
+.catl-style-icon {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.catl-confirmation-popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #127015;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1002;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+}
+
+/* Ensure placeholders are styled (unchanged from previous) */
+.catl-category-textarea::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+/* Add to PromptRefinerProModal.css */
+.catl-category-textarea:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background-color: #404040; /* Match the enabled background, but ensure it’s still distinguishable */
+  border-color: #555; /* Match the border color for consistency */
+}
+
+.catl-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #444;
+  padding: 30px;
+  width: 450px;
+  min-height: 150px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  text-align: center;
+  z-index: 1003;
+  border: 2px solid var(--catl-modal-border);
+  transition: opacity 0.3s ease;
+ }
+
+.catl-popup-warning {
+  /* Optional: Add warning-specific styles if needed */
+}
+
+.catl-popup-message {
+  margin-bottom: 40px;
+  padding: 0 20px;
+  font-size: 18px;
+}
+
+.catl-popup-link {
+  color: var(--catl-core-blue);
+  text-decoration: underline;
+}
+
+.catl-popup-link:hover {
+  color: var(--catl-core-blue-hover);
+}
+
+.catl-popup-toggle {
+  margin-bottom: 20px;
+}
+
+.catl-popup-toggle input[type="checkbox"] {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.catl-popup-toggle label {
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.catl-popup-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.catl-popup-button {
+  background-color: #127015;
+  color: #fff;
+  border-radius: 12px;
+  padding: 6px 18px;
+  font-size: 0.9em;
+  cursor: pointer;
+  width: auto; /* Allow button to fit content */
+  margin: 0; /* Remove margin for flex alignment */
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: var(--catl-button-border);
+  transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+}
+
+.catl-popup-button:hover {
+  background-color: #45a049;
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: var(--catl-button-border-hover);
+}
+
+.catl-category-container > *:not(.catl-category-textarea) {
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .catl-modal {
+    min-width: 90%;
+    min-height: 50vh;
+  }
+
+  .catl-prompt-category-container {
+    margin-bottom: 15px;
+  }
+
+  .catl-category-container {
+    margin-bottom: 8px;
+  }
+
+  .catl-category-textarea {
+    padding: 6px;
+    min-height: 50px;
+  }
+
+  .catl-token {
+    padding: 2px 6px;
+  }
+}
+
+.catl-modal-titlebar-right.collapsed .catl-twitch-link {
+  display: none;
+}
+
+/* Container for right-side elements (Twitch link, buttons) */
+.catl-modal-titlebar-right {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Style the Twitch link */
+.catl-twitch-link {
+  color: #127015;
+  text-decoration: none;
+  font-size: 14px;
+  margin-right: 10px;
+  transition: opacity 0.2s ease;
+}
+
+.catl-twitch-link:hover {
+  text-decoration: underline;
+  color: #45a049;
+}
+
+
+/* Ensure buttons (collapse, close) remain styled */
+.catl-modal-collapse,
+.catl-modal-close {
+  background: none;
+  border: none;
+  color: #ddd;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 5px;
+}
+
+.catl-modal-collapse:hover,
+.catl-modal-close:hover {
+  color: #fff;
+  background-color: #555;
+}
+
+.catl-category-label,
+.catl-category-textarea {
+  position: relative;
+}
+
+.catl-category-label[title]:hover:after,
+.catl-category-textarea[title]:hover:after {
+  content: attr(title);
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  z-index: 1000;
+  white-space: pre-wrap;
+  max-width: 300px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 5px;
+}
+
+/* --- END OF FILE PromptRefinerProModal.css --- */

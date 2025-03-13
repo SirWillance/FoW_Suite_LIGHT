@@ -1,0 +1,824 @@
+/* pro.css - CSS for ProEqualizerModal */
+
+/* ==========================================================================
+   SECTION: Root Variables
+   ========================================================================== */
+   :root {
+    --leq--modal-background: #333333;
+    --leq--modal-text: #ffffff;
+    --leq--modal-accent: #79c257;
+    --leq--modal-accent-hover: #66a34a;
+    --leq--modal-border: #555;
+    --leq--modal-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    --leq--token-background: #444444;
+    --leq--rgb-red: #ff4d4d;
+    --leq--rgb-blue: #4d79ff;
+    --leq--rgb-green: #79c257;
+    --leq--slider-track: #555;
+    --leq--operation-window-button-size: 30px;
+    --leq-modal-accent-green: #127015;
+    --leq-modal-accent-red: #8a1d16;
+    --leq-modal-accent-blue: #273080;
+    --leq-modal-accent-orange: #b48401;
+    --leq-modal-accent-green-hover: #45a049;
+    --leq-modal-accent-red-hover: #da190b;
+    --leq-modal-accent-blue-hover: #0000ff;
+    --leq-modal-accent-orange-hover: #f3cb46;
+    --leq-button-border-hover: #ccc;
+    --leq-button-border: black;
+}
+
+/* ==========================================================================
+   SECTION: General Styles
+   ========================================================================== */
+/* Apply border-box sizing to all elements */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   SECTION: Base Modal Styles
+   ========================================================================== */
+.leq--modal {
+    position: fixed;
+    top: 100px;
+    left: 100px;
+    background-color: var(--leq--modal-background);
+    border-radius: 12px;
+    box-shadow: var(--leq--modal-box-shadow);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    color: var(--leq--modal-text);
+    font-family: sans-serif;
+    width: 420px;
+    height: 350px; /* Increased default height */
+    min-width: 300px;
+    min-height: 40px;
+    overflow: hidden;
+}
+
+.leq--modal:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Subtle hover enhancement */
+}
+
+/* ==========================================================================
+   SECTION: Title Bar
+   ========================================================================== */
+.leq--modal__titlebar {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #2a2a2a; /* Darker border to match gradient */
+    cursor: grab;
+    padding-left: 40px;
+    height: 40px;
+    background: linear-gradient(to right, #202020 0%, #1a1a1a 100%); /* Subtle gradient */
+    transition: background 0.3s ease; /* Smooth transition for hover */
+}
+
+.leq--modal__titlebar:hover {
+    background: linear-gradient(to right, #252525 0%, #1f1f1f 100%); /* Lighter gradient on hover */
+}
+
+.leq--modal__titlebar h3 {
+    flex-grow: 1;
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #808080;
+}
+
+/* ==========================================================================
+   SECTION: Close Button
+   ========================================================================== */
+.leq--modal__close {
+    background: none;
+    border: none;
+    color: var(--leq--rgb-red);
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 5px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.leq--modal__close:hover {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   SECTION: Collapse Button
+   ========================================================================== */
+.leq--modal__collapse {
+    background: none;
+    border: none;
+    color: var(--leq--modal-text);
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    margin-right: 5px;
+}
+
+.leq--modal__collapse:hover {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   SECTION: Collapsible Section Styles
+   ========================================================================== */
+.leq--collapsible-section {
+    margin-bottom: 20px;
+    border: 1px solid var(--leq--modal-border);
+    border-radius: 10px;
+    background-color: #202020;
+    padding: 0;
+}
+
+.leq--collapsible-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #303030;
+    border-bottom: 1px solid var(--leq--modal-border);
+    cursor: pointer;
+    position: relative;
+}
+
+.leq--collapsible-header h3 {
+    color: var(--leq--modal-text);
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.leq--collapsible-collapse-button {
+    background: none;
+    border: none;
+    color: var(--leq--modal-text);
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.leq--collapsible-collapse-button:hover {
+    opacity: 1;
+}
+
+.leq--collapsible-content {
+    padding: 15px;
+    background-color: #252525;
+}
+
+.leq--collapsible-content.collapsed {
+    display: none;
+}
+
+/* ==========================================================================
+   SECTION: Content
+   ========================================================================== */
+.leq--modal-content {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto; /* Enable scrolling for content */
+    display: block; /* Default display for non-collapsed state */
+}
+
+/* ==========================================================================
+   SECTION: Collapsed State
+   ========================================================================== */
+.leq--modal-collapsed {
+    height: 40px; /* Titlebar height only */
+    width: 300px; /* Minimum width */
+}
+
+/* ==========================================================================
+   SECTION: Resize Handle
+   ========================================================================== */
+.leq--modal-resize-handle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    cursor: se-resize;
+    z-index: 1002;
+    border-radius: 2px;
+}
+
+.leq--modal-resize-handle:hover {
+    background-color: #999;
+}
+
+/* ==========================================================================
+   SECTION: Operation Window
+   ========================================================================== */
+.leq--operation-window {
+    background-color: #202020;
+    border-radius: 50px;
+    border: 1px solid #777;
+    padding: 5px 20px;
+    margin-bottom: 10px; /* Add margin to create spacing */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ==========================================================================
+   SECTION: Dropdowns
+   ========================================================================== */
+.leq--dropdown {
+    background: #555;
+    color: #fff;
+    border: 1px solid #777;
+    border-radius: 8px; /* Rounded for buttons */
+    padding: 5px;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+.leq--dropdown option {
+    background: #333;
+    color: #fff;
+}
+
+/* ==========================================================================
+   SECTION: Buttons
+   ========================================================================== */
+/*  Collective button feature*/
+   .leq--clear-button,
+   .leq--undo-button,
+   .leq--redo-button,
+   .leq--reset-button,
+   .leq--confirm-button,
+   .leq--understood-button,
+   .leq--cancel-button {
+    border-width: 2px; /* Important: border-width is needed for border-image */
+    border-color: var(--leq-button-border);
+    transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+    }
+
+   .leq--clear-button:hover,
+   .leq--undo-button:hover,
+   .leq--redo-button:hover,
+   .leq--reset-button:hover,
+   .leq--confirm-button:hover,
+   .leq--understood-button:hover,
+   .leq--cancel-button:hover {
+    border-width: 2px; /* Important: border-width is needed for border-image */
+    border-color: var(--leq-button-border-hover);
+    transform: scale(1.05);
+    }
+
+   .leq--clear-button,
+   .leq--undo-button,
+   .leq--redo-button,
+   .leq--reset-button,
+   .leq--confirm-button {
+       border-radius: 50%;
+       width: 30px;
+       height: 30px;
+       text-align: center;
+       transform: scale(1.05);
+       transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+       margin-left: 5px;
+       margin-right: 5px;
+       font-size: 12px;
+       padding: 0;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       cursor: pointer;
+
+   }
+
+
+.leq--clear-button {
+    background-color: var(--leq-modal-accent-red);
+    color: #fff;
+}
+
+.leq--clear-button:hover {
+    background-color: var(--leq-modal-accent-red-hover);
+}
+
+.leq--undo-button {
+    background-color: var(--leq-modal-accent-blue);
+    color: #fff;
+}
+
+.leq--undo-button:hover {
+    background-color: var(--leq-modal-accent-blue-hover);
+}
+
+.leq--redo-button {
+    background-color: var(--leq-modal-accent-blue);
+    color: #fff;
+}
+
+.leq--redo-button:hover {
+    background-color: var(--leq-modal-accent-blue-hover);
+}
+
+.leq--reset-button {
+    background-color: var(--leq-modal-accent-orange);
+    color: #fff;
+}
+
+.leq--reset-button:hover {
+    background-color: var(--leq-modal-accent-orange-hover);
+}
+
+.leq--confirm-button {
+    background-color: var(--leq-modal-accent-green);
+    color: #fff;
+}
+
+.leq--confirm-button:hover {
+    background-color: var(--leq-modal-accent-green-hover);
+}
+
+
+/* ==========================================================================
+   SECTION: Buttons (Updated)
+   ========================================================================== */
+   .leq--understood-button {
+    background-color: var(--leq-modal-accent-green);
+    color: #fff;
+    border-radius: 12px;
+    padding: 6px 18px;
+    font-size: 1.1em;
+    cursor: pointer;
+    width: auto; /* Allow button to fit content */
+    margin: 0; /* Remove margin for flex alignment */
+}
+
+.leq--understood-button:hover {
+    background-color: var(--leq-modal-accent-green-hover); /* #45a049 */
+    transform: scale(1.05); /* Subtle enlarge on hover */
+}
+
+/* Cancel Button (No) */
+.leq--cancel-button {
+    background-color: var(--leq-modal-accent-red); /* #8a1d16 */
+    color: #fff;
+    border-radius: 12px;
+    padding: 6px 18px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.leq--cancel-button:hover {
+    background-color: var(--leq-modal-accent-red-hover); /* #da190b */
+    transform: scale(1.05);
+}
+
+.leq--alert .leq--alert-warning {
+border-color: var(--leq--rgb-red);
+border-width: 100;
+}
+
+/* Ensure popup buttons align well */
+.leq--popup-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+    transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+}
+
+/* Tweak popup message for balance */
+.leq--popup-message {
+    line-height: 1.4;
+    font-size: 18px;
+}
+
+.leq--popup-message h3 {
+    margin: 0 0 10px 0;
+    font-size: 24px;
+}
+
+.leq--popup-message p {
+    margin: 0 0 10px 0;
+}
+
+/* Adjust toggle for better fit */
+.leq--popup-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 0.9em; /* Slightly larger for readability */
+}
+
+/* ==========================================================================
+   SECTION: Equalizer Container
+   ========================================================================== */
+.leq--equalizer-container {
+    background-color: #202020;
+    border-radius: 12px;
+    border: 1px solid #777;
+    padding: 15px; /* Increased padding */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    align-items: flex-end; /* Align items to the bottom */
+    position: relative;
+    height: 200px; /* Slightly taller for better visibility */
+    margin-bottom: 10px; /* Add margin to create spacing */
+}
+
+/* ==========================================================================
+   SECTION: Equalizer Item
+   ========================================================================== */
+.leq--equalizer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute; /* Overlap items */
+    left: 0;          /* Stack them at the left */
+    bottom: 15px; /* Align to the bottom of the container */
+    width: 40px;
+    gap: 8px; /* Increased spacing between elements */
+    margin-left: 15px; /* Increased margin between items */
+}
+
+/* Add hover effect to sliders within equalizer items */
+.leq--equalizer-item .leq--vertical-slider:hover {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* Subtle glow on hover */
+}
+
+/* ==========================================================================
+   SECTION: Anchor Checkbox
+   ========================================================================== */
+.leq--anchor-checkbox {
+    width: 20px;
+    height: 20px;
+    background-color: #555;
+    border: 1px solid #777;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.7;
+    margin-bottom: 5px; /* Space between checkbox and label */
+}
+
+.leq--anchor-checkbox:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* ==========================================================================
+   SECTION: Number Label
+   ========================================================================== */
+.leq--number-label {
+    color: #fff;
+    min-width: 20px;
+    text-align: center;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+}
+
+/* ==========================================================================
+   SECTION: Vertical Slider
+   ========================================================================== */
+.leq--vertical-slider {
+    -webkit-appearance: slider-vertical; /* Override default appearance */
+    width: 8px; /* Thicker slider */
+    height: 70px; /* Shorter slider */
+    background: var(--leq--slider-track);
+    border-radius: 4px; /* Rounded edges */
+    outline: none;
+    cursor: pointer;
+    margin-bottom: 5px; /* Space between slider and input */
+}
+
+/* ==========================================================================
+   SECTION: Slider Thumb Styles
+   ========================================================================== */
+.leq--equalizer-container .leq--equalizer-item .leq--vertical-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background:  #80BFFF;
+}
+
+.leq--equalizer-container .leq--equalizer-item .leq--vertical-slider::-moz-range-thumb {
+    -moz-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background:  #80BFFF;
+}
+
+/* ==========================================================================
+   SECTION: Value Input
+   ========================================================================== */
+.leq--value-input {
+    width: 40px;
+    padding: 4px;
+    border: 1px solid #777;
+    border-radius: 4px;
+    background-color: #555;
+    color: #ccc;
+    font-size: 0.7em;
+    text-align: center;
+    outline: none;
+    height: 20px;
+}
+
+.leq--value-input:focus {
+    border-color: #999;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   SECTION: Text Input Container
+   ========================================================================== */
+.leq--text-input-container {
+    background-color: #202020;
+    border-radius: 12px;
+    border: 1px solid #777;
+    padding: 10px;
+    display: flex;
+    flex-direction: column; /* Change to column */
+    flex-wrap: nowrap;
+    overflow-y: auto; /* Change to overflow-y */
+    position: relative;
+    height: auto; /* adjust as needed */
+    margin-bottom: 10px; /* Add margin to create spacing */
+}
+
+/* ==========================================================================
+   SECTION: Text Input
+   ========================================================================== */
+.leq--text-input {
+    width: 80px; /* adjust as needed */
+    padding: 4px;
+    border: 1px solid #777;
+    border-radius: 4px;
+    background-color: #555;
+    color: #ccc;
+    font-size: 0.8em;
+    text-align: center;
+    outline: none;
+    position: relative; /* remove absolute positioning */
+    margin-bottom: 5px; /* Add spacing between text inputs */
+}
+
+.leq--text-input:focus {
+    outline: none;
+    border-color: #999;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   SECTION: Slider Color States
+   ========================================================================== */
+.leq--vertical-slider::-webkit-slider-thumb {
+    transition: background 0.3s ease; /* Smooth color transition */
+}
+
+.leq--vertical-slider::-moz-range-thumb {
+    transition: background 0.3s ease; /* Smooth color transition */
+}
+
+.leq--vertical-slider.safe-range::-webkit-slider-thumb { background: var(--leq--rgb-green); }
+.leq--vertical-slider.safe-range::-moz-range-thumb { background: var(--leq--rgb-green); }
+.leq--vertical-slider.high-range::-webkit-slider-thumb { background: #ff8c00; }
+.leq--vertical-slider.high-range::-moz-range-thumb { background: #ff8c00; }
+.leq--vertical-slider.negative-range::-webkit-slider-thumb { background: var(--leq--rgb-red); }
+.leq--vertical-slider.negative-range::-moz-range-thumb { background: var(--leq--rgb-red); }
+.leq--vertical-slider:disabled::-webkit-slider-thumb { background: #777; }
+.leq--vertical-slider:disabled::-moz-range-thumb { background: #777; }
+
+/* ==========================================================================
+   SECTION: Alert Box
+   ========================================================================== */
+.leq--alert {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    padding: 3px 8px; border-radius: 6px; color: #fff; font-size: 0.8em;
+    background-color: transparent; z-index: 1003; transition: opacity 0.3s ease;
+}
+.leq--alert-warning { background-color: #ff8c00; }
+.leq--alert-danger { background-color: #ff4d4d; }
+
+/* ==========================================================================
+   SECTION: General Label Style
+   ========================================================================== */
+.leq--label {
+    display: block;
+    color: #ccc;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   SECTION: General Content Spacing
+   ========================================================================== */
+.leq--modal-content > * {
+    margin-bottom: 10px; /* Adjust as needed */
+}
+
+/* Remove margin from the last element */
+.leq--modal-content > *:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   SECTION: Prompt Input
+   ========================================================================== */
+.leq--prompt-input {
+    width: 100%;
+    height: 50px;
+    background-color: #555;
+    color: #ccc;
+    border: 1px solid #777;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 0.8em;
+    margin-bottom: 15px;
+    resize: vertical;
+}
+
+.leq--prompt-input:focus {
+    outline: none;
+    border-color: #999;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   SECTION: Token
+   ========================================================================== */      
+
+.leq--token-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 10px;
+    background-color: #202020;
+    border-radius: 12px;
+    border: 1px solid #777;
+    margin-bottom: 15px; /* Increased spacing */
+}
+
+.leq--token {
+    color: #fff;
+}
+
+.leq--remaining-tokens {
+    width: 100%;
+    height: 50px;
+    background-color: #555;
+    color: #ccc;
+    border: 1px solid #777;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 0.8em;
+    margin-bottom: 0; /* No extra margin at the end */
+}
+
+/* ==========================================================================
+   SECTION: Distribution Slider
+   ========================================================================== */
+.leq--distribution-slider {
+    width: 100px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(to right, #444444, #777);
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.leq--distribution-slider::-webkit-slider-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #777;
+    appearance: none;
+    cursor: pointer;
+}
+
+.leq--distribution-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #777;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   SECTION: Distribution Slider Color States
+   ========================================================================== */   
+.leq--sum-inputs-selector {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #fff;
+    margin-top: 10px; /* Increased gap */
+}
+
+.leq--sum-inputs-dropdown {
+    background: #555;
+    color: #fff;
+    border: 1px solid #777;
+    border-radius: 8px; /* Rounded for buttons */
+    padding: 5px;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+.leq--sum-inputs-dropdown option {
+    background: #333;
+    color: #fff;
+}
+
+/* ==========================================================================
+   SECTION: Tooltip Styles
+   ========================================================================== */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:hover:after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7em;
+    white-space: nowrap;
+    z-index: 1003;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+[data-tooltip]:hover:after {
+    opacity: 1;
+}
+
+/* Adjust tooltip position for buttons to avoid overlap */
+.leq--button[data-tooltip]:hover:after,
+.leq--dropdown[data-tooltip]:hover:after {
+    bottom: 110%;
+}
+
+/* Adjust for sliders */
+.leq--vertical-slider[data-tooltip]:hover:after {
+    bottom: 110%;
+    left: 50%;
+}
+
+.leq--contact-link {
+    color: #127015;
+    text-decoration: none;
+    font-size: 14px;
+    margin-right: 10px;
+    transition: opacity 0.2s ease;
+}
+
+.leq--contact-link:hover {
+    text-decoration: underline;
+    color: #45a049;
+}
+
+/* ==========================================================================
+   SECTION: Tooltip Styles (Disabled)
+   ========================================================================== */
+/* Comment out or remove this block */
+[data-tooltip]:hover:after {
+    /* content: attr(data-tooltip); */
+    /* ... */
+    display: none; /* Or just remove this section */
+}
+
+/* Remove adjustments for buttons and sliders if not needed */
+.leq--button[data-tooltip]:hover:after,
+.leq--dropdown[data-tooltip]:hover:after,
+.leq--vertical-slider[data-tooltip]:hover:after {
+    display: none;
+}

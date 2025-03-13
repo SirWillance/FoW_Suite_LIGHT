@@ -10,6 +10,7 @@ NODE_EMOJI = "😈"
 class StyleVillain(VillainNode):
     """Style Villain node for FoW Suite."""
     
+    CATALOGUE = "😈 Dynamic Catalogue - Light.json"   
     DESCRIPTION = """The Style Villain fights against unwanted visual elements—your guild’s shield in Light tier.
 Increase the Catalogue by increasing your Tier on https://www.twitch.tv/sirwillance/"""
     RETURN_NAMES = ("Dynamic Conditioning", f"{TYPE_NAME} Text", )  # No spaces in return names

@@ -25,7 +25,7 @@ app.registerExtension({
                 // Add a button to open the style catalogue modal                
                 const openModalButton = this.addWidget(
                     "button",
-                    "Enter Shot Catalogue",
+                    "Open Shot Catalogue",
                     "Load Shot Catalogue",
                     () => modal.create(this)
                 );

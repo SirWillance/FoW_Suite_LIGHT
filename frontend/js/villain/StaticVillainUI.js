@@ -20,8 +20,8 @@ app.registerExtension({
                 
                 const openModalButton = this.addWidget(
                     "button",
-                    "Enter Static Bank",
-                    "Load Static Bank",
+                    "Open Static Catalogue",
+                    "Load Static Catalogue",
                     () => modal.create(this)
                 );
 

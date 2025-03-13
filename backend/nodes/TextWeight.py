@@ -33,7 +33,7 @@ class TextWeight:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("Weighted Text",)
     FUNCTION = "apply_weight"
-    CATEGORY = get_category("2")
+    CATEGORY = get_category("3")
     DESCRIPTION = "Combines a multiline text prompt with a weight slider."
 
     def apply_weight(self, Weight, text):

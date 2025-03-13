@@ -9,7 +9,8 @@ NODE_EMOJI = "📷"
 
 class ShotAgent(AgentNode):
     """Agent node for style selection and encoding."""
-    
+
+    CATALOGUE = "📷 Shot Catalogue - Light.json"   
     RETURN_NAMES = (f"{TYPE_NAME} Conditioning", f"{TYPE_NAME} Text", )  # No spaces in return names   
     DESCRIPTION =	 """Camera and composition guide for image generation.
 Access a curated collection of cinematic shots, angles, and composition styles.

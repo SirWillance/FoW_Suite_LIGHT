@@ -20,8 +20,8 @@ app.registerExtension({
                 
                 const openModalButton = this.addWidget(
                     "button",
-                    "Enter Definition Bank",
-                    "Load Definition Bank",
+                    "Open Definition Catalogue",
+                    "Load Definition Catalogue",
                     () => modal.create(this)
                 );
 

@@ -2,56 +2,55 @@
 
 /* --- ============================ BASE STYLES ============================ --- */
 :root {
-  --fow-lbm-modal-background: #333333;
-  --fow-lbm-modal-text: #ffffff;
-  --fow-lbm-modal-accent: #79c257;
-  --fow-lbm-modal-accent-hover: #66a34a;
-  --fow-lbm-modal-border: #555;
-  --fow-lbm-modal-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --fow-lbm-background: #333333;
+  --fow-lbm-text: #ffffff;
+  --fow-lbm-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   --fow-lbm-token-background: #444444;
-
-  /* Collapsed/Expanded dimensions */
-  --fow-lbm-modal-collapse-width: 320px;
-  --fow-lbm-modal-expand-width: 420px;
-  --fow-lbm-modal-expand-height: 175px;
+  --fow-lbm-border: #555; 
+  --fow-lbm-operation-window-button-size: 30px;
+  --fow-lbm-button-border: black;
+  --fow-lbm-core-red: #8a1d16;
+  --fow-lbm-core-green: #127015;
+  --fow-lbm-core-blue: #273080;
+  --fow-lbm-core-red-hover: #da190b;
+  --fow-lbm-core-green-hover: #45a049;
+  --fow-lbm-core-blue-hover: #0000ff;
+  --fow-lbm-button-border-hover: #ccc;
+  --fow-lbm-transition-hover: opacity 0.2s ease;
 }
 
 /* --- ============================ GENERAL MODAL STYLES ============================ --- */
-.fow-lbm-modal { /* Tier-specific */
+.fow-lbm-modal {
   position: fixed;
   top: 100px;
   left: 100px;
-  background-color: var(--fow-lbm-modal-background);
+  background-color: var(--fow-lbm-background);
   border-radius: 12px;
-  box-shadow: var(--fow-lbm-modal-box-shadow);
+  box-shadow: var(--fow-lbm-box-shadow);
   z-index: 1001;
   display: flex;
   flex-direction: column;
-  color: var(--fow-lbm-modal-text);
+  color: var(--fow-lbm-text);
   font-family: sans-serif;
-  width: var(--fow-lbm-modal-expand-width);
-  height: var(--fow-lbm-modal-expand-height);
-  min-width: var(--fow-lbm-modal-expand-width);
-  min-height: var(--fow-lbm-modal-expand-height);
-  max-height: 80vh;
-  max-width: 800px;
   overflow: hidden;
+  border: 1px solid var(--fow-lbm-border);
 }
 
 /* --- ============================ TITLE BAR STYLES ============================ --- */
-.fow-lbm-modal__titlebar { /* Tier-specific */
+.fow-lbm-modal__titlebar {
   display: flex;
   align-items: center;
   padding: 10px 15px;
-  border-bottom: 1px solid var(--fow-lbm-modal-border);
+  border-bottom: 1px solid var(--fow-lbm-border);
   cursor: grab;
   padding-left: 40px;
   border-color: #101010;
   height: 40px;
-  background-color: var(--fow-lbm-modal-background);
+  background-color: var(--fow-lbm-background);
+  user-select: none;
 }
 
-.fow-lbm-modal__titlebar h3 { /* Tier-specific */
+.fow-lbm-modal__titlebar h3 {
   flex-grow: 1;
   margin: 0;
   font-size: 1.2em;
@@ -59,11 +58,24 @@
   color: #808080;
 }
 
+.fow-lbm-modal__titlebar a {
+  color: #127015;
+  text-decoration: none;
+  font-size: 14px;
+  margin-right: 10px;
+  transition: opacity 0.2s ease;
+}
+
+.fow-lbm-modal__titlebar a:hover {
+  text-decoration: underline;
+  color: #45a049;
+}
+
 /* --- ============================ CLOSE BUTTON STYLES ============================ --- */
-.fow-lbm-modal__close { /* Tier-specific */
+.fow-lbm-modal__close {
   background: none;
   border: none;
-  color: var(--fow-lbm-modal-text);
+  color: var(--fow-lbm-text);
   font-size: 1.5em;
   cursor: pointer;
   padding: 10px;
@@ -73,15 +85,15 @@
   outline: none;
 }
 
-.fow-lbm-modal__close:hover { /* Tier-specific */
+.fow-lbm-modal__close:hover {
   opacity: 1;
 }
 
-/* --- ============================ MODAL Collapse STYLES ============================ --- */
-.fow-lbm-modal__collapse { /* Tier-specific */
+/* --- ============================ COLLAPSE BUTTON STYLES ============================ --- */
+.fow-lbm-modal__collapse {
   background: none;
   border: none;
-  color: var(--fow-lbm-modal-text);
+  color: var(--fow-lbm-text);
   font-size: 1.2em;
   cursor: pointer;
   padding: 0;
@@ -92,68 +104,63 @@
   margin-right: 5px;
 }
 
-.fow-lbm-modal__collapse:hover { /* Tier-specific */
+.fow-lbm-modal__collapse:hover {
   opacity: 1;
 }
 
 /* --- ============================ MODAL CONTENT STYLES ============================ --- */
-.fow-lbm-modal-content { /* Tier-specific */
+.fow-lbm-modal-content {
   flex-grow: 1;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 5px;
-  padding-bottom: 0px;
-  overflow: visible;
+  padding: 15px;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
-.fow-lbm-content-wrapper { /* Tier-specific */
+.fow-lbm-content-wrapper {
   height: 100%;
   overflow: auto;
-  background-color: var(--fow-lbm-modal-background);
-  color: var(--fow-lbm-modal-text);
+  background-color: var(--fow-lbm-background);
+  color: var(--fow-lbm-text);
+  display: flex;
+  flex-direction: column;
 }
 
 /* --- ============================ OPERATION WINDOW STYLES ============================ --- */
-.fow-lbm-operation-window { /* Tier-specific */
-    position: sticky;
-    top: 0;
-    background-color: #202020;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    margin-left: 30px;
-    margin-right: 30px;
-    border-radius: 50px;
-    border: 2px solid var(--fow-lbm-modal-border);
-    z-index: 10;
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-/* --- ============================ CONTROL WINDOW STYLES ============================ --- */
-.fow-lbm-control-window { /* Tier-specific */
+.fow-lbm-operation-window {
   position: sticky;
-  background-color: #555;
-  padding: 1px;
-  margin-bottom: 10px;
-  border: 1px solid var(--fow-lbm-modal-border);
+  top: 0;
+  background-color: #202020;
+  padding: 5px 10px;
+  margin: 15px 30px 5px 30px;
+  border-radius: 50px;
+  border: 2px solid var(--fow-lbm-border);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-#fow-lbm-selected-token-output { /* Tier-specific */
+/* --- ============================ CONTROL WINDOW STYLES ============================ --- */
+.fow-lbm-control-window {
+  position: sticky;
+  background-color: #555;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid var(--fow-lbm-border);
+}
+
+#fow-lbm-selected-token-output {
   white-space: pre-line;
   margin: 0;
   font-size: 0.9em;
   color: #ccc;
   background-color: #202020;
   padding: 15px;
+  overflow-wrap: break-word;
 }
 
 /* --- ============================ SEARCH BAR STYLES ============================ --- */
-.fow-lbm-operation-window .fow-lbm-search-bar { /* Tier-specific */
+.fow-lbm-operation-window .fow-lbm-search-bar {
   flex: 1;
   padding: 6px 12px;
   margin-right: 8px;
@@ -164,22 +171,23 @@
   font-size: 14px;
   height: 28px;
   outline: none;
+  transition: border-color 0.2s ease;
 }
 
-.fow-lbm-operation-window .fow-lbm-search-bar:focus { /* Tier-specific */
-  border-color: #999;
-  box-shadow: none;
+.fow-lbm-operation-window .fow-lbm-search-bar:focus {
+  border-color: var(--fow-lbm-core-green-hover);
+  box-shadow: 0 0 5px rgba(121, 194, 87, 0.3);
 }
 
 /* --- ============================ BUTTON GROUP STYLES ============================ --- */
-.fow-lbm-operation-window .fow-lbm-button-group { /* Tier-specific */
+.fow-lbm-operation-window .fow-lbm-button-group {
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: 4px;
 }
 
 /* --- ============================ BUTTON STYLES ============================ --- */
-.fow-lbm-operation-window .fow-lbm-button-group button { /* Tier-specific */
+.fow-lbm-operation-window .fow-lbm-button-group button {
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -193,35 +201,42 @@
   margin-left: 4px;
 }
 
-.fow-lbm-operation-window .fow-lbm-button-group .fow-lbm-deselect-all-button { /* Tier-specific */
-  background-color: #8a1d16;
-  color: white;
+.fow-lbm-operation-window .fow-lbm-button-group button:hover {
+  transform: scale(1.1);
 }
 
-.fow-lbm-operation-window .fow-lbm-button-group button.fow-lbm-deselect-all-button:hover { /* Tier-specific */
-  background-color: #da190b;
+.fow-lbm-operation-window .fow-lbm-button-group .fow-lbm-deselect-all-button {
+  background-color: var(--fow-lbm-core-red);
+  border-color: var(--fow-lbm-button-border);
 }
 
-.fow-lbm-operation-window .fow-lbm-button-group .fow-lbm-file-button { /* Tier-specific */
-  background-color: #1e2772;
-  color: #101010;
+.fow-lbm-operation-window .fow-lbm-button-group .fow-lbm-deselect-all-button:hover {
+  background-color: var(--fow-lbm-core-red-hover);
+  border-color: var(--fow-lbm-button-border-hover);
 }
 
-.fow-lbm-operation-window .fow-lbm-button-group button.fow-lbm-file-button:hover { /* Tier-specific */
-  background-color: #3333ff;
+.fow-lbm-operation-window .fow-lbm-button-group .fow-lbm-file-button {
+  background-color: var(--fow-lbm-core-blue);
+  border-color: var(--fow-lbm-button-border);
 }
 
-.fow-lbm-operation-window .fow-lbm-button-group .fow-lbm-confirm-button { /* Tier-specific */
-  background-color: #127015;
-  color: white;
+.fow-lbm-operation-window .fow-lbm-button-group .fow-lbm-file-button:hover {
+  background-color: var(--fow-lbm-core-blue-hover);
+  border-color: var(--fow-lbm-button-border-hover);
 }
 
-.fow-lbm-operation-window .fow-lbm-button-group button.fow-lbm-confirm-button:hover { /* Tier-specific */
-  background-color: #45a049;
+.fow-lbm-operation-window .fow-lbm-button-group .fow-lbm-confirm-button {
+  background-color: var(--fow-lbm-core-green-hover);
+  border-color: var(--fow-lbm-button-border);
+}
+
+.fow-lbm-operation-window .fow-lbm-button-group .fow-lbm-confirm-button:hover {
+  background-color: var(--fow-lbm-core-green-hover);
+  border-color: var(--fow-lbm-button-border-hover);
 }
 
 /* --- ============================ CATEGORIES CONTAINER STYLES ============================ --- */
-.fow-lbm-categories-container { /* Tier-specific */
+.fow-lbm-categories-container {
   margin-top: 12px;
   overflow-y: auto;
   flex: 1;
@@ -230,14 +245,25 @@
 }
 
 /* --- ============================ CATEGORY STYLES ============================ --- */
-.fow-lbm-category { /* Tier-specific */
+.fow-lbm-category {
   margin-bottom: 10px;
-  border: 1px solid var(--fow-lbm-modal-border);
+  border: 1px solid var(--fow-lbm-border);
   border-radius: 4px;
   padding: 8px;
+  transition: border-color 0.2s ease;
 }
 
-.fow-lbm-category h4 { /* Tier-specific */
+.fow-lbm-category--primary {
+  background-color: #303030;
+  border: 2px solid var(--fow-lbm-core-green);
+}
+
+.fow-lbm-category--related {
+  background-color: #303030;
+  border: 2px dashed #666;
+}
+
+.fow-lbm-category h4 {
   margin: 0;
   font-size: 1.1em;
   font-weight: bold;
@@ -249,36 +275,51 @@
   cursor: pointer;
 }
 
-.fow-lbm-category h4:hover { /* Tier-specific */
+.fow-lbm-category h4:hover {
   background-color: #555;
 }
 
 /* --- ============================ STYLES CONTAINER STYLES ============================ --- */
-.fow-lbm-styles-container { /* Tier-specific */
-  margin-top: 12px;
+.fow-lbm-styles-container {
+  margin-top: 8px;
 }
 
 /* --- ============================ STYLE ITEM STYLES ============================ --- */
-.fow-lbm-style-item { /* Tier-specific */
+.fow-lbm-style-item {
   margin-bottom: 5px;
   padding-left: 15px;
 }
 
-.fow-lbm-style-item label { /* Tier-specific */
+.fow-lbm-style-item--primary {
+  background-color: #303030;
+  border: 2px solid var(--fow-lbm-core-green);
+}
+
+.fow-lbm-style-item--related {
+  background-color: #303030;
+  border: 2px dashed #666;
+}
+
+.fow-lbm-style-item label {
   display: block;
   font-weight: bold;
   cursor: pointer;
   padding: 5px;
-  border-bottom: 1px solid var(--fow-lbm-modal-border);
+  border-bottom: 1px solid var(--fow-lbm-border);
   transition: background-color 0.2s ease;
 }
 
-.fow-lbm-style-item label:hover { /* Tier-specific */
+.fow-lbm-style-item label:hover {
   background-color: #555;
 }
 
+.fow-lbm-style-item--selected {
+  border: 2px solid var(--fow-lbm-core-green);
+  background-color: #303030;
+}
+
 /* --- ============================ TOKENS LIST STYLES ============================ --- */
-.fow-lbm-tokens-list { /* Tier-specific */
+.fow-lbm-tokens-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -286,14 +327,14 @@
   flex-wrap: wrap;
   gap: 4px;
   justify-content: flex-start;
+  padding-top: 5px;
 }
 
 /* --- ============================ TOKEN LIST ITEM STYLES ============================ --- */
-.fow-lbm-tokens-list li { /* Tier-specific */
+.fow-lbm-tokens-list li {
   padding: 3px 8px;
   border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 1px;
   background-color: var(--fow-lbm-token-background);
   transition: background-color 0.2s ease;
   font-size: 0.85em;
@@ -307,17 +348,17 @@
   margin-top: 4px;
 }
 
-.fow-lbm-tokens-list li:hover { /* Tier-specific */
+.fow-lbm-tokens-list li:hover {
   background-color: #666;
 }
 
-.fow-lbm-tokens-list li.token-enabled { /* Tier-specific */
-  background-color: var(--fow-lbm-modal-accent);
-  color: var(--fow-lbm-modal-text);
+.fow-lbm-tokens-list li.token-enabled {
+  background-color: var(--fow-lbm-core-green-hover);
+  color: var(--fow-lbm-text);
 }
 
 /* --- ============================ RESIZE HANDLE STYLES ============================ --- */
-.fow-lbm-modal-resize-handle { /* Tier-specific */
+.fow-lbm-modal-resize-handle {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -327,15 +368,130 @@
   cursor: se-resize;
   z-index: 1002;
   border-radius: 2px;
+  transition: background-color 0.2s ease;
 }
 
-.fow-lbm-modal-resize-handle:hover { /* Tier-specific */
+.fow-lbm-modal-resize-handle:hover {
   background-color: #999;
 }
 
 /* --- ============================ UTILITY CLASSES ============================ --- */
-.fow-lbm-hidden { /* Tier-specific */
+.fow-lbm-hidden {
   display: none !important;
+}
+
+/* --- ============================ PREVIEW CONTAINER STYLES ============================ --- */
+.fow-lbm-preview-container {
+  position: fixed;
+  background-color: var(--fow-lbm-background);
+  border: 1px solid var(--fow-lbm-border);
+  border-radius: 4px;
+  padding: 5px;
+  z-index: 1002;
+  box-shadow: var(--fow-lbm-box-shadow);
+  display: none;
+}
+
+.fow-lbm-preview-image {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+/* --- ============================ POPUP STYLES ============================ --- */
+.fow-lbm-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #444;
+  padding: 30px;
+  width: 450px;
+  min-height: 150px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  text-align: center;
+  z-index: 1003;
+  opacity: 0;
+  border: 2px solid var(--fow-lbm-border);
+  transition: opacity 0.3s ease;
+}
+
+.fow-lbm-popup-message {
+  margin-bottom: 20px;
+  padding: 0 20px;
+  font-size: 1.2em;
+}
+
+.fow-lbm-popup-toggle {
+  margin-bottom: 20px;
+}
+
+.fow-lbm-popup-toggle label {
+  margin-left: 5px;
+  font-size: 0.9em;
+}
+
+.fow-lbm-popup-buttons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.fow-lbm-popup-button {
+  background-color: var(--fow-lbm-core-green);
+  color: #fff;
+  border-radius: 12px;
+  padding: 6px 18px;
+  font-size: 0.9em;
+  cursor: pointer;
+  width: auto; /* Allow button to fit content */
+  margin: 0; /* Remove margin for flex alignment */
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: black;
+}
+
+.fow-lbm-popup-button:hover {
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: var(--fow-lbm-button-border-hover);
+}
+
+.fow-lbm-popup-cancel-button {
+  background-color: var(--fow-lbm-core-red);
+  color: #fff;
+  border-radius: 12px;
+  padding: 6px 18px;
+  font-size: 0.9em;
+  cursor: pointer;
+  width: auto; /* Allow button to fit content */
+  margin: 0; /* Remove margin for flex alignment */
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: black;
+}
+
+.fow-lbm-popup-cancel-button:hover {
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: var(--fow-lbm-button-border-hover);
+}
+
+.fow-lbm-confirmation-popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #127015;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  z-index: 1002;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 /* --- END OF FILE fow-lbm-styles.css --- */

@@ -24,7 +24,7 @@ app.registerExtension({
                 
                 const openModalButton = this.addWidget(
                     "button",
-                    "Enter Detail Catalogue",
+                    "Open Detail Catalogue",
                     "Load Detail Catalogue",
                     () => modal.create(this)
                 );

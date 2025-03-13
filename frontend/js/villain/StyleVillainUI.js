@@ -2,7 +2,7 @@
 import { app } from "../../../../../scripts/app.js";
 import { BaseModal } from "../shared/BaseModal.js";
 
-export const VERSION = "Alpha";
+export const VERSION = "Light";
 
 app.registerExtension({
     name: "FoW_Suite_LIGHT.StyleVillainLightUI",
@@ -20,8 +20,8 @@ app.registerExtension({
                 
                 const openModalButton = this.addWidget(
                     "button",
-                    "Enter Style Bank",
-                    "Load Style Bank",
+                    "Open Style Catalogue",
+                    "Load Style Catalogue",
                     () => modal.create(this)
                 );
 

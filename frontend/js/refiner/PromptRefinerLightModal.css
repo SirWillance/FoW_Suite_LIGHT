@@ -1,11 +1,14 @@
+/* --- START OF FILE PromptRefinerSingleInputModal.css --- */
+
+/* --- ============================ BASE STYLES ============================ --- */
 :root {
   --prl-modal-background: #333333; /* Dark gray background */
   --prl-modal-text: #ffffff; /* White text */
   --prl-modal-border: #555; /* Dark border color */
   --prl-modal-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Consistent shadow */
-  --prl-modal-accent-red: #da190b; /* Clear All (Red) */
-  --prl-modal-accent-orange: #f3c429; /* Save (Orange) */
-  --prl-modal-accent-green: #45a049; /* Confirm (Green) */
+  --prl-modal-accent-red: #8a1d16;; /* Clear All (Red) */
+  --prl-modal-accent-orange: #b48401; /* Save (Orange) */
+  --prl-modal-accent-green: #127015; /* Confirm (Green) */
   --prl-button-hover-background: #777; /* Button hover background */
   --prl-button-hover-color: #fff; /* Button hover text color */
   --prl-operation-window-button-size: 30px; /* Button size */
@@ -25,7 +28,14 @@
   color: var(--prl-modal-text);
   font-family: sans-serif;
   overflow: hidden;
-  height:590px
+  min-height: 300px; /* Default min-height when expanded */
+  min-width: 390px;
+}
+
+/* Override min-height when collapsed */
+.prl-modal.prl-modal-collapsed {
+  min-height: 40px !important; /* Match minHeight from JS */
+  min-width: 390px !important;
 }
 
 /* --- ============================ TITLE BAR STYLES ============================ --- */
@@ -33,13 +43,13 @@
   display: flex;
   align-items: center;
   padding: 10px 15px;
-  border-bottom: 1px solid var(--prl-modal-border);
-  cursor: grab;
   padding-left: 40px;
+  border-bottom: 1px solid var(--prl-modal-border);
   border-color: #101010;
+  cursor: grab;
   height: 40px;
   background-color: #202020;
-  }
+}
 
 .prl-modal-titlebar h3 {
   flex-grow: 1;
@@ -84,13 +94,31 @@
   opacity: 1;
 }
 
-/* --- ============================ OPERATION WINDOW STYLES (Updated) ============================ --- */
+/* --- ============================ CONTENT WRAPPER STYLES ============================ --- */
+.prl-modal-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+/* Ensure content wrapper doesn't influence size when hidden */
+.prl-modal-collapsed .prl-modal-content-wrapper {
+  display: none; /* Already set in JS, but reinforced here */
+  padding: 0;
+  margin: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* --- ============================ OPERATION WINDOW STYLES ============================ --- */
 .prl-operation-window {
   position: sticky;
   top: 0;
   background-color: #202020;
   padding: 5px 20px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   border-radius: 50px;
   border: 1px solid #777;
   z-index: 10;
@@ -99,10 +127,61 @@
   justify-content: flex-start;
 }
 
+.prl-search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.prl-search-bar {
+  flex: 1;
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #777;
+  border-radius: 5px;
+  background-color: #555;
+  color: #ccc;
+  outline: none;
+}
+
+.prl-search-bar:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.prl-clear-search {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #ddd;
+  cursor: pointer;
+  font-size: 0.8em;
+  padding: 0;
+  margin: 0;
+  transition: color 0.2s;
+  opacity: 0.5;
+}
+
+.prl-clear-search:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.prl-clear-search:hover {
+  color: #fff;
+  opacity: 1;
+}
+
 .prl-alert-toggle-label {
   display: flex;
   align-items: center;
-  margin-right: 10px; /* Add spacing between checkbox and buttons */
+  margin-right: 10px;
   color: var(--prl-modal-text);
   font-size: 0.9em;
   cursor: pointer;
@@ -127,7 +206,7 @@
 }
 
 .prl-alert-toggle:checked {
-  background-color: blue;
+  background-color: var(--prl-modal-accent-green);
   border-color: var(--prl-modal-accent-green);
 }
 
@@ -141,21 +220,19 @@
   transform: translate(-50%, -50%);
 }
 
-/* Ensure buttons stay aligned and spaced correctly */
 .prl-button-group {
   display: flex;
   align-items: center;
   margin-left: auto;
 }
 
-
-.prl-modal .prl-operation-window .prl-button-group button {
+.prl-button-group button {
   border-radius: 50%;
   width: var(--prl-operation-window-button-size);
   height: var(--prl-operation-window-button-size);
   text-align: center;
   transform: scale(1.05);
-  transition: background-color 0.2Ss ease, transform 0.1s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
   margin-left: 5px;
   margin-right: 5px;
   font-size: 12px;
@@ -163,20 +240,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: black;
 }
 
-.prl-save {
-  background-color: #b48401; /* Orange */
-  color: white !important;
-}
-
-.prl-save:hover {
-  background-color: #f3cb46; /* Orange */
-  color: white !important;
+.prl-button-group button:hover {
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: #ccc;
 }
 
 .prl-clear-all {
-  background-color: #8a1d16;
+  background-color: var(--prl-modal-accent-red);
   color: white;
 }
 
@@ -185,21 +259,47 @@
   color: white;
 }
 
-.prl-confirm {
-  background-color: #127015;
+.prl-file-loader {
+  background-color: #273080;
+  color: #101010;
+}
+
+.prl-file-loader:hover {
+  background-color: #0000ff;
+  color: #101010;
+}
+
+.prl-file-saver {
+  background-color: var(--prl-modal-accent-orange);
   color: white;
 }
 
-.prl-confirm:hover {
-  background-color: #45a049;
+.prl-file-saver:hover {
+  background-color: #f3cb46;
   color: white;
 }
 
-.prl-modal .prl-operation-window .prl-button-group button:hover {
-  opacity: 1;
+.prl-tokenize {
+  background-color: #273080;
+  color: #000000;
 }
 
-/* --- ============================ Top-level category STYLES ============================ --- */
+.prl-tokenize:hover {
+  background-color: #0000ff;
+  color: white;
+}
+
+.prl-confirm-input {
+  background-color: var(--prl-modal-accent-green);
+  color: white;
+}
+
+.prl-confirm-input:hover {
+  background-color:  #45a049;
+  color: white;
+}
+
+/* --- ============================ PROMPT CATEGORY STYLES ============================ --- */
 .prl-prompt-category-container {
   margin-bottom: 20px;
   border: 1px solid var(--prl-modal-border);
@@ -219,12 +319,6 @@
   cursor: pointer;
 }
 
-.prl-prompt-category-header h3 {
-  color: var(--prl-modal-text);
-  margin: 0;
-  font-size: 1.2em;
-}
-
 .prl-prompt-category-header:hover {
   background-color: #383838;
 }
@@ -233,6 +327,14 @@
   color: var(--prl-modal-text);
   margin: 0;
   font-size: 1.2em;
+}
+
+.prl-category-dropdown {
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #555;
+  color: var(--prl-modal-text);
+  border: 1px solid #777;
 }
 
 .prl-prompt-category-content {
@@ -244,14 +346,6 @@
 }
 
 /* --- ============================ INPUT STYLES ============================ --- */
-.prl-modal-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    flex-grow: 1;
-    overflow-y: auto; /* Make content scrollable */
-}
-
 .prl-input-container {
   display: flex;
   align-items: center;
@@ -300,23 +394,132 @@
 
 .prl-modal-resize-handle:hover {
   opacity: 1;
-  border-color: transparent #999;
-
 }
 
-/* --- ============================ UTILITY CLASSES ============================ --- */
+/* --- ============================ RESPONSIVE STYLES ============================ --- */
 @media (max-width: 768px) {
   .prl-modal {
-      min-width: 90%;
-      min-height: 200px; /* Match minimum height */
+    min-width: 90%;
+    min-height: 200px;
+  }
+
+  .prl-modal.prl-modal-collapsed {
+    min-height: 40px !important;
+    min-width: 90% !important;
   }
 
   .prl-prompt-category-container {
-      margin-bottom: 15px;
+    margin-bottom: 15px;
   }
 
   .prl-input-textarea {
-      padding: 6px;
-      min-height: 50px;
+    padding: 6px;
+    min-height: 50px;
   }
 }
+
+/* --- ============================ CONTACT LINK STYLES ============================ --- */
+.prl-contact-link {
+  color: #127015;
+  text-decoration: none;
+  font-size: 14px;
+  margin-right: 10px;
+  transition: opacity 0.2s ease;
+}
+
+.prl-contact-link:hover {
+  text-decoration: underline;
+  color: #45a049;
+}
+
+/* --- ============================ POPUP STYLES ============================ --- */
+.prl-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #444;
+  padding: 30px;
+  width: 450px;
+  min-height: 150px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  text-align: center;
+  z-index: 1003;
+  border: 2px solid var(--prl-modal-border);
+  transition: opacity 0.3s ease;
+}
+
+.prl-popup-warning {
+  /* Optional: Add warning-specific styles if desired */
+}
+
+.prl-popup-message {
+  margin-bottom: 20px;
+  padding: 0 20px;
+  font-size: 1.2em; /* Matches fow-lbm-popup-message */
+}
+
+.prl-popup-toggle {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prl-popup-toggle label {
+  margin-left: 5px;
+  font-size: 0.9em; /* Matches fow-lbm-popup-toggle */
+}
+
+.prl-popup-buttons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px; /* Matches fow-lbm-popup-buttons spacing */
+  transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+}
+
+.prl-popup-button {
+  background-color: #127015;
+  color: #fff;
+  border-radius: 12px;
+  padding: 6px 18px;
+  font-size: 0.9em;
+  cursor: pointer;
+  width: auto; /* Allow button to fit content */
+  margin: 0; /* Remove margin for flex alignment */
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: black;
+}
+
+.prl-popup-button:hover {
+  background-color: #45a049; /* Mimics fow-lbm-core-green-hover */
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: #ccc;
+}
+
+.prl-popup-cancel-button {
+  background-color: var(--prl-modal-accent-red); /* #8a1d16, mimics fow-lbm-core-red */
+  color: var(--prl-modal-text);
+  border: 1px solid black;
+  padding: 6px 18px;
+  font-size: 1em;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.prl-popup-cancel-button:hover {
+  background-color: #da190b; /* Mimics fow-lbm-core-red-hover */
+  border: 2px solid #ccc;
+}
+
+.prl-confirmation-popup {
+  background-color: #303030;
+  border: 2px solid var(--prl-modal-accent-green);
+}
+
+/* --- END OF FILE PromptRefinerSingleInputModal.css --- */

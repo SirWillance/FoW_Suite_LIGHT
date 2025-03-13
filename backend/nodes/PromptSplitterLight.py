@@ -24,7 +24,7 @@ class PromptSplitterLight:
     RETURN_TYPES = tuple(["STRING"] * MAX_OUTPUT_COUNT)  # Allow up to MAX_OUTPUT_COUNT outputs
     RETURN_NAMES = tuple([f"Prompt Token {i+1}" for i in range(MAX_OUTPUT_COUNT)])
     FUNCTION = "split_prompt"
-    CATEGORY = get_category("2") 
+    CATEGORY = get_category("3") 
     DESCRIPTION = """Splits a text prompt into individual components based on common delimiters.
 
 Define your 9 Categories and get them split up individually by this node into single tokens.

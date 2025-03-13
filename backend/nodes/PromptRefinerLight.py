@@ -25,7 +25,7 @@ class PromptRefinerLight:
     """
 
     # Define node properties
-    CATEGORY = get_category("2")  # Category for the node
+    CATEGORY = get_category("3")  # Category for the node
     RETURN_TYPES = ("CONDITIONING", "CONDITIONING", "STRING", "STRING")
     RETURN_NAMES = ("Positive Conditioning", "Negative Conditioning", "Combined Positive Prompt", "Combined Negative Prompt")
     FUNCTION = "fuse"  # The main function to execute

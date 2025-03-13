@@ -1,26 +1,44 @@
 let cssLoaded = false;
 
 export class BaseModal {
-    constructor(config) {
-        this.type = config?.type || "Default";
-        this.rootKey = config?.rootKey || "styles";
-        this.version = config?.version || "Alpha";
+    constructor(config = {}) {
+        // --- Sizing Configuration ---
+        this.sizing = {
+            minWidth: config.minWidth || 200,
+            maxWidth: config.maxWidth || 1000,
+            minHeight: config.minHeight || 40,
+            maxHeight: config.maxHeight || 800,
+            collapseWidth: config.collapseWidth || "430px",
+            expandWidth: config.expandWidth || "650px"
+        };
+
+        // --- Core Properties ---
+        this.type = config.type || "Default";
+        this.rootKey = config.rootKey || "styles";
+        this.version = config.version || "Light";
         this.modal = null;
         this.isOpen = false;
         this.modalClassName = `fow-lbm-${this.type.toLowerCase()}-modal`;
         this.selectedTokens = new Set();
         this.node = null;
-        this.loadCSS();
-        this.updateSelectedTokenOutputDebounced = this.debounce(this.updateSelectedTokenOutput.bind(this), 200);
+        this.isStateViewMode = false;
         this.isResizing = false;
         this.isCollapsed = false;
-        this.collapseWidth = config?.collapseWidth || "420px";
-        this.expandWidth = config?.expandWidth || "420px";
-        this.minHeight = 40;
-        this.maxHeight = 800;
+        this.isManuallyResized = false;
+        this.currentWidth = null;
+        this.currentHeight = null;
         this.rootKeyToFileMap = {};
+        this.contactLink = null;
+        this.previewContainer = null;
+        this.previewImages = {};
+
+        // --- Utility Setup ---
+        this.loadCSS();
+        this.updateSelectedTokenOutputDebounced = this.debounce(this.updateSelectedTokenOutput.bind(this), 200);
+        this.adjustModalHeightDebounced = this.debounce(this.adjustModalHeight.bind(this), 100);
     }
 
+    // --- CSS Loading ---
     loadCSS() {
         if (!cssLoaded) {
             const cssId = 'fow-lbm-modal-styles';
@@ -36,136 +54,154 @@ export class BaseModal {
         }
     }
 
-    getNodeData(node) {
-        if (!node) {
-            console.warn("Node is undefined in getNodeData, returning empty object");
-            return {};
-        }
-        return node.widgets_values || {};
-    }
+    // --- Data Management ---
+getNodeData(node) {
+    return node.properties && node.properties.modalState ? JSON.parse(node.properties.modalState) : {};
+}
 
-    setNodeData(node, data) {
-        if (!node) {
-            console.warn("Node is undefined in setNodeData, skipping");
-            return;
-        }
-        node.widgets_values = data;
-    }
+setNodeData(node, data) {
+    node.properties = node.properties || {};
+    node.properties.modalState = JSON.stringify(data);
+}
 
-    async create(node) {
-        if (!node || !node.id) {
-            console.error("Invalid node passed to create, aborting");
-            return null;
-        }
+    // --- Modal Creation ---
+    create(node) {
+        if (!node || !node.id) return null;
         this.node = node;
-        console.log(`Opening Light ${this.type} catalogue modal for node ${node.id}...`);
         const modalId = `modal-${node.id}`;
         const modalClassName = `${this.modalClassName}-${modalId}`;
 
         const existingModal = document.querySelector(`.${modalClassName}`);
         if (existingModal) {
-            existingModal.style.display = "flex";
-            this.modal = existingModal;
-
-            const nodeData = this.getNodeData(node);
-            const savedTokens = nodeData.selectedTokens || [];
-            this.selectedTokens = new Set(savedTokens);
-
-            this.isCollapsed = nodeData.isCollapsed || false;
-            const contentWrapper = this.modal.querySelector(".fow-lbm-content-wrapper");
-            const resizeHandle = this.modal.querySelector(".fow-lbm-modal-resize-handle");
-            if (contentWrapper) {
-                contentWrapper.style.display = this.isCollapsed ? "none" : "block";
-            }
-            if (resizeHandle) {
-                resizeHandle.style.display = this.isCollapsed ? "none" : "block";
-            }
-
-            this.updateSelectedTokenOutput();
-            this.adjustModalHeight();
+            this.reuseExistingModal(existingModal, node);
             return existingModal;
         }
 
         this.modal = document.createElement("div");
         this.modal.classList.add(modalClassName, "fow-lbm-modal");
-        this.modal.style.display = "flex";
+        this.modal.dataset.nodeId = node.id;
+        this.setupModalStructure();
+        this.appendModalContent(node);
+
+        document.body.appendChild(this.modal);
+        this.initializeModal(node);
+
+        return this.modal;
+    }
+
+    reuseExistingModal(existingModal, node) {
+        existingModal.style.display = "flex";
+        this.modal = existingModal;
+        const nodeData = this.getNodeData(node);
+        const savedTokens = nodeData.selectedTokens || [];
+        this.selectedTokens = new Set(savedTokens);
+        this.isCollapsed = nodeData.isCollapsed || false;
+        this.currentWidth = nodeData.currentWidth || this.sizing.expandWidth;
+        this.currentHeight = nodeData.currentHeight || this.sizing.minHeight;
+        this.isManuallyResized = nodeData.isManuallyResized || false;
+
+        const contentWrapper = this.modal.querySelector(".fow-lbm-content-wrapper");
+        const resizeHandle = this.modal.querySelector(".fow-lbm-modal-resize-handle");
+        if (contentWrapper) contentWrapper.style.display = this.isCollapsed ? "none" : "block";
+        if (resizeHandle) resizeHandle.style.display = this.isCollapsed ? "none" : "block";
+
+        this.updateSelectedTokenOutput();
+        this.adjustModalHeightDebounced();
+    }
+
+    setupModalStructure() {
         this.modal.style.position = "fixed";
         this.modal.style.top = "100px";
         this.modal.style.left = "100px";
-        this.modal.style.backgroundColor = "#383838";
-        this.modal.style.borderRadius = "12px";
-        this.modal.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.3)";
         this.modal.style.zIndex = "1001";
-        this.modal.style.flexDirection = "column";
-        this.modal.style.minHeight = `${this.minHeight}px`;
-        this.modal.style.maxHeight = `${this.maxHeight}px`;
         this.modal.style.overflow = "hidden";
+        this.modal.style.minWidth = `${this.sizing.minWidth}px`;
+        this.modal.style.maxWidth = `${this.sizing.maxWidth}px`;
+        this.modal.style.minHeight = `${this.sizing.minHeight}px`;
+        this.modal.style.maxHeight = `${this.sizing.maxHeight}px`;
+    }
 
-        this.originalWidth = this.modal.offsetWidth;
-        this.originalHeight = this.modal.offsetHeight;
-
+    appendModalContent(node) {
         const modalFragment = document.createDocumentFragment();
-
         const titleBar = this.createTitleBar(node.title || "Modal Title", node);
         modalFragment.appendChild(titleBar);
 
         const contentWrapper = document.createElement("div");
         contentWrapper.classList.add("fow-lbm-content-wrapper");
-        contentWrapper.style.display = "block";
         contentWrapper.style.flexDirection = "column";
+        this.appendOperationWindow(contentWrapper);
+        this.appendModalContentElements(contentWrapper, node);
 
+        modalFragment.appendChild(contentWrapper);
+        this.modal.appendChild(modalFragment);
+    }
+
+    appendOperationWindow(contentWrapper) {
         const operationWindow = document.createElement("div");
         operationWindow.classList.add("fow-lbm-operation-window");
         operationWindow.innerHTML = `
             <input type="text" class="fow-lbm-search-bar" placeholder="Search tokens..." />
             <div class="fow-lbm-button-group">
-                <button class="fow-lbm-deselect-all-button">🧼</button>
-                <button class="fow-lbm-file-button">📂</button>
-                <button class="fow-lbm-confirm-button">✔</button>
+                <button class="fow-lbm-deselect-all-button" title="Deselect All Tokens">🧼</button>
+                <button class="fow-lbm-file-button" title="Toggle Selection Path View">👀</button>
+                <button class="fow-lbm-confirm-button" title="Confirm Selection">✔</button>
             </div>
         `;
         contentWrapper.appendChild(operationWindow);
+    }
 
+    appendModalContentElements(contentWrapper, node) {
         const modalContent = this.createModalContent();
         contentWrapper.appendChild(modalContent);
         modalContent.innerHTML = this.getModalTemplate();
 
-        modalFragment.appendChild(contentWrapper);
-        this.modal.appendChild(modalFragment);
+        this.previewContainer = document.createElement("div");
+        this.previewContainer.classList.add("fow-lbm-preview-container");
+        this.previewContainer.style.display = "none";
+        modalContent.appendChild(this.previewContainer);
 
-        document.body.appendChild(this.modal);
+        const fileInput = modalContent.querySelector('input[type="file"]');
+        this.setupFileHandlers(fileInput, modalContent);
+    }
+
+    initializeModal(node) {
+        const defaultCatalogueWidget = node.widgets.find(w => w.name === "default_catalogue");
+        let defaultCatalogue = defaultCatalogueWidget?.value;
+        if (typeof defaultCatalogue === "string") {
+            try {
+                const parsedData = JSON.parse(defaultCatalogue);
+                if (parsedData.catalogue && parsedData.previews) {
+                    defaultCatalogue = parsedData.catalogue;
+                    this.previewImages = parsedData.previews;
+                } else {
+                    defaultCatalogue = parsedData;
+                }
+            } catch (error) {
+                defaultCatalogue = null;
+            }
+        }
 
         requestAnimationFrame(() => {
             this.modal.style.display = "flex";
             this.setupEventHandlers(this.modal, node);
-            this.updateModalWithTokens(null, modalContent);
-            this.adjustModalHeight();
+            this.updateModalWithTokens(defaultCatalogue, this.modal.querySelector(".fow-lbm-modal-content"));
+            this.adjustModalHeightDebounced();
         });
 
         const nodeData = this.getNodeData(node);
         this.isCollapsed = nodeData.isCollapsed || false;
-        contentWrapper.style.display = this.isCollapsed ? "none" : "block";
-        const resizeHandle = this.modal.querySelector(".fow-lbm-modal-resize-handle");
-        if (resizeHandle) {
-            resizeHandle.style.display = this.isCollapsed ? "none" : "block";
-        }
-
-        if (this.isCollapsed) {
-            this.toggleCollapse(node);
-        }
-
-        return this.modal;
+        this.isManuallyResized = nodeData.isManuallyResized || false;
+        if (this.isCollapsed) this.toggleCollapse(node);
     }
 
     getModalTemplate() {
         return `
-            <div class="fow-lbm-modal-content">
-                <div class="fow-lbm-control-window">
-                    <p id="fow-lbm-selected-token-output" style="white-space: pre-line;"></p>
-                </div>
-                <input type="file" accept=".json" style="display: none;" />
-                <div class="fow-lbm-categories-container"></div>
-            </div>`;
+            <div class="fow-lbm-control-window">
+                <p id="fow-lbm-selected-token-output" style="white-space: pre-line;"></p>
+            </div>
+            <input type="file" accept=".json" style="display: none;" />
+            <div class="fow-lbm-categories-container"></div>
+        `;
     }
 
     createTitleBar(title, node) {
@@ -178,10 +214,18 @@ export class BaseModal {
         header.style.margin = "0";
         titleBar.appendChild(header);
 
+        this.contactLink = document.createElement("a");
+        this.contactLink.textContent = "Contact: @SirWillance";
+        this.contactLink.href = "https://www.twitch.tv/sirwillance/about";
+        this.contactLink.target = "_blank";
+        this.contactLink.rel = "noopener noreferrer";
+        this.contactLink.style.cursor = "pointer";
+        this.contactLink.addEventListener("click", (e) => e.stopPropagation());
+        titleBar.appendChild(this.contactLink);
+
         const collapseButton = document.createElement("button");
         collapseButton.classList.add("fow-lbm-modal__collapse");
         collapseButton.innerHTML = "-";
-        collapseButton.style.marginRight = "5px";
         titleBar.appendChild(collapseButton);
 
         const closeButton = document.createElement("button");
@@ -201,68 +245,29 @@ export class BaseModal {
         return titleBar;
     }
 
-    toggleCollapse(node) {
-        const contentWrapper = this.modal.querySelector(".fow-lbm-content-wrapper");
-        const resizeHandle = this.modal.querySelector(".fow-lbm-modal-resize-handle");
-        const titleBar = this.modal.querySelector(".fow-lbm-modal__titlebar");
-
-        this.isCollapsed = !this.isCollapsed;
-        const isCollapsed = this.isCollapsed;
-
-        this.setModalDimensions(isCollapsed, titleBar);
-
-        if (contentWrapper) {
-            contentWrapper.style.display = isCollapsed ? "none" : "block";
-        }
-        if (resizeHandle) {
-            resizeHandle.style.display = isCollapsed ? "none" : "block";
-        }
-
-        const nodeData = this.getNodeData(node);
-        nodeData.isCollapsed = isCollapsed;
-        this.setNodeData(node, nodeData);
-
-        const collapseButton = this.modal.querySelector(".fow-lbm-modal__collapse");
-        collapseButton.innerHTML = isCollapsed ? "+" : "-";
-
-        if (!isCollapsed) {
-            this.adjustModalHeight();
-        }
-    }
-
-    setModalDimensions(isCollapsed, titleBar) {
-        if (isCollapsed) {
-            this.modal.style.width = this.collapseWidth;
-            this.modal.style.height = `${Math.max(titleBar.offsetHeight, this.minHeight)}px`;
-            this.modal.style.minWidth = "0";
-            this.modal.style.minHeight = "0";
-        } else {
-            this.modal.style.width = this.expandWidth;
-            this.modal.style.height = `${this.currentHeight || this.minHeight}px`;
-            this.modal.style.minWidth = "";
-            this.modal.style.minHeight = "";
-        }
-    }
-
-    createModalContent() {
-        const modalContent = document.createElement("div");
-        modalContent.classList.add("fow-lbm-modal-content");
-        modalContent.style.flexGrow = "1";
-        modalContent.style.overflow = "visible";
-        return modalContent;
-    }
-
+    // --- Event Handling ---
     setupEventHandlers(modal, node) {
         const modalContent = modal.querySelector(".fow-lbm-modal-content");
         const operationWindow = modal.querySelector(".fow-lbm-operation-window");
         const fileInput = modal.querySelector('input[type="file"]');
         const tokensContainer = modalContent.querySelector(".fow-lbm-categories-container");
 
+        // Enable dragging
         this.setupDragHandlers(modal, modal.querySelector(".fow-lbm-modal__titlebar"));
+
+        // Enable resizing
+        if (this.createResizeHandle) {
+            const resizeHandle = this.createResizeHandle();
+            modal.appendChild(resizeHandle);
+        }
+
+        // Set up button event handlers
         this.setupButtons(modal, modalContent, node, fileInput);
-        this.setupFileHandlers(fileInput, modalContent);
+
+        // Set up search functionality
         this.setupSearch(operationWindow);
 
+        // Set up token click handling
         tokensContainer.addEventListener('click', (event) => {
             if (event.target.tagName === 'LI') {
                 const tokenItem = event.target;
@@ -272,55 +277,7 @@ export class BaseModal {
             }
         });
 
-        if (this.createResizeHandle) {
-            const resizeHandle = this.createResizeHandle();
-            modal.appendChild(resizeHandle);
-        }
-
-        this.adjustModalHeight();
-    }
-
-    createResizeHandle() {
-        const resizeHandle = document.createElement("div");
-        resizeHandle.classList.add("fow-lbm-modal-resize-handle");
-
-        resizeHandle.addEventListener("mousedown", (e) => {
-            e.preventDefault();
-            if (this.isCollapsed) return;
-            this.isResizing = true;
-
-            const startWidth = this.modal.offsetWidth;
-            const startHeight = this.modal.offsetHeight;
-            const startX = e.clientX;
-            const startY = e.clientY;
-
-            const mousemoveHandler = (e) => {
-                if (!this.isResizing) return;
-                const newWidth = Math.max(startWidth + (e.clientX - startX), 200);
-                const newHeight = Math.max(startHeight + (e.clientY - startY), this.minHeight);
-                this.modal.style.width = `${newWidth}px`;
-                this.modal.style.height = `${Math.min(newHeight, this.maxHeight)}px`;
-                this.currentWidth = newWidth;
-                this.currentHeight = Math.min(newHeight, this.maxHeight);
-                this.originalWidth = this.currentWidth;
-                this.originalHeight = this.currentHeight;
-            };
-
-            const mouseupHandler = () => {
-                this.isResizing = false;
-                document.removeEventListener("mousemove", mousemoveHandler);
-                document.removeEventListener("mouseup", mouseupHandler);
-                if (this.node) {
-                    this.saveModalState(this.node);
-                }
-                this.adjustModalHeight();
-            };
-
-            document.addEventListener("mousemove", mousemoveHandler);
-            document.addEventListener("mouseup", mouseupHandler);
-        });
-
-        return resizeHandle;
+        this.adjustModalHeightDebounced();
     }
 
     setupDragHandlers(modal, titleBar) {
@@ -340,6 +297,7 @@ export class BaseModal {
         };
 
         titleBar.addEventListener("mousedown", (e) => {
+            e.preventDefault();
             isDragging = true;
             offsetX = e.clientX - modal.offsetLeft;
             offsetY = e.clientY - modal.offsetTop;
@@ -348,43 +306,209 @@ export class BaseModal {
         });
     }
 
+    createResizeHandle() {
+        const resizeHandle = document.createElement("div");
+        resizeHandle.classList.add("fow-lbm-modal-resize-handle");
+
+        resizeHandle.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            if (this.isCollapsed) return;
+            this.isResizing = true;
+            this.isManuallyResized = true;
+
+            const startWidth = this.modal.offsetWidth;
+            const startHeight = this.modal.offsetHeight;
+            const startX = e.clientX;
+            const startY = e.clientY;
+
+            const mousemoveHandler = (e) => {
+                if (!this.isResizing) return;
+                const newWidth = Math.max(this.sizing.minWidth, Math.min(startWidth + (e.clientX - startX), this.sizing.maxWidth));
+                const newHeight = Math.max(this.sizing.minHeight, Math.min(startHeight + (e.clientY - startY), this.sizing.maxHeight));
+                this.modal.style.width = `${newWidth}px`;
+                this.modal.style.height = `${newHeight}px`;
+                this.currentWidth = newWidth;
+                this.currentHeight = newHeight;
+                this.adjustModalHeightDebounced();
+            };
+
+            const mouseupHandler = () => {
+                this.isResizing = false;
+                document.removeEventListener("mousemove", mousemoveHandler);
+                document.removeEventListener("mouseup", mouseupHandler);
+                if (this.node) this.saveModalState(this.node);
+                this.adjustModalHeightDebounced();
+            };
+
+            document.addEventListener("mousemove", mousemoveHandler);
+            document.addEventListener("mouseup", mouseupHandler);
+        });
+
+        return resizeHandle;
+    }
+
     setupButtons(modal, modalContent, node, fileInput) {
-        modal.querySelector(".fow-lbm-file-button").onclick = () => fileInput.click();
-
-        modal.querySelector(".fow-lbm-confirm-button").onclick = () => {
-            this.updateNodeInput(node);
-            this.adjustModalHeight();
-            alert("Selection Confirmed. Enjoy your image 😁.");
+        const deselectButton = modal.querySelector(".fow-lbm-deselect-all-button");
+        deselectButton.onclick = () => this.showPopup({
+            message: "Are you sure you want to deselect all tokens?",
+            buttons: [
+                { text: "Yes", onClick: () => this.deselectAllTokens(modalContent) },
+                { text: "No", onClick: () => {} }
+            ]
+        });
+    
+        const fileButton = modal.querySelector(".fow-lbm-file-button");
+        fileButton.onclick = () => {
+            this.toggleStateViewMode(modalContent);
         };
-
-        modal.querySelector(".fow-lbm-deselect-all-button").onclick = () => {
-            this.selectedTokens.clear();
-            modalContent.querySelectorAll(".fow-lbm-tokens-list li").forEach(item => {
-                item.classList.remove("token-enabled");
-            });
-            this.updateSelectedTokenOutputDebounced();
-            this.adjustModalHeight();
-        };
-
-        modal.querySelector(".fow-lbm-modal__close").addEventListener("click", () => {
-            this.saveModalState(node);
-            this.close(node);
+    
+        const confirmButton = modal.querySelector(".fow-lbm-confirm-button");
+        confirmButton.onclick = () => this.showPopup({
+            message: "Are you sure you want to confirm your selection?",
+            buttons: [
+                { text: "Yes", onClick: () => this.confirmSelection(node) },
+                { text: "No", onClick: () => {} }
+            ]
         });
     }
 
+    // --- Token and Style Management ---
+    createCategoryElement(categoryName, categoryStyles, jsonData, modalContent) {
+        const categoryElement = document.createElement("div");
+        categoryElement.classList.add("fow-lbm-category");
+
+        const categoryTitle = document.createElement("h4");
+        categoryTitle.textContent = categoryName;
+        categoryTitle.style.cursor = "pointer";
+        categoryElement.appendChild(categoryTitle);
+
+        const stylesContainer = document.createElement("div");
+        stylesContainer.classList.add("fow-lbm-styles-container");
+        stylesContainer.style.display = "none";
+
+        categoryStyles.forEach(style => {
+            const styleItem = this.createStyleItem(style, jsonData, modalContent);
+            stylesContainer.appendChild(styleItem);
+        });
+
+        categoryElement.appendChild(stylesContainer);
+
+        categoryTitle.addEventListener("click", () => {
+            stylesContainer.style.display = stylesContainer.style.display === "none" ? "block" : "none";
+            this.adjustModalHeightDebounced();
+        });
+
+        return categoryElement;
+    }
+
+    createStyleItem(style, jsonData, modalContent) {
+        const styleItem = document.createElement("div");
+        styleItem.classList.add("fow-lbm-style-item");
+
+        const styleName = document.createElement("label");
+        styleName.textContent = style.name;
+        styleName.setAttribute('data-original-name', style.name);
+        styleName.style.fontWeight = "bold";
+        styleName.style.cursor = "pointer";
+        styleName.title = style.notes || "";
+
+        const tokensList = document.createElement("ul");
+        tokensList.classList.add("fow-lbm-tokens-list");
+        tokensList.style.display = "none";
+
+        if (style.tokens && Array.isArray(style.tokens)) {
+            this.createTokenItems(style, tokensList, jsonData, modalContent);
+        }
+
+        styleItem.appendChild(styleName);
+        styleItem.appendChild(tokensList);
+
+        styleName.onclick = () => this.toggleTokensList(tokensList, style, jsonData);
+
+        if (style.preview) {
+            const showPreviewDebounced = this.debounce(() => this.showPreview(style.preview), 100);
+            const hidePreviewDebounced = this.debounce(() => this.hidePreview(), 100);
+            styleItem.addEventListener("mouseenter", showPreviewDebounced);
+            styleItem.addEventListener("mouseleave", hidePreviewDebounced);
+        }
+
+        return styleItem;
+    }
+
+    createTokenItems(style, tokensList, jsonData, modalContent) {
+        const fragment = document.createDocumentFragment();
+        style.tokens.forEach(token => {
+            const tokenItem = document.createElement("li");
+            tokenItem.textContent = token.value;
+            tokenItem.id = `token-${token.value}`;
+            tokenItem.title = token.tooltip || "";
+
+            if (this.selectedTokens.has(token.value)) {
+                tokenItem.classList.add("token-enabled");
+            }
+            fragment.appendChild(tokenItem);
+        });
+        tokensList.appendChild(fragment);
+        this.adjustModalHeightDebounced();
+    }
+
+    toggleToken(tokenItem, value, tokensList) {
+        if (this.selectedTokens.has(value)) {
+            this.selectedTokens.delete(value);
+            tokenItem.classList.remove("token-enabled");
+        } else {
+            this.selectedTokens.add(value);
+            tokenItem.classList.add("token-enabled");
+        }
+        this.updateSelectedTokenOutputDebounced();
+        this.adjustModalHeightDebounced();
+    }
+
+    toggleTokensList(tokensList, style, jsonData) {
+        const isExpanding = tokensList.style.display === "none";
+        tokensList.style.display = isExpanding ? "block" : "none";
+
+        if (isExpanding) {
+            this.updateTokensState(tokensList, style, jsonData, true);
+        } else {
+            this.updateTokensState(tokensList, style, jsonData, false);
+        }
+        this.adjustModalHeightDebounced();
+    }
+
+    updateTokensState(tokensList, style, jsonData, isExpanding) {
+        tokensList.querySelectorAll("li").forEach(tokenItem => {
+            const tokenValue = tokenItem.textContent.trim();
+            const jsonStyle = jsonData[this.rootKey].find(s => s.name === style.name);
+
+            if (jsonStyle?.tokens) {
+                const originalToken = jsonStyle.tokens.find(t => t.value === tokenValue);
+                if (originalToken?.enabled) {
+                    if (isExpanding && !this.selectedTokens.has(tokenValue)) {
+                        this.selectedTokens.add(tokenValue);
+                        tokenItem.classList.add("token-enabled");
+                    } else if (!isExpanding && this.selectedTokens.has(tokenValue)) {
+                        this.selectedTokens.delete(tokenValue);
+                        tokenItem.classList.remove("token-enabled");
+                    }
+                }
+            }
+        });
+        this.updateSelectedTokenOutputDebounced();
+        this.adjustModalHeightDebounced();
+    }
+
+    // --- File and Search Handling ---
     setupFileHandlers(fileInput, modalContent) {
         fileInput.addEventListener("change", (e) => {
             const file = e.target.files[0];
-            if (file) {
-                this.loadFile(file, modalContent);
-            }
-            this.adjustModalHeight();
+            if (file) this.loadFile(file, modalContent);
+            this.adjustModalHeightDebounced();
         });
     }
 
-    setupSearch(operationWindow) { // Changed parameter to operationWindow
-        const searchBar = operationWindow.querySelector(".fow-lbm-search-bar"); // Query operationWindow, not modalContent
-
+    setupSearch(operationWindow) {
+        const searchBar = operationWindow.querySelector(".fow-lbm-search-bar");
         if (!searchBar) {
             console.error("Search bar not found in operation window!");
             return;
@@ -392,13 +516,12 @@ export class BaseModal {
 
         const performSearch = () => {
             const searchTerm = searchBar.value.trim().toLowerCase();
-            const modalContent = this.modal.querySelector(".fow-lbm-modal-content"); // Get modalContent here
+            const modalContent = this.modal.querySelector(".fow-lbm-modal-content");
             const categories = modalContent.querySelectorAll(".fow-lbm-category");
 
             if (categories.length === 0) return;
 
             let hasMatches = false;
-
             categories.forEach(categoryElement => {
                 const stylesContainer = categoryElement.querySelector(".fow-lbm-styles-container");
                 const styleItems = stylesContainer.querySelectorAll(".fow-lbm-style-item");
@@ -455,14 +578,10 @@ export class BaseModal {
                 });
             }
 
-            requestAnimationFrame(() => {
-                this.adjustModalHeight();
-            });
+            this.adjustModalHeightDebounced();
         };
 
-        searchBar.addEventListener("input", () => {
-            performSearch();
-        });
+        searchBar.addEventListener("input", performSearch);
     }
 
     loadFile(file, modalContent) {
@@ -473,9 +592,7 @@ export class BaseModal {
                 this.updateModalWithTokens(jsonData, modalContent);
                 this.selectedTokens.clear();
                 this.updateSelectedTokenOutput();
-                requestAnimationFrame(() => {
-                    this.adjustModalHeight();
-                });
+                this.adjustModalHeightDebounced();
             } catch (error) {
                 console.error("Error parsing JSON:", error);
                 alert("Invalid JSON file. Please ensure the file is properly formatted.");
@@ -487,7 +604,7 @@ export class BaseModal {
     updateModalWithTokens(jsonData, modalContent) {
         const categoriesContainer = modalContent.querySelector(".fow-lbm-categories-container");
         categoriesContainer.innerHTML = "";
-
+    
         if (jsonData && jsonData[this.rootKey] && Array.isArray(jsonData[this.rootKey])) {
             const groupedStyles = jsonData[this.rootKey].reduce((acc, style) => {
                 const category = style.category || "Uncategorized";
@@ -495,172 +612,219 @@ export class BaseModal {
                 acc[category].push(style);
                 return acc;
             }, {});
-
+    
             for (const categoryName in groupedStyles) {
                 const categoryStyles = groupedStyles[categoryName];
                 const categoryElement = this.createCategoryElement(categoryName, categoryStyles, jsonData, modalContent);
-                categoriesContainer.appendChild(categoryElement);
+    
+                const stylesContainer = categoryElement.querySelector(".fow-lbm-styles-container");
+                const styleItems = stylesContainer.querySelectorAll(".fow-lbm-style-item");
+                let hasSelectedTokensInCategory = false;
+    
+                styleItems.forEach(styleItem => {
+                    const tokensList = styleItem.querySelector(".fow-lbm-tokens-list");
+                    const tokens = tokensList.querySelectorAll("li");
+                    let hasSelectedTokensInStyle = false;
+    
+                    tokens.forEach(token => {
+                        const tokenValue = token.textContent.trim();
+                        const isSelected = this.selectedTokens.has(tokenValue);
+    
+                        if (this.isStateViewMode) {
+                            token.style.display = "none"; // Initially hide in state view mode (handled by toggleStateViewMode)
+                        } else {
+                            token.style.display = "";
+                            if (isSelected) hasSelectedTokensInStyle = true;
+                        }
+                    });
+    
+                    if (this.isStateViewMode) {
+                        styleItem.style.display = "none";
+                        tokensList.style.display = "none";
+                    }
+    
+                    if (hasSelectedTokensInStyle) {
+                        hasSelectedTokensInCategory = true;
+                    }
+                });
+    
+                if (!this.isStateViewMode || hasSelectedTokensInCategory) {
+                    categoriesContainer.appendChild(categoryElement);
+                }
             }
         } else {
             categoriesContainer.innerHTML = `
                 <p style="padding: 10px;">
-                    To load your catalogue, click the file loader button "📂" above.<br>
+                    To load your catalogue, click the file loader button "👀" above.<br>
                     Navigate to your ComfyUI directory, then go to "custom_nodes" > "FoW_Suite_LIGHT" > "data" > "Library".<br>
                     Select "${this.rootKeyToFileMap[this.rootKey] || 'the matching .JSON file'}" and click Open.
                 </p>`;
         }
-        requestAnimationFrame(() => {
-            this.adjustModalHeight();
-        });
+        this.adjustModalHeightDebounced();
     }
 
-    createCategoryElement(categoryName, categoryStyles, jsonData, modalContent) {
-        const categoryElement = document.createElement("div");
-        categoryElement.classList.add("fow-lbm-category");
+    // --- State and UI Management ---
+    toggleCollapse(node) {
+        const contentWrapper = this.modal.querySelector(".fow-lbm-content-wrapper");
+        const resizeHandle = this.modal.querySelector(".fow-lbm-modal-resize-handle");
+        const titleBar = this.modal.querySelector(".fow-lbm-modal__titlebar");
 
-        const categoryTitle = document.createElement("h4");
-        categoryTitle.textContent = categoryName;
-        categoryTitle.style.cursor = "pointer";
-        categoryElement.appendChild(categoryTitle);
+        this.isCollapsed = !this.isCollapsed;
+        this.isManuallyResized = false;
+        this.setModalDimensions(this.isCollapsed, titleBar);
 
-        const stylesContainer = document.createElement("div");
-        stylesContainer.classList.add("fow-lbm-styles-container");
-        stylesContainer.style.display = "none";
+        if (contentWrapper) contentWrapper.style.display = this.isCollapsed ? "none" : "block";
+        if (resizeHandle) resizeHandle.style.display = this.isCollapsed ? "none" : "block";
+        if (this.contactLink) this.contactLink.style.display = this.isCollapsed ? "none" : "inline";
 
-        categoryStyles.forEach(style => {
-            const styleItem = this.createStyleItem(style, jsonData, modalContent);
-            stylesContainer.appendChild(styleItem);
-        });
+        const nodeData = this.getNodeData(node);
+        nodeData.isCollapsed = this.isCollapsed;
+        this.setNodeData(node, nodeData);
 
-        categoryElement.appendChild(stylesContainer);
-
-        categoryTitle.addEventListener("click", () => {
-            stylesContainer.style.display = stylesContainer.style.display === "none" ? "block" : "none";
-            requestAnimationFrame(() => {
-                this.adjustModalHeight();
-            });
-        });
-
-        return categoryElement;
-    }
-
-    createStyleItem(style, jsonData, modalContent) {
-        const styleItem = document.createElement("div");
-        styleItem.classList.add("fow-lbm-style-item");
-
-        const styleName = document.createElement("label");
-        styleName.textContent = style.name;
-        styleName.setAttribute('data-original-name', style.name);
-        styleName.style.fontWeight = "bold";
-        styleName.style.cursor = "pointer";
-        styleName.title = style.notes || "";
-
-        const tokensList = document.createElement("ul");
-        tokensList.classList.add("fow-lbm-tokens-list");
-        tokensList.style.display = "none";
-
-        if (style.tokens && Array.isArray(style.tokens)) {
-            this.createTokenItems(style, tokensList, jsonData, modalContent);
+        const collapseButton = this.modal.querySelector(".fow-lbm-modal__collapse");
+        if (collapseButton) {
+            collapseButton.innerHTML = this.isCollapsed ? "+" : "-";
         }
 
-        styleItem.appendChild(styleName);
-        styleItem.appendChild(tokensList);
-
-        styleName.onclick = () => this.toggleTokensList(tokensList, style, jsonData);
-
-        return styleItem;
+        if (!this.isCollapsed) this.adjustModalHeightDebounced();
     }
 
-    createTokenItems(style, tokensList, jsonData, modalContent) {
-        const fragment = document.createDocumentFragment();
-        style.tokens.forEach(token => {
-            const tokenItem = document.createElement("li");
-            tokenItem.textContent = token.value;
-            tokenItem.id = `token-${token.value}`;
-
-            if (token.tooltip) {
-                tokenItem.title = token.tooltip;
-            }
-
-            if (this.selectedTokens.has(token.value)) {
-                tokenItem.classList.add("token-enabled");
-            }
-            fragment.appendChild(tokenItem);
-        });
-        tokensList.appendChild(fragment);
-        requestAnimationFrame(() => {
-            this.adjustModalHeight();
-        });
-    }
-
-    toggleToken(tokenItem, value, tokensList) {
-        if (this.selectedTokens.has(value)) {
-            this.selectedTokens.delete(value);
-            tokenItem.classList.remove("token-enabled");
+    setModalDimensions(isCollapsed, titleBar) {
+        if (isCollapsed) {
+            this.modal.style.width = this.sizing.collapseWidth;
+            this.modal.style.height = `${Math.max(titleBar.offsetHeight, this.sizing.minHeight)}px`;
+            this.modal.style.minWidth = "0";
+            this.modal.style.minHeight = "0";
         } else {
-            this.selectedTokens.add(value);
-            tokenItem.classList.add("token-enabled");
+            this.modal.style.width = this.currentWidth || this.sizing.expandWidth;
+            this.modal.style.height = `${this.currentHeight || this.sizing.minHeight}px`;
+            this.modal.style.minWidth = `${this.sizing.minWidth}px`;
+            this.modal.style.minHeight = `${this.sizing.minHeight}px`;
         }
-
-        this.updateSelectedTokenOutputDebounced();
-        requestAnimationFrame(() => {
-            this.adjustModalHeight();
-        });
     }
 
-    toggleTokensList(tokensList, style, jsonData) {
-        const isExpanding = tokensList.style.display === "none";
-        tokensList.style.display = isExpanding ? "block" : "none";
-
-        if (isExpanding) {
-            this.updateTokensState(tokensList, style, jsonData, true);
-        } else {
-            this.updateTokensState(tokensList, style, jsonData, false);
-        }
-        requestAnimationFrame(() => {
-            this.adjustModalHeight();
-        });
+    createModalContent() {
+        const modalContent = document.createElement("div");
+        modalContent.classList.add("fow-lbm-modal-content");
+        modalContent.style.flexGrow = "1";
+        modalContent.style.overflow = "auto";
+        return modalContent;
     }
 
-    updateTokensState(tokensList, style, jsonData, isExpanding) {
-        tokensList.querySelectorAll("li").forEach(tokenItem => {
-            const tokenValue = tokenItem.textContent.trim();
-            const jsonStyle = jsonData[this.rootKey].find(s => s.name === style.name);
-
-            if (jsonStyle?.tokens) {
-                const originalToken = jsonStyle.tokens.find(t => t.value === tokenValue);
-                if (originalToken?.enabled) {
-                    if (isExpanding) {
-                        if (!this.selectedTokens.has(tokenValue)) {
-                            this.selectedTokens.add(tokenValue);
-                            tokenItem.classList.add("token-enabled");
+    toggleStateViewMode(modalContent) {
+        this.isStateViewMode = !this.isStateViewMode;
+        const categoriesContainer = modalContent.querySelector(".fow-lbm-categories-container");
+    
+        if (this.isStateViewMode) {
+            const renderedTokens = new Set(); // Always deduplicate in state view mode
+    
+            const categories = categoriesContainer.querySelectorAll(".fow-lbm-category");
+            categories.forEach(categoryElement => {
+                const categoryTitle = categoryElement.querySelector("h4");
+                const stylesContainer = categoryElement.querySelector(".fow-lbm-styles-container");
+                let categoryHasSelected = false;
+    
+                const styleItems = stylesContainer.querySelectorAll(".fow-lbm-style-item");
+                styleItems.forEach(styleItem => {
+                    const tokensList = styleItem.querySelector(".fow-lbm-tokens-list");
+                    const tokens = tokensList.querySelectorAll("li");
+                    let hasSelectedTokens = false;
+    
+                    tokens.forEach(token => {
+                        const tokenValue = token.textContent.trim();
+                        const isSelected = this.selectedTokens.has(tokenValue);
+    
+                        if (isSelected && !renderedTokens.has(tokenValue)) {
+                            token.style.display = "";
+                            renderedTokens.add(tokenValue);
+                            hasSelectedTokens = true;
+                        } else {
+                            token.style.display = "none";
                         }
+                    });
+    
+                    if (hasSelectedTokens) {
+                        styleItem.style.display = "";
+                        tokensList.style.display = "block";
+                        categoryHasSelected = true;
+                        styleItem.classList.add("fow-lbm-style-item--selected");
                     } else {
-                        if (this.selectedTokens.has(tokenValue)) {
-                            this.selectedTokens.delete(tokenValue);
-                            tokenItem.classList.remove("token-enabled");
-                        }
+                        styleItem.style.display = "none";
+                        tokensList.style.display = "none";
+                        styleItem.classList.remove("fow-lbm-style-item--selected");
                     }
+                });
+    
+                if (categoryHasSelected) {
+                    categoryElement.style.display = "";
+                    stylesContainer.style.display = "block";
+                } else {
+                    categoryElement.style.display = "none";
+                    stylesContainer.style.display = "none";
                 }
-            }
+            });
+        } else {
+            const categories = categoriesContainer.querySelectorAll(".fow-lbm-category");
+            categories.forEach(categoryElement => {
+                const stylesContainer = categoryElement.querySelector(".fow-lbm-styles-container");
+                const styleItems = stylesContainer.querySelectorAll(".fow-lbm-style-item");
+    
+                categoryElement.style.display = "";
+                stylesContainer.style.display = "none";
+    
+                styleItems.forEach(styleItem => {
+                    const tokensList = styleItem.querySelector(".fow-lbm-tokens-list");
+                    const tokens = tokensList.querySelectorAll("li");
+    
+                    styleItem.style.display = "";
+                    tokensList.style.display = "none";
+                    styleItem.classList.remove("fow-lbm-style-item--selected");
+                    tokens.forEach(token => token.style.display = "");
+                });
+            });
+        }
+    
+        this.adjustModalHeightDebounced();
+    }
+
+    // --- Preview Handling ---
+    showPreview(imageUrl) {
+        if (this.previewContainer && this.previewImages && this.previewImages[imageUrl]) {
+            this.previewContainer.innerHTML = `<img src="${this.previewImages[imageUrl]}" class="fow-lbm-preview-image" alt="Style Preview" />`;
+            this.previewContainer.style.display = "block";
+            const modalRect = this.modal.getBoundingClientRect();
+            this.previewContainer.style.top = `${modalRect.top + 29}px`;
+            this.previewContainer.style.left = `${modalRect.right + 10}px`;
+        }
+    }
+
+    hidePreview() {
+        if (this.previewContainer) this.previewContainer.style.display = "none";
+    }
+
+    // --- State Management ---
+    deselectAllTokens(modalContent) {
+        this.selectedTokens.clear();
+        modalContent.querySelectorAll(".fow-lbm-tokens-list li").forEach(item => {
+            item.classList.remove("token-enabled");
         });
         this.updateSelectedTokenOutputDebounced();
-        requestAnimationFrame(() => {
-            this.adjustModalHeight();
-        });
+        this.adjustModalHeightDebounced();
+    }
+
+    confirmSelection(node) {
+        this.updateNodeInput(node);
+        this.adjustModalHeightDebounced();
+        this.showConfirmation("Selection Confirmed. Enjoy your image 😁.");
     }
 
     updateNodeInput(node) {
         if (!node) return;
         const selectedTokens = Array.from(this.selectedTokens);
         const userInputWidget = node.widgets.find(w => w.name === "user_input");
-        if (userInputWidget) {
-            userInputWidget.value = selectedTokens.join(", ");
-        }
+        if (userInputWidget) userInputWidget.value = selectedTokens.join(", ");
         this.saveModalState(node);
-        requestAnimationFrame(() => {
-            this.adjustModalHeight();
-        });
+        this.adjustModalHeightDebounced();
     }
 
     saveModalState(node = this.node) {
@@ -674,6 +838,7 @@ export class BaseModal {
         nodeData.isCollapsed = this.isCollapsed;
         nodeData.currentWidth = this.modal.offsetWidth;
         nodeData.currentHeight = this.currentHeight;
+        nodeData.isManuallyResized = this.isManuallyResized;
         this.setNodeData(node, nodeData);
     }
 
@@ -688,9 +853,7 @@ export class BaseModal {
         if (this.modal) {
             this.modal.style.display = "none";
             this.isOpen = false;
-            if (node) {
-                this.saveModalState(node);
-            }
+            if (node) this.saveModalState(node);
         }
     }
 
@@ -699,32 +862,39 @@ export class BaseModal {
         const modalContent = this.modal.querySelector(".fow-lbm-modal-content");
         if (modalContent) {
             const outputElement = modalContent.querySelector("#fow-lbm-selected-token-output");
-            if (outputElement) {
-                outputElement.textContent = selectedTokens.join(", ");
-            }
+            if (outputElement) outputElement.textContent = selectedTokens.join(", ");
         }
-        requestAnimationFrame(() => {
-            this.adjustModalHeight();
-        });
+        this.adjustModalHeightDebounced();
     }
 
     adjustModalHeight() {
         if (!this.isCollapsed && this.modal) {
             const contentWrapper = this.modal.querySelector(".fow-lbm-content-wrapper");
             if (contentWrapper) {
-                requestAnimationFrame(() => {
-                    const contentHeight = contentWrapper.scrollHeight + 40;
-                    const newHeight = Math.max(this.minHeight, Math.min(contentHeight, this.maxHeight));
+                const contentHeight = contentWrapper.scrollHeight + 40;
+               
+                let newHeight = this.currentHeight || this.sizing.minHeight;
+
+                if (this.isManuallyResized) {
+                    // Only adjust upward if content exceeds current height
+                    if (contentHeight > this.currentHeight) {
+                        newHeight = Math.min(contentHeight, this.sizing.maxHeight);
+                    }
+                    // Don't shrink automatically to avoid snap-back
+                } else {
+                    newHeight = Math.max(this.sizing.minHeight, Math.min(contentHeight, this.sizing.maxHeight));
+                }
+
+                if (newHeight !== this.currentHeight) {
                     this.currentHeight = newHeight;
                     this.modal.style.height = `${newHeight}px`;
-                    if (this.node) {
-                        this.saveModalState(this.node);
-                    }
-                });
+                    if (this.node) this.saveModalState(this.node);
+                }
             }
         }
     }
 
+    // --- Utility Methods ---
     debounce(func, delay) {
         let timeout;
         return function (...args) {
@@ -732,5 +902,102 @@ export class BaseModal {
             clearTimeout(timeout);
             timeout = setTimeout(() => func.apply(context, args), delay);
         };
+    }
+
+    showPopup({ message, buttons = [], showToggle = false, toggleText = "", toggleState = false, onToggleChange = () => {} }) {
+        const popup = document.createElement("div");
+        popup.className = "fow-lbm-popup fow-lbm-popup-warning";
+        popup.style.zIndex = "1003";
+        popup.style.opacity = "0";
+        popup.style.transition = "opacity 0.3s ease";
+
+        const messageEl = document.createElement("div");
+        messageEl.className = "fow-lbm-popup-message";
+        messageEl.innerHTML = message;
+        messageEl.style.marginBottom = "20px";
+        messageEl.style.padding = "0 20px";
+        popup.appendChild(messageEl);
+
+        if (showToggle) {
+            const toggleContainer = document.createElement("div");
+            toggleContainer.className = "fow-lbm-popup-toggle";
+            toggleContainer.style.marginBottom = "20px";
+            const toggleInput = document.createElement("input");
+            toggleInput.type = "checkbox";
+            toggleInput.id = `fow-lbm-toggle-${Date.now()}`;
+            toggleInput.checked = toggleState;
+            toggleInput.onchange = (e) => onToggleChange(e.target.checked);
+            const toggleLabel = document.createElement("label");
+            toggleLabel.htmlFor = toggleInput.id;
+            toggleLabel.textContent = toggleText;
+            toggleLabel.style.marginLeft = "5px";
+            toggleContainer.append(toggleInput, toggleLabel);
+            popup.appendChild(toggleContainer);
+        }
+
+        const buttonContainer = document.createElement("div");
+        buttonContainer.className = "fow-lbm-popup-buttons";
+        buttonContainer.style.display = "flex";
+        buttonContainer.style.gap = "15px";
+        buttonContainer.style.justifyContent = "center";
+        buttons.forEach(btn => {
+            const button = document.createElement("button");
+            button.className = btn.text === "No" ? "fow-lbm-popup-cancel-button" : "fow-lbm-popup-button";
+            button.textContent = btn.text;
+            button.style.cursor = "pointer";
+            button.onclick = () => {
+                btn.onClick();
+                popup.style.opacity = "0";
+                setTimeout(() => popup.remove(), 300);
+            };
+            buttonContainer.appendChild(button);
+        });
+        popup.appendChild(buttonContainer);
+
+        document.body.appendChild(popup);
+        requestAnimationFrame(() => {
+            popup.style.opacity = "1";
+            popup.style.position = "fixed";
+            popup.style.top = "50%";
+            popup.style.left = "50%";
+            popup.style.transform = "translate(-50%, -50%)";
+            popup.style.backgroundColor = "#444";
+            popup.style.padding = "30px";
+            popup.style.width = "450px";
+            popup.style.minHeight = "150px";
+            popup.style.borderRadius = "12px";
+            popup.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.4)";
+            popup.style.color = "#fff";
+            popup.style.textAlign = "center";
+        });
+    }
+
+    showConfirmation(message, duration = 2000) {
+        const confirmation = document.createElement("div");
+        confirmation.className = "fow-lbm-confirmation-popup";
+        confirmation.style.zIndex = "1002";
+        confirmation.style.opacity = "0";
+        confirmation.style.transition = "opacity 0.3s ease";
+
+        confirmation.innerHTML = message;
+        document.body.appendChild(confirmation);
+        requestAnimationFrame(() => {
+            confirmation.style.opacity = "1";
+            confirmation.style.position = "fixed";
+            confirmation.style.top = "20px";
+            confirmation.style.left = "50%";
+            confirmation.style.transform = "translateX(-50%)";
+            confirmation.style.backgroundColor = "#127015";
+            confirmation.style.color = "#fff";
+            confirmation.style.padding = "10px 20px";
+            confirmation.style.borderRadius = "5px";
+            confirmation.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.2)";
+            confirmation.style.fontSize = "14px";
+        });
+
+        setTimeout(() => {
+            confirmation.style.opacity = "0";
+            setTimeout(() => confirmation.remove(), 300);
+        }, duration);
     }
 }

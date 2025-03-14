@@ -164,35 +164,37 @@ setNodeData(node, data) {
         this.setupFileHandlers(fileInput, modalContent);
     }
 
-    initializeModal(node) {
-        const defaultCatalogueWidget = node.widgets.find(w => w.name === "default_catalogue");
-        let defaultCatalogue = defaultCatalogueWidget?.value;
-        if (typeof defaultCatalogue === "string") {
-            try {
-                const parsedData = JSON.parse(defaultCatalogue);
-                if (parsedData.catalogue && parsedData.previews) {
-                    defaultCatalogue = parsedData.catalogue;
-                    this.previewImages = parsedData.previews;
-                } else {
-                    defaultCatalogue = parsedData;
-                }
-            } catch (error) {
-                defaultCatalogue = null;
-            }
+ 
+// shared/BaseModal.js (relevant snippet)
+initializeModal(node) {
+    const defaultCatalogueWidget = node.widgets.find(w => w.name === "default_catalogue");
+    let defaultCatalogue = defaultCatalogueWidget?.value;
+    this.previewImages = this.previewImages || {};
+
+    if (typeof defaultCatalogue === "string") {
+        try {
+            defaultCatalogue = JSON.parse(defaultCatalogue);
+        } catch (error) {
+            console.error("Error parsing default_catalogue:", error);
+            defaultCatalogue = null;
         }
-
-        requestAnimationFrame(() => {
-            this.modal.style.display = "flex";
-            this.setupEventHandlers(this.modal, node);
-            this.updateModalWithTokens(defaultCatalogue, this.modal.querySelector(".fow-lbm-modal-content"));
-            this.adjustModalHeightDebounced();
-        });
-
-        const nodeData = this.getNodeData(node);
-        this.isCollapsed = nodeData.isCollapsed || false;
-        this.isManuallyResized = nodeData.isManuallyResized || false;
-        if (this.isCollapsed) this.toggleCollapse(node);
     }
+
+    // Store tokens for later use
+    this.tokens = defaultCatalogue ? defaultCatalogue["FoW - Styles"] : [];
+
+    requestAnimationFrame(() => {
+        this.modal.style.display = "flex";
+        this.setupEventHandlers(this.modal, node);
+        this.updateModalWithTokens(defaultCatalogue, this.modal.querySelector(".fow-lbm-modal-content"));
+        this.adjustModalHeightDebounced();
+    });
+
+    const nodeData = this.getNodeData(node);
+    this.isCollapsed = nodeData.isCollapsed || false;
+    this.isManuallyResized = nodeData.isManuallyResized || false;
+    if (this.isCollapsed) this.toggleCollapse(node);
+}
 
     getModalTemplate() {
         return `
@@ -251,22 +253,22 @@ setNodeData(node, data) {
         const operationWindow = modal.querySelector(".fow-lbm-operation-window");
         const fileInput = modal.querySelector('input[type="file"]');
         const tokensContainer = modalContent.querySelector(".fow-lbm-categories-container");
-
+    
         // Enable dragging
         this.setupDragHandlers(modal, modal.querySelector(".fow-lbm-modal__titlebar"));
-
+    
         // Enable resizing
         if (this.createResizeHandle) {
             const resizeHandle = this.createResizeHandle();
             modal.appendChild(resizeHandle);
         }
-
+    
         // Set up button event handlers
         this.setupButtons(modal, modalContent, node, fileInput);
-
+    
         // Set up search functionality
         this.setupSearch(operationWindow);
-
+    
         // Set up token click handling
         tokensContainer.addEventListener('click', (event) => {
             if (event.target.tagName === 'LI') {
@@ -276,7 +278,7 @@ setNodeData(node, data) {
                 this.toggleToken(tokenItem, value, tokensList);
             }
         });
-
+    
         this.adjustModalHeightDebounced();
     }
 
@@ -789,12 +791,18 @@ setNodeData(node, data) {
 
     // --- Preview Handling ---
     showPreview(imageUrl) {
-        if (this.previewContainer && this.previewImages && this.previewImages[imageUrl]) {
-            this.previewContainer.innerHTML = `<img src="${this.previewImages[imageUrl]}" class="fow-lbm-preview-image" alt="Style Preview" />`;
-            this.previewContainer.style.display = "block";
-            const modalRect = this.modal.getBoundingClientRect();
-            this.previewContainer.style.top = `${modalRect.top + 29}px`;
-            this.previewContainer.style.left = `${modalRect.right + 10}px`;
+        if (this.previewContainer) {
+            const previewSrc = this.previewImages && this.previewImages[imageUrl];
+            if (previewSrc) {
+                this.previewContainer.innerHTML = `<img src="${previewSrc}" class="fow-lbm-preview-image" alt="Style Preview" />`;
+                this.previewContainer.style.display = "block";
+                const modalRect = this.modal.getBoundingClientRect();
+                this.previewContainer.style.top = `${modalRect.top + 29}px`;
+                this.previewContainer.style.left = `${modalRect.right + 10}px`;
+            } else {
+                console.log(`No preview image found for ${imageUrl}`);
+                this.previewContainer.style.display = "none";
+            }
         }
     }
 

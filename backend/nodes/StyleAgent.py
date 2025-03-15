@@ -54,6 +54,9 @@ class StyleAgent(AgentNode):
     Examples: 'Art Deco', 'Chibi', 'cyberpunk', etc.
     Increase the Catalogue by increasing your Tier on https://www.twitch.tv/sirwillance/"""
 
+    # Override FUNCTION to use our custom encode method
+    FUNCTION = "encode"
+
     # Track if we've initialized the cache for the first node
     _cache_initialized = False
 
@@ -75,7 +78,7 @@ class StyleAgent(AgentNode):
                 "clip": ("CLIP", {"tooltip": "CLIP model for encoding"}),
                 "user_input": ("STRING", {"multiline": True, "dynamicPrompts": True, "hidden": True}),
                 "default_catalogue": ("STRING", {"default": json.dumps(catalogue_data), "hidden": True}),
-                "preview_images": ("STRING", {"default": json.dumps(preview_data), "hidden": True}),  # Dynamic based on node
+                "preview_images": ("STRING", {"default": json.dumps(preview_data), "hidden": True}),
             }
         }
 
@@ -88,8 +91,13 @@ class StyleAgent(AgentNode):
         # Cache is already loaded by INPUT_TYPES, no need to reload here
 
     def encode(self, clip, user_input, default_catalogue, preview_images):
-        """Override encode to handle preview_images and call the parent's encode method."""
-        # Call the parent class's encode method with only the expected arguments
-        return super().encode(clip, user_input, default_catalogue)
+        """
+        Encode the user_input tokens using the CLIP model.
+        preview_images is ignored here as it's only needed for the frontend.
+        """
+        # The backend only cares about encoding the user_input (tokens from the frontend)
+        tokens = clip.tokenize(user_input)
+        cond = clip.encode_from_tokens_scheduled(tokens)
+        return (cond, user_input)
 
 NODE_CLASS_MAPPINGS = {f"{NODE_ID_PREFIX}{TYPE_NAME}{NODE_FUNCTION}{NODE_VERSION}": StyleAgent}

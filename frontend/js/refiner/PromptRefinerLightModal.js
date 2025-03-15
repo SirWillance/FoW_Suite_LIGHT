@@ -271,11 +271,15 @@ export class PromptRefinerLightModal {
                 const titleBarHeight = titleBar.offsetHeight;
                 this.originalWidth = this.modal.offsetWidth;
                 this.originalHeight = this.modal.offsetHeight;
-                this.modal.style.width = `${titleBarWidth}px`;
-                this.modal.style.height = `${titleBarHeight}px`;
+                this.currentWidth = titleBarWidth;
+                this.currentHeight = titleBarHeight;
+                this.modal.style.width = `${this.currentWidth}px`;
+                this.modal.style.height = `${this.currentHeight}px`;
             } else {
-                this.modal.style.width = `${this.originalWidth}px`;
-                this.modal.style.height = `${this.originalHeight}px`;
+                this.currentWidth = this.originalWidth;
+                this.currentHeight = this.originalHeight;
+                this.modal.style.width = `${this.currentWidth}px`;
+                this.modal.style.height = `${this.currentHeight}px`;
             }
             this.saveModalState(node);        
             console.log("Collapse state updated:", {

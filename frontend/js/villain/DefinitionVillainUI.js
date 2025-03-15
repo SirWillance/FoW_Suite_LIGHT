@@ -1,4 +1,3 @@
-// frontend/js/agents/StyleVillainUI.js
 import { app } from "../../../../../scripts/app.js";
 import { BaseModal } from "../shared/BaseModal.js";
 
@@ -8,36 +7,18 @@ app.registerExtension({
     name: "FoW_Suite_LIGHT.DefinitionVillainUI",
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if (nodeData.name === "FoWLDefinitionVillain") {
-            const modal = new BaseModal({
-                type: "Negatives",
-                rootKey: "FoW - Definition",
-                version: VERSION
-            });
-
             nodeType.prototype.onNodeCreated = function() {
                 console.log(`DefinitionVillainUI v${VERSION}: Node created.`);
                 this.selectedTokens = new Set();
-                
-                const openModalButton = this.addWidget(
-                    "button",
-                    "Open Definition Catalogue",
-                    "Load Definition Catalogue",
-                    () => modal.create(this)
-                );
-
-                this.openModalButton = openModalButton;
-
-                const userInputWidget = this.widgets.find(w => w.name === "user_input");
-                if (userInputWidget) {
-                    userInputWidget.callback = (value) => {
-                        console.log("User input updated:", value);
-                        if (this.onUpdate) this.onUpdate();
-                    };
-                }
-
+                this.modal = new BaseModal({
+                    type: "Definition",
+                    rootKey: "FoW - Definitions", // Adjust if JSON root differs
+                    version: VERSION
+                });
+                this.addWidget("button", "Open Definitions Catalogue", "Load Catalogue", () => this.modal.create(this));
                 this.onRemoved = () => {
                     console.log(`DefinitionVillainUI v${VERSION}: Node removed.`);
-                    modal.cleanup(this);
+                    if (this.modal) this.modal.cleanup(this);
                 };
             };
         }

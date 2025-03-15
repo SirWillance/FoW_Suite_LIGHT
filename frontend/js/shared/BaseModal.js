@@ -25,6 +25,7 @@ export class BaseModal {
         this.isManuallyResized = false;
         this.currentWidth = null;
         this.currentHeight = null;
+        this.originalWidth = this.sizing.expandWidth; // New: Store last expanded width
         this.rootKeyToFileMap = {};
         this.contactLink = null;
         this.eventListeners = [];
@@ -92,17 +93,18 @@ export class BaseModal {
         this.selectedTokens = new Set(nodeData.selectedTokens || []);
         this.isCollapsed = nodeData.isCollapsed || false;
         this.currentWidth = nodeData.currentWidth || this.sizing.expandWidth;
+        this.originalWidth = nodeData.originalWidth || this.sizing.expandWidth; // Load saved original
         this.currentHeight = nodeData.currentHeight || this.sizing.minHeight;
         this.isManuallyResized = nodeData.isManuallyResized || false;
-
+    
         this.modal.style.display = "flex";
         this.isOpen = true;
-        this.setupEventHandlers(this.modal, node); // Reinitialize handlers
+        this.setupEventHandlers(this.modal, node);
         const contentWrapper = this.modal.querySelector(".fow-lbm-content-wrapper");
         const resizeHandle = this.modal.querySelector(".fow-lbm-modal-resize-handle");
         if (contentWrapper) contentWrapper.style.display = this.isCollapsed ? "none" : "block";
         if (resizeHandle) resizeHandle.style.display = this.isCollapsed ? "none" : "block";
-
+    
         this.updateSelectedTokenOutput();
         this.adjustModalHeightDebounced();
     }
@@ -296,29 +298,30 @@ export class BaseModal {
     createResizeHandle() {
         const resizeHandle = document.createElement("div");
         resizeHandle.classList.add("fow-lbm-modal-resize-handle");
-
+    
         resizeHandle.addEventListener("mousedown", (e) => {
             e.preventDefault();
             if (this.isCollapsed) return;
             this.isResizing = true;
             this.isManuallyResized = true;
-
+    
             const startWidth = this.modal.offsetWidth;
             const startHeight = this.modal.offsetHeight;
             const startX = e.clientX;
             const startY = e.clientY;
-
+    
             const mousemoveHandler = (e) => {
                 if (!this.isResizing) return;
                 const newWidth = Math.max(this.sizing.minWidth, Math.min(startWidth + (e.clientX - startX), this.sizing.maxWidth));
                 const newHeight = Math.max(this.sizing.minHeight, Math.min(startHeight + (e.clientY - startY), this.sizing.maxHeight));
                 this.modal.style.width = `${newWidth}px`;
                 this.modal.style.height = `${newHeight}px`;
-                this.currentWidth = newWidth;
+                this.currentWidth = `${newWidth}px`; // Update current
+                this.originalWidth = `${newWidth}px`; // Update original
                 this.currentHeight = newHeight;
                 this.adjustModalHeightDebounced();
             };
-
+    
             const mouseupHandler = () => {
                 this.isResizing = false;
                 document.removeEventListener("mousemove", mousemoveHandler);
@@ -326,11 +329,11 @@ export class BaseModal {
                 if (this.node) this.saveModalState(this.node);
                 this.adjustModalHeightDebounced();
             };
-
+    
             document.addEventListener("mousemove", mousemoveHandler);
             document.addEventListener("mouseup", mouseupHandler);
         });
-
+    
         return resizeHandle;
     }
 
@@ -645,38 +648,48 @@ export class BaseModal {
 
     // --- State and UI Management ---
     toggleCollapse(node) {
+        if (!this.modal) {
+            console.warn("Modal not initialized, cannot toggle collapse");
+            return;
+        }
+    
         const contentWrapper = this.modal.querySelector(".fow-lbm-content-wrapper");
         const resizeHandle = this.modal.querySelector(".fow-lbm-modal-resize-handle");
         const titleBar = this.modal.querySelector(".fow-lbm-modal__titlebar");
-
+        const collapseButton = this.modal.querySelector(".fow-lbm-modal__collapse");
+    
+        if (!this.isCollapsed && this.isManuallyResized) {
+            this.originalWidth = `${this.modal.offsetWidth}px`; // Save pre-collapse width
+        }
+    
         this.isCollapsed = !this.isCollapsed;
-        this.isManuallyResized = false;
+    
+        if (this.isCollapsed) {
+            this.currentWidth = this.sizing.collapseWidth; // Collapse to fixed width
+        } else {
+            this.currentWidth = this.originalWidth; // Restore last expanded width
+        }
         this.setModalDimensions(this.isCollapsed, titleBar);
-
+    
         if (contentWrapper) contentWrapper.style.display = this.isCollapsed ? "none" : "block";
         if (resizeHandle) resizeHandle.style.display = this.isCollapsed ? "none" : "block";
         if (this.contactLink) this.contactLink.style.display = this.isCollapsed ? "none" : "inline";
-
-        const nodeData = this.getNodeData(node);
-        nodeData.isCollapsed = this.isCollapsed;
-        this.setNodeData(node, nodeData);
-
-        const collapseButton = this.modal.querySelector(".fow-lbm-modal__collapse");
-        if (collapseButton) {
-            collapseButton.innerHTML = this.isCollapsed ? "+" : "-";
-        }
-
+        if (collapseButton) collapseButton.innerHTML = this.isCollapsed ? "+" : "-";
+    
+        this.saveModalState(node);
+    
         if (!this.isCollapsed) this.adjustModalHeightDebounced();
     }
 
     setModalDimensions(isCollapsed, titleBar) {
+        const titleBarHeight = titleBar?.offsetHeight || this.sizing.minHeight;
         if (isCollapsed) {
-            this.modal.style.width = this.sizing.collapseWidth;
-            this.modal.style.height = `${Math.max(titleBar.offsetHeight, this.sizing.minHeight)}px`;
+            this.modal.style.width = this.sizing.collapseWidth; // Fixed collapse width
+            this.modal.style.height = `${Math.max(titleBarHeight, this.sizing.minHeight)}px`;
             this.modal.style.minWidth = "0";
             this.modal.style.minHeight = "0";
         } else {
-            this.modal.style.width = this.currentWidth || this.sizing.expandWidth;
+            this.modal.style.width = this.currentWidth || this.sizing.expandWidth; // Use saved width
             this.modal.style.height = `${this.currentHeight || this.sizing.minHeight}px`;
             this.modal.style.minWidth = `${this.sizing.minWidth}px`;
             this.modal.style.minHeight = `${this.sizing.minHeight}px`;
@@ -801,7 +814,8 @@ export class BaseModal {
         const nodeData = this.getNodeData(node);
         nodeData.selectedTokens = selectedTokens;
         nodeData.isCollapsed = this.isCollapsed;
-        nodeData.currentWidth = this.modal.offsetWidth;
+        nodeData.currentWidth = this.currentWidth;
+        nodeData.originalWidth = this.originalWidth; // New: Save original width
         nodeData.currentHeight = this.currentHeight;
         nodeData.isManuallyResized = this.isManuallyResized;
         this.setNodeData(node, nodeData);

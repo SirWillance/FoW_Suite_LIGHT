@@ -14,6 +14,7 @@ export class PromptRefinerLightModal {
         this.originalWidth = this.defaultWidth;
         this.originalHeight = this.defaultHeight;
         this.minWidth = 390;
+        this.lastExpandedWidth = null;
         this.node = node;
         this.isCollapsed = false;
         this.isCollapsedPositive = true;
@@ -266,18 +267,17 @@ export class PromptRefinerLightModal {
             contactLink.style.display = this.isCollapsed ? "none" : "inline";
             this.modal.classList.toggle("prl-modal-collapsed", this.isCollapsed);
             if (this.isCollapsed) {
-                this.originalWidth = this.currentWidth;
-                this.originalHeight = this.currentHeight;
-                this.currentWidth = this.minimizedWidth;
-                this.currentHeight = this.minHeight;
+                const titleBarWidth = this.minimizedWidth;
+                const titleBarHeight = titleBar.offsetHeight;
+                this.originalWidth = this.modal.offsetWidth;
+                this.originalHeight = this.modal.offsetHeight;
+                this.modal.style.width = `${titleBarWidth}px`;
+                this.modal.style.height = `${titleBarHeight}px`;
             } else {
-                this.currentWidth = this.originalWidth;
-                this.currentHeight = this.originalHeight;
+                this.modal.style.width = `${this.originalWidth}px`;
+                this.modal.style.height = `${this.originalHeight}px`;
             }
-            this.modal.style.width = `${this.currentWidth}px`;
-            this.modal.style.height = `${this.currentHeight}px`;
-            this.adjustModalHeight();
-            this.saveModalState(node);
+            this.saveModalState(node);        
             console.log("Collapse state updated:", {
                 isCollapsed: this.isCollapsed,
                 currentWidth: this.currentWidth,
@@ -453,22 +453,21 @@ export class PromptRefinerLightModal {
 
     adjustModalHeight() {
         if (!this.modal) return;
-        if (!this.isCollapsed) {
+        if (this.isCollapsed) {
+            this.modal.style.height = `${this.minHeight}px`; // Title bar collapsed
+            console.log("Adjusted height (title bar collapsed):", { currentHeight: this.minHeight });
+        } else {
             const contentWrapper = this.modal.querySelector(".prl-modal-content-wrapper");
             if (contentWrapper) {
                 requestAnimationFrame(() => {
-                    const contentHeight = contentWrapper.scrollHeight + 40;
-                    const newHeight = Math.max(this.minHeight, Math.min(contentHeight, this.maxHeight));
-                    this.currentHeight = newHeight;
-                    this.originalHeight = newHeight;
+                    const contentHeight = contentWrapper.scrollHeight + 40; // Padding/margin
+                    const newHeight = Math.max(this.currentHeight, Math.min(contentHeight, this.maxHeight));
+                    this.currentHeight = newHeight; // Update to fit content, but not below resized height
                     this.modal.style.height = `${newHeight}px`;
-                    this.saveModalState(this.node);
-                    console.log("Adjusted height (expanded):", { currentHeight: this.currentHeight, contentHeight: contentHeight });
+                    this.saveModalState(this.node); // Persist new height
+                    console.log("Adjusted height (content expanded):", { currentHeight: this.currentHeight, contentHeight });
                 });
             }
-        } else {
-            this.modal.style.height = `${this.minHeight}px`; // Ensure collapsed height is enforced
-            console.log("Adjusted height (collapsed):", { currentHeight: this.minHeight });
         }
     }
 
@@ -503,8 +502,8 @@ export class PromptRefinerLightModal {
         let startX, startY, startWidth, startHeight;
 
         resizeHandle.addEventListener("mousedown", (e) => {
+            if (this.isCollapsed) return;
             e.preventDefault();
-            if (this.isCollapsed || !this.modal) return;
             isResizing = true;
             startX = e.clientX;
             startY = e.clientY;
@@ -514,22 +513,14 @@ export class PromptRefinerLightModal {
             document.addEventListener("mouseup", () => {
                 isResizing = false;
                 document.removeEventListener("mousemove", resizeHandler);
-                if (this.modal) {
-                    this.currentWidth = Math.max(this.modal.offsetWidth, this.minWidth);
-                    this.currentHeight = Math.max(this.modal.offsetHeight, this.minHeight);
-                    this.originalWidth = this.currentWidth;
-                    this.originalHeight = this.currentHeight;
-                    this.modal.style.width = `${this.currentWidth}px`;
-                    this.modal.style.height = `${this.currentHeight}px`;
-                    this.adjustModalHeight();
-                    this.saveModalState(this.node);
-                    console.log("Resize state saved:", { currentWidth: this.currentWidth, currentHeight: this.currentHeight });
-                }
+                this.currentWidth = this.modal.offsetWidth;
+                this.currentHeight = this.modal.offsetHeight;
+                if (this.node) this.saveModalState(this.node);
             });
         });
 
         const resizeHandler = (e) => {
-            if (!isResizing || !this.modal) return;
+            if (!isResizing) return;
             const newWidth = Math.max(startWidth + (e.clientX - startX), this.minWidth);
             const newHeight = Math.max(startHeight + (e.clientY - startY), this.minHeight);
             this.modal.style.width = `${newWidth}px`;
@@ -630,7 +621,7 @@ export class PromptRefinerLightModal {
             }
         }
     
-        this.currentWidth = Math.max(nodeData.currentWidth || this.defaultWidth, this.defaultWidth);
+        this.currentWidth = Math.max(nodeData.currentWidth || this.defaultWidth, this.minWidth);
         this.currentHeight = Math.max(nodeData.currentHeight || this.defaultHeight, this.minHeight);
         this.originalWidth = nodeData.originalWidth || this.defaultWidth;
         this.originalHeight = nodeData.originalHeight || this.defaultHeight;
@@ -638,12 +629,16 @@ export class PromptRefinerLightModal {
         this.isCollapsedPositive = nodeData.isCollapsedPositive !== undefined ? nodeData.isCollapsedPositive : true;
         this.isCollapsedNegative = nodeData.isCollapsedNegative !== undefined ? nodeData.isCollapsedNegative : true;
         this.showAlerts = nodeData.showAlerts !== false;
-        this.showConfirmations = nodeData.showConfirmations !== false; // New: Default to true
-    
+        this.showConfirmations = nodeData.showConfirmations !== false;
+
         if (this.modal) {
             this.modal.classList.toggle("prl-modal-collapsed", this.isCollapsed);
             this.modal.style.width = `${this.currentWidth}px`;
             this.modal.style.height = `${this.currentHeight}px`;
+            if (this.isCollapsed) {
+                this.currentHeight = this.minHeight;
+                this.modal.style.height = `${this.currentHeight}px`;
+            }
         }
     
         const contentWrapper = this.modal?.querySelector(".prl-modal-content-wrapper");

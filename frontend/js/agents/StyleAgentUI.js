@@ -10,7 +10,7 @@ const previewCache = {};
 app.registerExtension({
     name: "FoW_Suite_LIGHT.StyleAgentUI",
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        if (nodeData.name === "FoWLStyleAgent") {  // Match the node name from NODE_CLASS_MAPPINGS
+        if (nodeData.name === "FoWLStyleAgent") {
             // Initialize previewCache from the first node with base64 data
             if (Object.keys(previewCache).length === 0) {
                 const firstNode = app.graph._nodes.find(n => n.type === "FoWLStyleAgentLight");
@@ -23,13 +23,9 @@ app.registerExtension({
                             Object.assign(previewCache, previewData);
                             console.log("Initialized previewCache with base64 data:", Object.keys(previewCache));
                         } else {
-                            console.warn("First node does not contain base64 data; expected an object. Found:", previewData);
+                            console.warn("First node does not contain base64 data; expected an object.");
                         }
-                    } else {
-                        console.warn("First node does not have a preview_images widget.");
                     }
-                } else {
-                    console.warn("No StyleAgent nodes found in the graph to initialize previewCache.");
                 }
             }
 
@@ -55,12 +51,7 @@ app.registerExtension({
                         if (Array.isArray(previewData)) {
                             // Subsequent nodes: Map filenames to base64 from previewCache
                             previewData.forEach(filename => {
-                                if (previewCache[filename]) {
-                                    modal.previewImages[filename] = previewCache[filename];
-                                } else {
-                                    console.warn(`No base64 data found in previewCache for ${filename}`);
-                                    modal.previewImages[filename] = null;
-                                }
+                                modal.previewImages[filename] = previewCache[filename] || null;
                             });
                         } else {
                             // First node: Use the base64 data directly

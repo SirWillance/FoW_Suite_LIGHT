@@ -87,9 +87,9 @@ class StyleAgent(AgentNode):
         super().__init__()
         # Cache is already loaded by INPUT_TYPES, no need to reload here
 
-    def execute(self, clip, user_input, default_catalogue, preview_images):
-        # Use _preview_cache for any preview-related logic in execute
-        # Note: preview_images will be the JSON string of filenames, but _preview_cache has the base64
-        pass  # Implement your execute logic
+    def encode(self, clip, user_input, default_catalogue, preview_images):
+        """Override encode to handle preview_images and call the parent's encode method."""
+        # Call the parent class's encode method with only the expected arguments
+        return super().encode(clip, user_input, default_catalogue)
 
 NODE_CLASS_MAPPINGS = {f"{NODE_ID_PREFIX}{TYPE_NAME}{NODE_FUNCTION}{NODE_VERSION}": StyleAgent}

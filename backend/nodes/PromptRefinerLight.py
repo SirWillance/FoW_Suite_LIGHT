@@ -1,9 +1,6 @@
-# backend/nodes/PromptRefinerPro.py
-import re
-from concurrent.futures import ThreadPoolExecutor
-from functools import lru_cache
 from ...config.category import get_category
 from nodes import ConditioningConcat
+from ...config.constants import  NODE_ID_PREFIX
 
 
 NODE_ID_PREFIX = "FoWL"
@@ -11,9 +8,6 @@ TYPE_NAME = "Prompt"
 NODE_FUNCTION = "Refiner"
 NODE_VERSION = "Light"
 NODE_EMOJI = "⌨"
-
-# Precompile regex for weight removal
-WEIGHT_REGEX = re.compile(r'(\s*,\s*\(:[-+]?[0-9]+(?:\.[0-9]+)?\))+\s*|^\s*\(:[-+]?[0-9]+(?:\.[0-9]+)?\)\s*')
 
 class PromptRefinerLight:
     # Define the exact input names for positive and negative groups
@@ -48,77 +42,57 @@ Standard-Version includes Tokeniztion of your prompt. Pro-Version enhancements f
     def __init__(self):
         self.concat_node = ConditioningConcat()
 
-    @lru_cache(maxsize=128)  # Cache up to 128 unique text inputs
-    def _process_text(self, clip, text):
-        """Helper function to tokenize and encode a single text."""
-        tokens = clip.tokenize(text)
-        cond = clip.encode_from_tokens_scheduled(tokens)
-        return cond
-
     def fuse(self, clip, **kwargs):
         # Step 1: Process positive text inputs
         positive_texts = []
         positive_conditionings = []
 
         for input_name in self.POSITIVE_INPUTS:
-            text = kwargs.get(input_name)
-            if isinstance(text, str) and text.strip():  # Skip empty texts
-                # Remove empty weights using precompiled regex
-                text = WEIGHT_REGEX.sub('', text)
-                if text.strip():  # Check if text is still not empty after removing weights
-                    positive_texts.append(text)
+            text = kwargs.get(input_name, "").strip()
+            if text:  # Skip empty texts
+                # Strip custom delimiters and clean whitespace
+                cleaned_text = text.replace(" FoW ", ", ").replace(" FoWs ", ", ").replace(" FoWe ", ", ").strip()
+                if cleaned_text:
+                    positive_texts.append(cleaned_text)
+                    cond = clip.encode_from_tokens_scheduled(clip.tokenize(cleaned_text))
+                    positive_conditionings.append(cond)
 
         # Step 2: Process negative text inputs
         negative_texts = []
         negative_conditionings = []
 
         for input_name in self.NEGATIVE_INPUTS:
-            text = kwargs.get(input_name)
-            if isinstance(text, str) and text.strip():  # Skip empty texts
-                # Remove empty weights using precompiled regex
-                text = WEIGHT_REGEX.sub('', text)
-                if text.strip():  # Check if text is still not empty after removing weights
-                    negative_texts.append(text)
+            text = kwargs.get(input_name, "").strip()
+            if text:  # Skip empty texts
+                # Strip custom delimiters and clean whitespace
+                cleaned_text = text.replace(" FoW ", ", ").replace(" FoWs ", ", ").replace(" FoWe ", ", ").strip()
+                if cleaned_text:
+                    negative_texts.append(cleaned_text)
+                    cond = clip.encode_from_tokens_scheduled(clip.tokenize(cleaned_text))
+                    negative_conditionings.append(cond)
 
-        # Step 3: Tokenize and encode texts in parallel
-        with ThreadPoolExecutor() as executor:
-            # Process positive texts
-            positive_futures = [executor.submit(self._process_text, clip, text) for text in positive_texts]
-            positive_conditionings = [future.result() for future in positive_futures]
-
-            # Process negative texts
-            negative_futures = [executor.submit(self._process_text, clip, text) for text in negative_texts]
-            negative_conditionings = [future.result() for future in negative_futures]
-
-        # Step 4: Combine positive conditionings
+        # Step 3: Combine positive conditionings
         if positive_conditionings:
             positive_fused = positive_conditionings[0]
             for cond in positive_conditionings[1:]:
                 positive_fused = self.concat_node.concat(positive_fused, cond)[0]
         else:
-            # If no positive inputs, create an empty conditioning tensor
             empty_text = ""
-            tokens = clip.tokenize(empty_text)
-            cond = clip.encode_from_tokens_scheduled(tokens)
-            positive_fused = cond
+            positive_fused = clip.encode_from_tokens_scheduled(clip.tokenize(empty_text))
 
-        # Step 5: Combine negative conditionings
+        # Step 4: Combine negative conditionings
         if negative_conditionings:
             negative_fused = negative_conditionings[0]
             for cond in negative_conditionings[1:]:
                 negative_fused = self.concat_node.concat(negative_fused, cond)[0]
         else:
-            # If no negative inputs, create an empty conditioning tensor
             empty_text = ""
-            tokens = clip.tokenize(empty_text)
-            cond = clip.encode_from_tokens_scheduled(tokens)
-            negative_fused = cond
+            negative_fused = clip.encode_from_tokens_scheduled(clip.tokenize(empty_text))
 
-        # Step 6: Combine texts into prompts (for output)
+        # Step 5: Combine texts into prompts (for output)
         combined_positive_prompt = ", ".join(positive_texts) if positive_texts else ""
         combined_negative_prompt = ", ".join(negative_texts) if negative_texts else ""
 
         return (positive_fused, negative_fused, combined_positive_prompt, combined_negative_prompt)
-
 
 NODE_CLASS_MAPPINGS = {f"{NODE_ID_PREFIX}{TYPE_NAME}{NODE_FUNCTION}{NODE_VERSION}": PromptRefinerLight}

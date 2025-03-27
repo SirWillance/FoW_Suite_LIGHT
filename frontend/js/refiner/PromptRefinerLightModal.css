@@ -6,12 +6,20 @@
   --prl-modal-text: #ffffff; /* White text */
   --prl-modal-border: #555; /* Dark border color */
   --prl-modal-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Consistent shadow */
-  --prl-modal-accent-red: #8a1d16;; /* Clear All (Red) */
-  --prl-modal-accent-orange: #b48401; /* Save (Orange) */
-  --prl-modal-accent-green: #127015; /* Confirm (Green) */
-  --prl-button-hover-background: #777; /* Button hover background */
-  --prl-button-hover-color: #fff; /* Button hover text color */
   --prl-operation-window-button-size: 30px; /* Button size */
+  --prl-button-color-white: #ddd; 
+  --prl-button-color-black: black;
+  --prl-button-border: black;
+  --prl-core-red: #8a1d16;
+  --prl-core-green: #127015;
+  --prl-core-blue: #273080;
+  --prl-core-orange: #b48401;
+  --prl-core-red-hover: #da190b;
+  --prl-core-green-hover: #45a049;
+  --prl-core-blue-hover: #0000ff;
+  --prl-core-orange-hover: #f3cb46;
+  --prl-button-border-hover: #ccc;  
+  --prl-transition-hover: opacity 0.2s ease;
 }
 
 /* --- ============================ GENERAL MODAL STYLES ============================ --- */
@@ -138,7 +146,7 @@
   flex: 1;
   padding: 8px;
   margin-right: 10px;
-  border: 1px solid #777;
+  border: 1px solid var(--prl-core-green);
   border-radius: 5px;
   background-color: #555;
   color: #ccc;
@@ -206,8 +214,8 @@
 }
 
 .prl-alert-toggle:checked {
-  background-color: var(--prl-modal-accent-green);
-  border-color: var(--prl-modal-accent-green);
+  background-color: var(--prl-core-blue);
+  border-color: var(--prl-core-blue-hover);
 }
 
 .prl-alert-toggle:checked::after {
@@ -241,62 +249,62 @@
   align-items: center;
   justify-content: center;
   border-width: 2px; /* Important: border-width is needed for border-image */
-  border-color: black;
+  border-color: var(--prl-button-border);
 }
 
 .prl-button-group button:hover {
   border-width: 2px; /* Important: border-width is needed for border-image */
-  border-color: #ccc;
+  border-color: var(--prl-button-border-hover);
 }
 
 .prl-clear-all {
-  background-color: var(--prl-modal-accent-red);
-  color: white;
+  background-color: var(--prl-core-red);
+  color: var(--prl-button-color-white);
 }
 
 .prl-clear-all:hover {
-  background-color: #da190b;
-  color: white;
+  background-color: var(--prl-core-red-hover);
+  color: var(--prl-button-color-white);
 }
 
 .prl-file-loader {
-  background-color: #273080;
-  color: #101010;
+  background-color: var(--prl-core-blue);
+  color: var(--prl-button-color-black);
 }
 
 .prl-file-loader:hover {
-  background-color: #0000ff;
-  color: #101010;
+  background-color: var(--prl-core-blue-hover);
+  color: var(--prl-button-color-black);
 }
 
 .prl-file-saver {
-  background-color: var(--prl-modal-accent-orange);
-  color: white;
+  background-color: var(--prl-core-orange);
+  color: var(--prl-button-color-white);
 }
 
 .prl-file-saver:hover {
-  background-color: #f3cb46;
-  color: white;
+  background-color: var(--prl-core-orange-hover);
+  color: var(--prl-button-color-white);
 }
 
 .prl-tokenize {
-  background-color: #273080;
-  color: #000000;
+  background-color: var(--prl-core-blue);
+  color: var(--prl-button-color-black);
 }
 
 .prl-tokenize:hover {
-  background-color: #0000ff;
-  color: white;
+  background-color: var(--prl-core-blue-hover);
+  color: var(--prl-button-color-white);
 }
 
 .prl-confirm-input {
-  background-color: var(--prl-modal-accent-green);
-  color: white;
+  background-color: var(--prl-core-green);
+  color: var(--prl-button-color-white);
 }
 
 .prl-confirm-input:hover {
-  background-color:  #45a049;
-  color: white;
+  background-color:  var(--prl-core-green-hover);
+  color: var(--prl-button-color-white);
 }
 
 /* --- ============================ PROMPT CATEGORY STYLES ============================ --- */
@@ -420,7 +428,7 @@
 
 /* --- ============================ CONTACT LINK STYLES ============================ --- */
 .prl-contact-link {
-  color: #127015;
+  color: var(--prl-core-green);
   text-decoration: none;
   font-size: 14px;
   margin-right: 10px;
@@ -429,7 +437,16 @@
 
 .prl-contact-link:hover {
   text-decoration: underline;
-  color: #45a049;
+  color: var(--prl-core-green-hover);
+}
+
+.prl-popup-link {
+  color: var(--prl-core-blue);
+  text-decoration: underline;
+}
+
+.prl-popup-link:hover {
+  color: var(--prl-core-blue-hover);
 }
 
 /* --- ============================ POPUP STYLES ============================ --- */
@@ -449,10 +466,6 @@
   z-index: 1003;
   border: 2px solid var(--prl-modal-border);
   transition: opacity 0.3s ease;
-}
-
-.prl-popup-warning {
-  /* Optional: Add warning-specific styles if desired */
 }
 
 .prl-popup-message {
@@ -483,8 +496,8 @@
 }
 
 .prl-popup-button {
-  background-color: #127015;
-  color: #fff;
+  background-color: var(--prl-core-green);
+  color: var(--prl-modal-text);
   border-radius: 12px;
   padding: 6px 18px;
   font-size: 0.9em;
@@ -492,34 +505,40 @@
   width: auto; /* Allow button to fit content */
   margin: 0; /* Remove margin for flex alignment */
   border-width: 2px; /* Important: border-width is needed for border-image */
-  border-color: black;
+  border-color: var(--prl-button-border);
+  transition: background-color 0.2s ease;
 }
 
 .prl-popup-button:hover {
-  background-color: #45a049; /* Mimics fow-lbm-core-green-hover */
-  border-width: 2px; /* Important: border-width is needed for border-image */
-  border-color: #ccc;
+  background-color: var(--prl-core-green-hover); /* Mimics fow-lbm-core-green-hover */
+  border-width: 2px;
+  border-color: var(--prl-button-border-hover); /* Important: border-width is needed for border-image */
+  
 }
 
 .prl-popup-cancel-button {
-  background-color: var(--prl-modal-accent-red); /* #8a1d16, mimics fow-lbm-core-red */
+  background-color: var(--prl-core-red);
   color: var(--prl-modal-text);
-  border: 1px solid black;
-  padding: 6px 18px;
-  font-size: 1em;
   border-radius: 12px;
+  padding: 6px 18px;
+  font-size: 0.9em;
   cursor: pointer;
+  width: auto; /* Allow button to fit content */
+  margin: 0; /* Remove margin for flex alignment */
+  border-width: 2px; /* Important: border-width is needed for border-image */
+  border-color: var(--prl-button-border);
   transition: background-color 0.2s ease;
 }
 
 .prl-popup-cancel-button:hover {
-  background-color: #da190b; /* Mimics fow-lbm-core-red-hover */
-  border: 2px solid #ccc;
+  background-color: var(--prl-core-red-hover); /* Mimics fow-lbm-core-red-hover */
+  border-width: 2px;
+  border-color: var(--prl-button-border-hover);
 }
 
 .prl-confirmation-popup {
   background-color: #303030;
-  border: 2px solid var(--prl-modal-accent-green);
+  border: 2px solid var(--prl-core-green);
 }
 
 /* --- END OF FILE PromptRefinerSingleInputModal.css --- */

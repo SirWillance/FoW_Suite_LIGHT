@@ -12,7 +12,7 @@ app.registerExtension({
                 this.selectedTokens = new Set();
                 this.modal = new BaseModal({
                     type: "Definition",
-                    rootKey: "FoW - Definitions", // Adjust if JSON root differs
+                    rootKey: "FoW - Definition", // Adjust if JSON root differs
                     version: VERSION
                 });
                 this.addWidget("button", "Open Definitions Catalogue", "Load Catalogue", () => this.modal.create(this));

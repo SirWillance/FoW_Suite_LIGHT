@@ -58,6 +58,7 @@
     min-width: 300px;
     min-height: 40px;
     overflow: hidden;
+    border: 1px solid #555;
 }
 
 .leq--modal:hover {

@@ -11,7 +11,6 @@
   --catl-operation-window-button-size: 30px; 
   --catl-slider-track: #555; 
   --catl-slider-thumb: #79c257; 
-  --catl-token-background: #444444;
   --catl-button-border: black;
   --catl-core-red: #8a1d16;
   --catl-core-green: #127015;
@@ -733,5 +732,39 @@
   transform: translateX(-50%);
   margin-bottom: 5px;
 }
+
+.catl-style-note-container {
+  margin-bottom: 10px;
+}
+
+.catl-style-note-header {
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: var(--catl-core-blue-hover);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+ }
+
+.catl-style-note-header:hover {
+  opacity: 1;
+}
+
+.catl-style-note-label {
+  color: #ddd;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.catl-style-note-content {
+  padding: 10px;
+  background-color: var(--catl-button-border-hover);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: var(--catl-core-blue);
+}
+
 
 /* --- END OF FILE PromptRefinerProModal.css --- */

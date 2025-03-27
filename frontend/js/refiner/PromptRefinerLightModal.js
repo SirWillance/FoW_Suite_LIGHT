@@ -335,7 +335,7 @@ export class PromptRefinerLightModal {
         fileLoader.addEventListener("click", (e) => {
             e.stopPropagation();
             this.showPopup({
-                message: `<h3 style="color:rgb(173, 12, 0);">Unlock More Power! 🚀</h3><br>Want to use Five Categories, Tokenization, or Load features? Consider upgrading to Standard or Pro for an even better Experience 😁!<br>Learn more at <a href="https://www.twitch.tv/SirWillance" target="_blank" class="catl-popup-link">twitch.tv/SirWillance`,
+                message: `<h3 style="color:rgb(173, 12, 0);">Unlock More Power! 🚀</h3><br>Want to use Five Categories, Tokenization, or Load features? Consider upgrading to Standard or Pro for an even better Experience 😁!<br>Learn more at <a href="https://www.twitch.tv/SirWillance" target="_blank" class="prl-popup-link">twitch.tv/SirWillance`,
                 buttons: [{ text: "Got It!", onClick: () => {} }]
             });
         });
@@ -355,7 +355,7 @@ export class PromptRefinerLightModal {
         tokenizeButton.addEventListener("click", (e) => {
             e.stopPropagation();
             this.showPopup({
-                message: `<h3 style="color:rgb(173, 12, 0);">Unlock More Power! 🚀</h3><br>Want to use Five Categories, Tokenization, or Load features? Consider upgrading to Standard or Pro for an even better Experience 😁!<br>Learn more at <a href="https://www.twitch.tv/SirWillance" target="_blank" class="catl-popup-link">twitch.tv/SirWillance`,
+                message: `<h3 style="color:rgb(173, 12, 0);">Unlock More Power! 🚀</h3><br>Want to use Five Categories, Tokenization, or Load features? Consider upgrading to Standard or Pro for an even better Experience 😁!<br>Learn more at <a href="https://www.twitch.tv/SirWillance" target="_blank" class="prl-popup-link">twitch.tv/SirWillance`,
                 buttons: [{ text: "Got It!", onClick: () => {} }]
             });
         });
@@ -417,7 +417,7 @@ export class PromptRefinerLightModal {
                 if (dropdown.value === "five") {
                     e.preventDefault();
                     this.showPopup({
-                        message: `<h3 style="color:rgb(173, 12, 0);">Unlock More Power! 🚀</h3><br>Want to use Five Categories, Tokenization, or Load features? Consider upgrading to Standard or Pro for an even better Experience 😁!<br>Learn more at <a href="https://www.twitch.tv/SirWillance" target="_blank" class="catl-popup-link">twitch.tv/SirWillance`,
+                        message: `<h3 style="color:rgb(173, 12, 0);">Unlock More Power! 🚀</h3><br>Want to use Five Categories, Tokenization, or Load features? Consider upgrading to Standard or Pro for an even better Experience 😁!<br>Learn more at <a href="https://www.twitch.tv/SirWillance" target="_blank" class="prl-popup-link">twitch.tv/SirWillance`,
                         buttons: [{ text: "Got It!", onClick: () => { dropdown.value = "single"; } }]
                     });
                 }

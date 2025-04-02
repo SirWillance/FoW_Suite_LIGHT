@@ -112,7 +112,7 @@ Here’s the full list of nodes in the light suite, all designed for simplicity 
 - **StaticVillain** (💀 FoW - Static Category Light): Refines static negatives.
 - **DefinitionVillain** (👺 FoW - Definition Category Light): Refines definition negatives.
 - **ContentVillain** (🙈 FoW - Content Category Light): Refines content negatives.
-- **SubjectVillain** (😈 FoW - Dynamic Category Light): Refines style negatives.
+- **StyleVillain** (😈 FoW - Dynamic Category Light): Refines style negatives.
 - **PromptRefinerLight** (⌨️ FoW - Prompt Refiner Light): One of The flagship nodes, especially in Pro-Tier, for raw prompt entry, save, and confirmation.
 - **PromptEqualizer** (🎚️ FoW - Prompt Equalizer Light): An other Powerfull tool for weight adjustments of your prompt.
 

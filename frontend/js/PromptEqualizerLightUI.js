@@ -1,6 +1,7 @@
 // FoW-Suite-Pro/frontend/js/PromptEqualizer.js
 import { app } from "../../../../scripts/app.js";
 import { LightEqualizerModal } from "./shared/LightEqualizerModal.js";
+import { hideWidgets } from "./shared/WidgetHider.js";
 
 app.registerExtension({
     name: "FoW_Suite_LIGHT.PromptEqualizer",
@@ -25,7 +26,14 @@ app.registerExtension({
 
                     modalInstance = new LightEqualizerModal(this, userInput); // Store modal instance // MOD
                 });
+                
+                    // Define widget names to hide
+                    const widgetNames = [
+                        "user_input" // Hide the user_input widget
+                    ];
 
+                    // Hide the widgets
+                    hideWidgets(this, widgetNames);
 
                 this.onRemoved = () => {
                     console.log("Cleaning up PromptEqualizer node", this.id);

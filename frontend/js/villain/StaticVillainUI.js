@@ -1,5 +1,6 @@
 import { app } from "../../../../../scripts/app.js";
 import { BaseModal } from "../shared/BaseModal.js";
+import { hideWidgets } from "../shared/WidgetHider.js";
 
 export const VERSION = "Light";
 
@@ -16,6 +17,12 @@ app.registerExtension({
                     version: VERSION
                 });
                 this.addWidget("button", "Open Static Catalogue", "Load Catalogue", () => this.modal.create(this));
+                
+                const widgetNames = [
+                    "user_input" // Replace with actual widget names from the backend
+                ];
+                hideWidgets(this, widgetNames);
+                
                 this.onRemoved = () => {
                     console.log(`StaticVillainUI v${VERSION}: Node removed.`);
                     if (this.modal) this.modal.cleanup(this);

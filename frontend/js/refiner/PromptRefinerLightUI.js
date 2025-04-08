@@ -1,5 +1,6 @@
 import { app } from "../../../../../scripts/app.js";
 import { PromptRefinerLightModal } from "./PromptRefinerLightModal.js";
+import { hideWidgets } from "../shared/WidgetHider.js";
 
 export const VERSION = "Light";
 
@@ -33,6 +34,9 @@ app.registerExtension({
                     "positive_subject", "positive_environment", "positive_style", "positive_shot", "positive_detail",
                     "negative_static", "negative_content", "negative_definition", "negative_dynamic"
                 ];
+
+                // Use the global utility to hide the widgets
+                hideWidgets(this, widgetNames);
 
                 widgetNames.forEach(widgetName => {
                     const widget = this.widgets.find(w => w.name === widgetName);

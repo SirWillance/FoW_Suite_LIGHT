@@ -1,5 +1,6 @@
 import { app } from "../../../../../scripts/app.js";
 import { EnvironmentCategoryModalLight } from "../shared/LightEnvironmentCategoryModal.js";
+import { hideWidgets } from "../shared/WidgetHider.js";
 
 export const VERSION = "Light";
 
@@ -38,6 +39,8 @@ app.registerExtension({
                             if (this.onUpdate) this.onUpdate();
                         };
                     }
+                    // Use the global utility to hide the widgets
+                    hideWidgets(this, widgetNames);
                 });
 
                 this.onRemoved = () => {

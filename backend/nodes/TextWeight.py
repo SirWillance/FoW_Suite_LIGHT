@@ -37,7 +37,7 @@ class TextWeight:
     DESCRIPTION = "Combines a multiline text prompt with a weight slider."
 
     def apply_weight(self, Weight, text):
-        weighted_text = f"({text}:{Weight})"
+        weighted_text = f"(({text}):{Weight})"
         return (weighted_text,)
 
 
